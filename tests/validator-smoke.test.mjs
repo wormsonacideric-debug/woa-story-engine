@@ -1,4 +1,5 @@
 import test from "node:test";
+import { createCandidatePackage } from "../scripts/candidate-package.mjs";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { mkdtempSync, cpSync, rmSync } from "node:fs";
@@ -190,5 +191,38 @@ test("validator rejects an invented relationship edge", () => {
     const r = spawnSync(process.execPath,["scripts/woa-check.mjs"],{cwd:temp,encoding:"utf8"});
     assert.equal(r.status,1);
     assert.match(r.stdout,/not supported by its character record/);
+  } finally { rmSync(temp,{recursive:true,force:true}); }
+});
+
+test("candidate package generator blocks imported scenes before creating attempts", () => {
+  const temp = mkdtempSync(path.join(os.tmpdir(), "woa-candidate-block-"));
+  try {
+    cpSync(path.join(root,"story"),path.join(temp,"story"),{recursive:true});
+    cpSync(path.join(root,"canon"),path.join(temp,"canon"),{recursive:true});
+    assert.throws(() => createCandidatePackage({rootDir:temp,sceneId:"WOA-CH01-SC01",prompt:"A sourced prompt",provider:"test",model:"test",attemptId:"ATT-BLOCK-001"}),/not human-approved/);
+    assert.equal(requireFs.existsSync(path.join(temp,"work","candidates")),false);
+  } finally { rmSync(temp,{recursive:true,force:true}); }
+});
+test("candidate package snapshots approved inputs and refuses overwrite", () => {
+  const temp = mkdtempSync(path.join(os.tmpdir(), "woa-candidate-ok-"));
+  try {
+    cpSync(path.join(root,"story"),path.join(temp,"story"),{recursive:true});
+    cpSync(path.join(root,"canon"),path.join(temp,"canon"),{recursive:true});
+    cpSync(path.join(root,"work"),path.join(temp,"work"),{recursive:true});
+    const regPath=path.join(temp,"story","scene-registry.json");
+    const reg=JSON.parse(requireFs.readFileSync(regPath,"utf8"));
+    const scene=reg.scenes[0];scene.status="approved";scene.approval={status:"approved",approved_by:"test",approved_at:"2026-11-11"};
+    scene.reference_manifest="work/manifests/test-scene-01.json";
+    requireFs.writeFileSync(regPath,JSON.stringify(reg));
+    const assets=JSON.parse(requireFs.readFileSync(path.join(temp,"canon","artwork-registry.json"),"utf8"));
+    const refs=scene.required_assets.map(id=>{const a=assets.assets.find(x=>x.asset_id===id);return {asset_id:id,purpose:"canonical character identity",required:true,git_blob_sha:a.git_blob_sha};});
+    const mp=path.join(temp,scene.reference_manifest);requireFs.mkdirSync(path.dirname(mp),{recursive:true});
+    requireFs.writeFileSync(mp,JSON.stringify({manifest_id:"MANIFEST-TEST-01",scene_id:scene.scene_id,created_at:"2026-11-11T10:00:00.000Z",references:refs,generation_gate:"ready"}));
+    const result=createCandidatePackage({rootDir:temp,sceneId:scene.scene_id,prompt:"Only the actions supported by the imported scene.",provider:"test-provider",model:"test-model",attemptId:"ATT-TEST-001",createdAt:"2026-11-11T10:00:00.000Z"});
+    const pkg=JSON.parse(requireFs.readFileSync(path.join(temp,result.packagePath),"utf8"));
+    assert.equal(pkg.immutable,true);assert.equal(pkg.output.status,"not_generated");assert.equal(pkg.approval.status,"pending");
+    assert.ok(pkg.snapshots.scene.sha256.match(/^[a-f0-9]{64}$/));
+    assert.ok(requireFs.existsSync(path.join(temp,result.directory,"IMMUTABLE.txt")));
+    assert.throws(() => createCandidatePackage({rootDir:temp,sceneId:scene.scene_id,prompt:"retry",provider:"test",model:"test",attemptId:"ATT-TEST-001"}));
   } finally { rmSync(temp,{recursive:true,force:true}); }
 });
