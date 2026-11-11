@@ -1,0 +1,16 @@
+{
+  "location_id": "LOC-FESTIVALS",
+  "name": "The Festivals",
+  "status": "active",
+  "canonical_asset_ids": [
+    "ASSET-LOC-FESTIVALS"
+  ],
+  "approved_facts": [
+    "The group sees and enters a music festival after the crop-circle awakening and first journey.",
+    "Music becomes important to Eric and the group's developing identity.",
+    "An extraordinary night is followed by a very heavy night."
+  ],
+  "continuity_constraints": [
+    "Do not infer a specific real festival, venue, date or geography unless explicitly established."
+  ]
+}
