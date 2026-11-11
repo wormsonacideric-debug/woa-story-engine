@@ -1,0 +1,22 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"WOA Imported Website Scene",
+  "type":"object",
+  "required":["scene_id","number","title","description","image","website_path","source","status","participants","transcript"],
+  "properties":{
+    "scene_id":{"type":"string","pattern":"^WOA-CH01-SC[0-9]{2}$"},
+    "number":{"type":"integer","minimum":1,"maximum":7},
+    "title":{"type":"string","minLength":1},
+    "description":{"type":"string"},
+    "image":{"type":"string"},
+    "website_path":{"type":"string"},
+    "source_sha":{"type":"string","pattern":"^[a-f0-9]{40}$"},
+    "participants":{"type":"array","items":{"type":"string"}},
+    "transcript":{"type":"array","items":{"type":"array","prefixItems":[{"enum":["stage","Eric","Tappy"]},{"type":"string"}],"minItems":2,"maxItems":2}},
+    "source":{"type":"object"},
+    "status":{"enum":["source_imported","editorial_review","approved"]},
+    "canon_status":{"enum":["needs_story_engine_review","approved_for_story","approved_for_generation"]},
+    "notes":{"type":"array","items":{"type":"string"}}
+  },
+  "additionalProperties":false
+}
