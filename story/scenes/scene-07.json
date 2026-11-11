@@ -1,0 +1,80 @@
+{
+  "scene_id": "WOA-CH01-SC07",
+  "number": 7,
+  "title": "The Warehouse, Manchester, 1994",
+  "description": "Tappy recognises the venue and date on the ticket: The Warehouse, Manchester, Saturday 23 September 1994.",
+  "image": "assets/stories/scene7.webp",
+  "website_path": "story/scene-07.html",
+  "source_sha": "4b211846487d85958ebaaf125b7fd1fa53e12a2e",
+  "participants": [
+    "Eric",
+    "Tappy"
+  ],
+  "transcript": [
+    [
+      "stage",
+      "Tappy leans in as Eric nudges the ticket around."
+    ],
+    [
+      "Tappy",
+      "Hang on…"
+    ],
+    [
+      "stage",
+      "He squints at it."
+    ],
+    [
+      "Tappy",
+      "That’s The Warehouse."
+    ],
+    [
+      "stage",
+      "A pause."
+    ],
+    [
+      "Tappy",
+      "Manchester."
+    ],
+    [
+      "stage",
+      "He looks at Eric, suddenly less certain."
+    ],
+    [
+      "Tappy",
+      "I know that name."
+    ],
+    [
+      "stage",
+      "He looks back at the ticket."
+    ],
+    [
+      "Tappy",
+      "Saturday… 23 September ’94."
+    ],
+    [
+      "stage",
+      "Then, quieter:"
+    ],
+    [
+      "Tappy",
+      "And there’s music on it."
+    ],
+    [
+      "Eric",
+      "The Warehouse. Manchester. 1994. I nudge the ticket flat. That’s a bit further back than I expected. And music on it? Is that the kind that makes a place feel real, or the kind that makes you wonder if the place made you? I look at Tappy. If you know the name, don’t hold back just because the scrap yard’s listening."
+    ]
+  ],
+  "source": {
+    "repository": "wormsonacideric-debug/website-",
+    "branch": "main",
+    "path": "story/scene-07.html",
+    "commit_blob_sha": "4b211846487d85958ebaaf125b7fd1fa53e12a2e",
+    "imported_from": "published website scene page"
+  },
+  "status": "source_imported",
+  "canon_status": "needs_story_engine_review",
+  "notes": [
+    "Imported from the published website. Dialogue and stage directions are preserved verbatim.",
+    "Do not silently harmonise this page with outline summaries; record any continuity questions separately."
+  ]
+}
