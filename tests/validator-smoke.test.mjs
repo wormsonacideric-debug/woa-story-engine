@@ -215,7 +215,8 @@ test("candidate package snapshots approved inputs and refuses overwrite", () => 
     scene.reference_manifest="work/manifests/test-scene-01.json";scene.location_id="LOC-HIGH-SCRAPARRAL";
     requireFs.writeFileSync(regPath,JSON.stringify(reg));
     const assets=JSON.parse(requireFs.readFileSync(path.join(temp,"canon","artwork-registry.json"),"utf8"));
-    const refs=scene.required_assets.map(id=>{const a=assets.assets.find(x=>x.asset_id===id);return {asset_id:id,purpose:"canonical character identity",required:true,git_blob_sha:a.git_blob_sha};});
+    const location=JSON.parse(requireFs.readFileSync(path.join(temp,"canon","locations","high-scraparral.json"),"utf8"));
+    const refs=[...scene.required_assets, ...location.canonical_asset_ids].map(id=>{const a=assets.assets.find(x=>x.asset_id===id);return {asset_id:id,purpose:"canonical scene reference",required:true,git_blob_sha:a.git_blob_sha};});
     const mp=path.join(temp,scene.reference_manifest);requireFs.mkdirSync(path.dirname(mp),{recursive:true});
     requireFs.writeFileSync(mp,JSON.stringify({manifest_id:"MANIFEST-TEST-01",scene_id:scene.scene_id,created_at:"2026-11-11T10:00:00.000Z",references:refs,generation_gate:"ready"}));
     const result=createCandidatePackage({rootDir:temp,sceneId:scene.scene_id,prompt:"Only the actions supported by the imported scene.",provider:"test-provider",model:"test-model",attemptId:"ATT-TEST-001",createdAt:"2026-11-11T10:00:00.000Z"});
