@@ -1,0 +1,5 @@
+{
+  "registry_version": "1.0.0",
+  "policy": "Beats must be source-linked. This registry starts empty rather than inventing scene content.",
+  "beats": []
+}
