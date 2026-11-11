@@ -1,0 +1,5 @@
+{
+  "ledger_version": "1.0.0",
+  "policy": "Track only props introduced by approved canon or approved scenes. Ownership, possession and physical holding are separate fields. Eric must never be recorded as holding an object.",
+  "props": []
+}
