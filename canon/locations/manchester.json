@@ -1,0 +1,14 @@
+{
+  "location_id": "LOC-MANCHESTER",
+  "name": "Manchester",
+  "status": "active",
+  "canonical_asset_ids": [
+    "ASSET-LOC-MANCHESTER"
+  ],
+  "approved_facts": [
+    "Manchester is the audience-facing setting/reference for Chapter 2; music, people, places and fragments begin triggering recognition."
+  ],
+  "continuity_constraints": [
+    "Do not infer specific streets, venues, landmarks, geography or period detail from the name or hero image alone."
+  ]
+}
