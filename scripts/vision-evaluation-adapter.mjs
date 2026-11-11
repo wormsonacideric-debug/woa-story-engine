@@ -61,8 +61,13 @@ export function ingestVisionResponse({attemptDir,candidatePath,responsePath,eval
  for(const id of expected)if(!received.has(id))throw new Error("Vision response omits criterion: "+id);
  for(const c of response.evaluation.criteria)if(!expected.has(c.criterion_id))throw new Error("Vision response contains unknown criterion: "+c.criterion_id);
  const refs=new Set(a.refs.map(r=>r.asset_id));
- for(const c of response.evaluation.criteria)for(const id of c.reference_ids||[])if(!refs.has(id))throw new Error("Vision response cites an unbound reference: "+id);
- return validateEvaluation({attemptDir:a.base,candidatePath,evaluation:response.evaluation,evaluator:evaluator||response.evaluator?.name,evaluatorVersion:evaluatorVersion||response.evaluator?.version,rubricVersion:"1.0.0",evaluatedAt,recordName});
+ for(const criterion of response.evaluation.criteria){
+  if(!Array.isArray(criterion.reference_ids)||!Array.isArray(criterion.evidence))throw new Error("Criterion evidence/reference_ids must be arrays: "+criterion.criterion_id);
+  for(const id of criterion.reference_ids)if(!refs.has(id))throw new Error("Vision response cites an unbound reference: "+id);
+  if(criterion.status!=="pass"&&criterion.evidence.length===0)throw new Error("FAIL/UNKNOWN criterion requires evidence: "+criterion.criterion_id);
+ }
+ const normalized={...response.evaluation,criteria:response.evaluation.criteria.map(criterion=>({...criterion,blocking:blockingCriteria.has(criterion.criterion_id)}))};
+ return validateEvaluation({attemptDir:a.base,candidatePath,evaluation:normalized,evaluator:evaluator||response.evaluator?.name,evaluatorVersion:evaluatorVersion||response.evaluator?.version,rubricVersion:"1.0.0",evaluatedAt,recordName});
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)){
  const a=parse(process.argv.slice(2));
