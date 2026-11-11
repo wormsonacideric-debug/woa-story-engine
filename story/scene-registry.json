@@ -18,7 +18,8 @@
         "Tappy"
       ],
       "required_assets": [
-        "ASSET-CHAR-TAPPY"
+        "ASSET-CHAR-TAPPY",
+        "ASSET-LOC-HIGH-SCRAPARRAL"
       ],
       "action": "See verbatim source transcript in linked imported scene record.",
       "narrative_purpose": "Preserve the published scene's existing story function; do not infer beyond its source text.",
@@ -35,7 +36,12 @@
         "status": "approved",
         "approved_by": "dweab",
         "approved_at": "2026-11-11"
-      }
+      },
+      "location_id": "LOC-HIGH-SCRAPARRAL",
+      "reference_manifest": "work/manifests/scene-01-reference-manifest.json",
+      "notes": [
+        "Location binding: LOC-HIGH-SCRAPARRAL, supported by the published Tappy character page stating that Tappy wakes in the High Scraparral. Reference manifest pins approved Tappy and High Scraparral artwork by Git blob SHA."
+      ]
     },
     {
       "scene_id": "WOA-CH01-SC02",
