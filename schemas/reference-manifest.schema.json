@@ -1,0 +1,15 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"WOA Reference Binding Manifest",
+  "type":"object",
+  "required":["manifest_id","scene_id","created_at","references","generation_gate"],
+  "properties":{
+    "manifest_id":{"type":"string"},
+    "scene_id":{"type":"string"},
+    "created_at":{"type":"string","format":"date-time"},
+    "references":{"type":"array","minItems":1,"items":{"type":"object","required":["asset_id","purpose","required"],"properties":{"asset_id":{"type":"string"},"purpose":{"type":"string"},"required":{"type":"boolean"},"sha256":{"type":"string","pattern":"^[a-fA-F0-9]{64}$"}},"additionalProperties":false}},
+    "generation_gate":{"enum":["blocked","ready"]},
+    "human_note":{"type":"string"}
+  },
+  "additionalProperties":false
+}
