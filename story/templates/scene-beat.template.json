@@ -1,0 +1,23 @@
+{
+  "beat_id": "WOA-CH01-A01-B001",
+  "chapter_id": "CH01",
+  "act_id": "ACT01",
+  "sequence": 1,
+  "status": "outline",
+  "source_authority": "approved_outline",
+  "source_refs": [],
+  "dramatic_function": "",
+  "audience_knows": [],
+  "character_knowledge_in": [],
+  "character_knowledge_out": [],
+  "participants": [],
+  "location_id": null,
+  "action_beats": [],
+  "continuity_in": [],
+  "continuity_out": [],
+  "required_canonical_assets": [],
+  "visual_constraints": [],
+  "must_not_invent": [],
+  "unresolved_questions": [],
+  "human_review": {"status": "not_reviewed", "reviewer": null, "reviewed_at": null}
+}
