@@ -94,3 +94,36 @@ test("validator rejects duplicate knowledge events", () => {
     assert.match(r.stdout,/Duplicate knowledge event/);
   } finally { rmSync(temp,{recursive:true,force:true}); }
 });
+
+test("validator prevents author-only truth being assigned to a character", () => {
+  const temp = mkdtempSync(path.join(os.tmpdir(), "woa-author-truth-"));
+  try {
+    cpSync(path.join(root,"scripts"),path.join(temp,"scripts"),{recursive:true});
+    cpSync(path.join(root,"story"),path.join(temp,"story"),{recursive:true});
+    cpSync(path.join(root,"canon"),path.join(temp,"canon"),{recursive:true});
+    const fs = awaitImportFs();
+    const p = path.join(temp,"story","knowledge-ledger.json");
+    const ledger = JSON.parse(fs.readFileSync(p,"utf8"));
+    ledger.state_events[0].epistemic_status = "author_only";
+    fs.writeFileSync(p,JSON.stringify(ledger));
+    const r = spawnSync(process.execPath,["scripts/woa-check.mjs"],{cwd:temp,encoding:"utf8"});
+    assert.equal(r.status,1);
+    assert.match(r.stdout,/Author-only truth cannot be assigned to character/);
+  } finally { rmSync(temp,{recursive:true,force:true}); }
+});
+test("validator rejects knowledge events linked to the wrong scene source", () => {
+  const temp = mkdtempSync(path.join(os.tmpdir(), "woa-source-link-"));
+  try {
+    cpSync(path.join(root,"scripts"),path.join(temp,"scripts"),{recursive:true});
+    cpSync(path.join(root,"story"),path.join(temp,"story"),{recursive:true});
+    cpSync(path.join(root,"canon"),path.join(temp,"canon"),{recursive:true});
+    const fs = awaitImportFs();
+    const p = path.join(temp,"story","knowledge-ledger.json");
+    const ledger = JSON.parse(fs.readFileSync(p,"utf8"));
+    ledger.state_events[0].source_ref = "story/scenes/scene-02.json";
+    fs.writeFileSync(p,JSON.stringify(ledger));
+    const r = spawnSync(process.execPath,["scripts/woa-check.mjs"],{cwd:temp,encoding:"utf8"});
+    assert.equal(r.status,1);
+    assert.match(r.stdout,/source_ref does not match its scene record/);
+  } finally { rmSync(temp,{recursive:true,force:true}); }
+});
