@@ -1,0 +1,7 @@
+{
+  "ledger_version": "1.0.0",
+  "policy": "Only record states established by approved canon or approved scenes. Unknown is not false; do not fill gaps by inference.",
+  "characters": [],
+  "locations": [],
+  "open_questions": []
+}
