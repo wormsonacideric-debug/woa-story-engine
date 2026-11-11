@@ -11,6 +11,7 @@ test("starter project validates with warnings, not errors", () => {
   const r = spawnSync(process.execPath, ["scripts/woa-check.mjs"], {cwd:root, encoding:"utf8"});
   assert.equal(r.status, 0, r.stdout + r.stderr);
   assert.match(r.stdout, /PASS WITH WARNINGS/);
+  assert.match(r.stdout, /Imported website scenes: 7/);
 });
 test("strict mode blocks an incomplete starter project", () => {
   const r = spawnSync(process.execPath, ["scripts/woa-check.mjs", "--strict"], {cwd:root, encoding:"utf8"});
