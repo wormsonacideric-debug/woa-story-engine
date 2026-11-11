@@ -9,26 +9,19 @@ The engine separates chapter, act, story beat, scene, generation attempt, and ap
 1. Select a chapter and cite its source material.
 2. Create a beat record from established outline material. Mark its source authority and unresolved questions.
 3. Expand a beat into a scene only where the source supports the action. Keep unsupported details in unresolved questions, not in prose as facts.
-4. Run canon and continuity preflight.
-5. Bind every depicted character and location to approved canonical assets. Characters without approved artwork (including Arthur, Edwin and Brian at this stage) block image production when depicted.
-6. Generate a candidate. Record the exact prompt, model/provider, parameters, reference manifest and output hash.
+4. Run `npm run check` and `npm run preflight`.
+5. Bind every depicted character and location to approved canonical assets. Characters without approved artwork block image production when depicted.
+6. Generate a candidate only after preflight passes. Record the exact prompt, model/provider, parameters, reference manifest and output hash.
 7. Evaluate against canon, story purpose and visual composition. Iterate as a new attempt; do not overwrite prior attempts.
 8. Human review is the only route to approval.
 
 ## Continuity model
 
-Continuity is represented as explicit facts with provenance and scope. The engine distinguishes:
-- author truth: what the creator knows happened;
-- audience knowledge: what has been revealed at this point in the narrative;
-- character knowledge: what an individual character knows or remembers at this point;
-- physical state: location, condition, appearance and possession where established;
-- uncertainty: facts deliberately withheld or not yet established.
-
-Never promote author truth into character knowledge without a supported reveal. Never treat a mystery as a missing-data problem to be solved by invention.
+Continuity is represented as explicit facts with provenance and scope. The engine distinguishes author truth, audience knowledge, character knowledge, physical state and uncertainty. Never promote author truth into character knowledge without a supported reveal. Never treat a mystery as a missing-data problem to be solved by invention.
 
 ## Props and object handling
 
-Ownership, possession, location and physical handling are separate. Eric cannot hold objects. A prop may be near Eric, owned by him, or carried by another character, but a scene must not depict him holding it. The validator blocks an explicit held_by assignment to Eric.
+Ownership, possession, location and physical handling are separate. Eric cannot hold objects. A prop may be near Eric, in his possession, or carried by another character, but a scene must not depict him holding it. The validator blocks an explicit held_by assignment to Eric. The prop ledger records sourced state changes and unresolved details separately; it does not fill gaps by inference.
 
 ## Reference binding
 
@@ -36,4 +29,4 @@ The approved website images registered in canon/artwork-registry.json are the cu
 
 ## Current scope
 
-The first five chapters have imported summaries. Chapters 6–17 remain outline-level. This repository deliberately contains no invented scene scripts. A production scene involving a character or location without an approved visual source must remain blocked until the source is supplied and approved.
+The seven published opening scenes are preserved as source records and are not automatically approved for new image generation. Chapters 6–17 remain outline-level. Scenes remain blocked until editorial approval, a location, and complete approved reference manifests are bound.
