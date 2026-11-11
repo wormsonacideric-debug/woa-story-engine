@@ -111,6 +111,32 @@ for(const s of scenes?.scenes||[]){
   }
 }
 
+
+const importedScenes=readJson("story/scene-registry.json");
+if(importedScenes){
+  if(!Array.isArray(importedScenes.scenes))errors.push("scene-registry.scenes must be an array.");
+  else{
+    const seenImported=new Set();
+    for(const entry of importedScenes.scenes){
+      if(!entry.scene_id||seenImported.has(entry.scene_id))errors.push("Missing or duplicate imported scene_id: "+(entry.scene_id||"unknown"));
+      seenImported.add(entry.scene_id);
+      if(!entry.source_record)errors.push("Imported scene "+entry.scene_id+" has no source_record.");
+      else{
+        const record=readJson(entry.source_record);
+        if(record){
+          if(record.scene_id!==entry.scene_id)errors.push("Imported scene record ID mismatch for "+entry.scene_id+".");
+          if(record.status!=="source_imported")errors.push("Imported scene "+entry.scene_id+" has unexpected import status.");
+          if(!Array.isArray(record.transcript)||record.transcript.length===0)errors.push("Imported scene "+entry.scene_id+" has no transcript.");
+          if(!record.source?.commit_blob_sha||!record.source?.path)errors.push("Imported scene "+entry.scene_id+" lacks source provenance.");
+          if(record.number!==entry.scene_id.match(/SC([0-9]{2})$/)?.[1]*1)errors.push("Imported scene "+entry.scene_id+" has inconsistent sequence number.");
+        }
+      }
+    }
+    info.push("Imported website scenes: "+importedScenes.scenes.length);
+    if(importedScenes.scenes.length!==7)warnings.push("Expected seven published opening scenes; found "+importedScenes.scenes.length+".");
+  }
+}
+
 if(strict&&warnings.length)errors.push("Strict mode: warnings treated as errors.");
 console.log("WOA Story Engine — validation report");
 info.forEach(x=>console.log("INFO: "+x));warnings.forEach(x=>console.log("WARN: "+x));errors.forEach(x=>console.log("ERROR: "+x));
