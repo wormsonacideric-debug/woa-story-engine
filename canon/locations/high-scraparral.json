@@ -1,0 +1,19 @@
+{
+  "location_id": "LOC-HIGH-SCRAPARRAL",
+  "name": "The High Scraparral",
+  "status": "active",
+  "canonical_asset_ids": [
+    "ASSET-LOC-HIGH-SCRAPARRAL"
+  ],
+  "approved_facts": [
+    "Established WOA location; Nigel owns it.",
+    "Hut made from colourful scrap items such as toasters, kettles and car parts.",
+    "An old snooker table forms the roof.",
+    "Chairs outside; a firepit that is always lit; a functional old CRT television.",
+    "Both a location and the audience's starting point."
+  ],
+  "continuity_constraints": [
+    "Do not invent layout, geography, signage or props beyond approved source material.",
+    "Its origin is deliberately not immediately explained."
+  ]
+}
