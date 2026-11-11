@@ -1,37 +1,171 @@
 {
-  "ledger_version": "1.0.0",
-  "principle": "Author knowledge is not automatically character knowledge.",
-  "knowledge_layers": [
+  "ledger_version": "1.1.0",
+  "principle": "Knowledge is scene-scoped and evidence-backed. Author truth, audience knowledge, character belief/memory and confirmed character knowledge are distinct. An assertion or recollection is not automatically objective truth.",
+  "layers": [
     "hard_canon",
     "character_belief_or_memory",
     "author_only_truth",
     "developing_story",
     "idea"
   ],
-  "global_mystery": {
-    "name": "The Thing We Don't Talk About",
-    "character_facing_rule": "Characters do not properly remember it and instinctively avoid discussing it.",
-    "author_truth": "It connects to the Botanists, hyperspace, biological displacement and formation of the gang.",
-    "reveal_policy": "Keep it recurring and do not over-explain. Reveal author-level truth gradually."
-  },
+  "epistemic_status": [
+    "established_in_scene",
+    "character_recollection",
+    "character_belief_or_inference",
+    "audience_revealed",
+    "author_only",
+    "unresolved"
+  ],
   "rules": [
     "Never give a character the complete origin chronology merely because it exists in the author-level timeline.",
     "Nigel knows he was once a lugworm but does not remember the transition.",
     "Nigel does not consciously understand why he wants to go to the seaside.",
     "Contradictory character memories may coexist as character-level truth; do not silently resolve them into authorial fact.",
     "Record when a character learns a fact in an approved scene before updating their knowledge state.",
+    "A character's recollection records what they say or remember, not proof that the remembered event occurred exactly as described.",
+    "Do not treat a question, speculation, joke or prompt as confirmed knowledge.",
+    "The Reader is an audience-facing participant in the published scenes, not a canonical character unless the creator establishes otherwise.",
     "Unexplained areas remain unexplained until explicitly developed."
   ],
+  "global_mystery": {
+    "name": "The Thing We Don't Talk About",
+    "character_facing_rule": "Characters do not properly remember it and instinctively avoid discussing it.",
+    "author_truth": "It connects to the Botanists, hyperspace, biological displacement and formation of the gang.",
+    "reveal_policy": "Keep it recurring and do not over-explain. Reveal author-level truth gradually.",
+    "knowledge_boundary": "The author-level account is not available to characters or audience merely because it is stored in the engine."
+  },
+  "state_events": [
+    {
+      "event_id": "KN-CH01-S01-001",
+      "scene_id": "WOA-CH01-SC01",
+      "holder": "Tappy",
+      "subject": "ticket",
+      "claim": "Tappy asks whether the Reader has a ticket and suggests the Reader may be closer to the answer.",
+      "epistemic_status": "established_in_scene",
+      "layer": "character_belief_or_memory",
+      "source_ref": "story/scenes/scene-01.json",
+      "scope": "question_and_suggestion_only",
+      "not_established": [
+        "Whether the Reader has a ticket",
+        "What the ticket refers to",
+        "Whether Tappy knows the answer"
+      ]
+    },
+    {
+      "event_id": "KN-CH01-S02-001",
+      "scene_id": "WOA-CH01-SC02",
+      "holder": "Eric",
+      "subject": "ticket_and_Nigel",
+      "claim": "Eric says he knows of no ticket and speculates Nigel may have left one behind.",
+      "epistemic_status": "character_belief_or_inference",
+      "layer": "character_belief_or_memory",
+      "source_ref": "story/scenes/scene-02.json",
+      "scope": "Eric's stated recollection and speculation",
+      "not_established": [
+        "That Nigel owned or left the ticket",
+        "That Eric has no ticket physically near him"
+      ]
+    },
+    {
+      "event_id": "KN-CH01-S03-001",
+      "scene_id": "WOA-CH01-SC03",
+      "holder": "Eric",
+      "subject": "Tappy_identity",
+      "claim": "Eric recognises the stranger's voice as Tappy.",
+      "epistemic_status": "established_in_scene",
+      "layer": "character_belief_or_memory",
+      "source_ref": "story/scenes/scene-03.json",
+      "scope": "Eric identifies the voice and person as Tappy"
+    },
+    {
+      "event_id": "KN-CH01-S03-002",
+      "scene_id": "WOA-CH01-SC03",
+      "holder": "Tappy",
+      "subject": "memory",
+      "claim": "Tappy says he does not remember much, but remembers that there was music.",
+      "epistemic_status": "character_recollection",
+      "layer": "character_belief_or_memory",
+      "source_ref": "story/scenes/scene-03.json",
+      "scope": "Fragmentary recollection; not a complete account"
+    },
+    {
+      "event_id": "KN-CH01-S04-001",
+      "scene_id": "WOA-CH01-SC04",
+      "holder": "Eric",
+      "subject": "Tappy_memory",
+      "claim": "Eric has heard Tappy's recollection of music and asks where it came from.",
+      "epistemic_status": "established_in_scene",
+      "layer": "character_belief_or_memory",
+      "source_ref": "story/scenes/scene-04.json",
+      "scope": "Eric knows Tappy has mentioned music; its source remains unknown"
+    },
+    {
+      "event_id": "KN-CH01-S05-001",
+      "scene_id": "WOA-CH01-SC05",
+      "holder": "Tappy",
+      "subject": "memory_of_event",
+      "claim": "Tappy recalls people, lights, loud music and somewhere indoors, but says he remembers the feeling more than the place.",
+      "epistemic_status": "character_recollection",
+      "layer": "character_belief_or_memory",
+      "source_ref": "story/scenes/scene-05.json",
+      "scope": "Fragmentary sensory memory; location and event remain unidentified"
+    },
+    {
+      "event_id": "KN-CH01-S05-002",
+      "scene_id": "WOA-CH01-SC05",
+      "holder": "Tappy",
+      "subject": "Eric_and_Nigel_presence",
+      "claim": "Tappy says Eric and Nigel were definitely there.",
+      "epistemic_status": "character_recollection",
+      "layer": "character_belief_or_memory",
+      "source_ref": "story/scenes/scene-05.json",
+      "scope": "Tappy's stated recollection; not independently verified"
+    },
+    {
+      "event_id": "KN-CH01-S06-001",
+      "scene_id": "WOA-CH01-SC06",
+      "holder": "Tappy",
+      "subject": "ticket",
+      "claim": "Tappy says the ticket looks familiar but cannot read it from where he is.",
+      "epistemic_status": "character_recollection",
+      "layer": "character_belief_or_memory",
+      "source_ref": "story/scenes/scene-06.json",
+      "scope": "Recognition without readable content"
+    },
+    {
+      "event_id": "KN-CH01-S07-001",
+      "scene_id": "WOA-CH01-SC07",
+      "holder": "Tappy",
+      "subject": "ticket_destination",
+      "claim": "Tappy reads the ticket as The Warehouse, Manchester, Saturday 23 September '94, and says he knows that name.",
+      "epistemic_status": "established_in_scene",
+      "layer": "character_belief_or_memory",
+      "source_ref": "story/scenes/scene-07.json",
+      "scope": "Tappy reads the printed text and recognises the name; weekday/date discrepancy remains unresolved",
+      "not_established": [
+        "Whether the weekday or date is correct",
+        "What happened at The Warehouse",
+        "Why Tappy recognises the name"
+      ]
+    },
+    {
+      "event_id": "KN-AUTHOR-001",
+      "scene_id": null,
+      "holder": "author",
+      "subject": "origin_chronology",
+      "claim": "The Botanists/hyperspace displacement, crop-circle awakening, naming, festival and heavy night form the actual author chronology.",
+      "epistemic_status": "author_only",
+      "layer": "author_only_truth",
+      "source_ref": "story/timeline.json",
+      "scope": "Never expose to a character or audience without an explicit reveal event"
+    }
+  ],
   "unresolved": [
-    "The Botanists' ultimate purpose.",
-    "Why these particular entities were caught up in the event.",
-    "The identity of the discorporeal entities.",
-    "Why transformations produced these forms and personalities.",
-    "Why certain memories survived.",
-    "Why Nigel retained his lugworm sensibilities.",
-    "Why Rufus is convinced he is a dog.",
-    "Why The High Scraparral exists.",
-    "What exactly happened during the heavy festival night.",
-    "The precise nature of the Thing We Don't Talk About from the characters' perspective."
+    "Scene 1's Reader is an audience-facing participant; do not model as a canonical character.",
+    "The ticket's owner and origin are unknown.",
+    "Tappy's recollections are not independently verified facts.",
+    "Tappy's recognition of The Warehouse is unexplained.",
+    "The Saturday / 23 September 1994 discrepancy remains unresolved.",
+    "No imported scene reveals the full origin chronology or explains The Thing We Don't Talk About."
   ]
 }
