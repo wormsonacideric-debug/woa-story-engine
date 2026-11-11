@@ -66,8 +66,7 @@ export function ingestVisionResponse({attemptDir,candidatePath,responsePath,eval
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)){
  const a=parse(process.argv.slice(2));
- if(a.help){console.log("Prepare: node scripts/vision-evaluation-adapter.mjs --prepare --attempt-dir DIR --candidate candidate.png [--task-id ID]
-Ingest: node scripts/vision-evaluation-adapter.mjs --ingest --attempt-dir DIR --candidate candidate.png --response-file response.json --evaluator name --evaluator-version version");process.exit(0);}
+ if(a.help){console.log("Prepare: node scripts/vision-evaluation-adapter.mjs --prepare --attempt-dir DIR --candidate candidate.png [--task-id ID]"+String.fromCharCode(10)+"Ingest: node scripts/vision-evaluation-adapter.mjs --ingest --attempt-dir DIR --candidate candidate.png --response-file response.json --evaluator name --evaluator-version version");process.exit(0);}
  try{
   if(!a["attempt-dir"]||!a.candidate)throw new Error("Required: --attempt-dir and --candidate.");
   let result;
