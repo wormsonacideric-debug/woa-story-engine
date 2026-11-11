@@ -6,11 +6,11 @@ const readJson=(p)=>{try{return JSON.parse(fs.readFileSync(path.join(root,p),"ut
 if(process.argv.includes("--help")||process.argv.includes("-h")){console.log("WOA validator: node scripts/woa-check.mjs [--strict]");process.exit(0);}
 const strict=process.argv.includes("--strict");
 const reg=readJson("canon/artwork-registry.json"), scenes=readJson("story/scene-registry.json"), timeline=readJson("story/timeline.json");
-const ids=new Set();
+const assets=new Map();
 if(reg&&Array.isArray(reg.assets)){for(const a of reg.assets){
 if(!a.asset_id||!/^ASSET-[A-Z0-9-]+$/.test(a.asset_id))errors.push("Invalid asset_id.");
-if(a.asset_id&&ids.has(a.asset_id))errors.push("Duplicate asset_id: "+a.asset_id);
-if(a.asset_id)ids.add(a.asset_id);
+if(a.asset_id&&assets.has(a.asset_id))errors.push("Duplicate asset_id: "+a.asset_id);
+if(a.asset_id)assets.set(a.asset_id,a);
 if(!/^[a-fA-F0-9]{64}$/.test(a.sha256||""))errors.push("Invalid SHA-256 for "+(a.asset_id||"unknown"));
 if(!["candidate","approved","deprecated","rejected"].includes(a.status))errors.push("Invalid status for "+(a.asset_id||"unknown"));
 if(!a.filename)errors.push("Missing filename for "+(a.asset_id||"unknown"));
@@ -21,9 +21,28 @@ if(s.scene_id&&seen.has(s.scene_id))errors.push("Duplicate scene_id: "+s.scene_i
 if(s.scene_id)seen.add(s.scene_id);
 for(const k of ["title","action","narrative_purpose"])if(typeof s[k]!=="string"||!s[k].trim())errors.push("Scene "+(s.scene_id||"unknown")+" missing "+k);
 if(!Array.isArray(s.characters))errors.push("Scene "+s.scene_id+" characters must be an array.");
-if(["ready","in_production","candidate_review","approved"].includes(s.status)&&!s.reference_manifest)errors.push("Scene "+s.scene_id+" lacks reference_manifest.");
-if(s.approval?.status==="approved"&&(!s.approval.approved_by||!s.approval.approved_at))errors.push("Scene "+s.scene_id+" lacks approval evidence.");
 if(s.characters?.includes("Eric")&&Array.isArray(s.props)&&s.props.some(p=>p?.held_by==="Eric"))errors.push("Eric cannot hold objects in scene "+s.scene_id);
+if(["ready","in_production","candidate_review","approved"].includes(s.status)){
+if(!s.reference_manifest){errors.push("Scene "+s.scene_id+" lacks reference_manifest.");continue;}
+const mp=s.reference_manifest;
+if(typeof mp!=="string"||path.isAbsolute(mp)||mp.split(/[\\/]/).includes("..")){errors.push("Scene "+s.scene_id+" has unsafe reference_manifest path.");continue;}
+const manifest=readJson(mp);
+if(!manifest)continue;
+if(manifest.scene_id!==s.scene_id)errors.push("Manifest "+mp+" belongs to a different scene.");
+if(manifest.generation_gate!=="ready")errors.push("Manifest "+mp+" is not marked ready.");
+if(!Array.isArray(manifest.references)||manifest.references.length===0)errors.push("Manifest "+mp+" has no bound references.");
+for(const ref of manifest.references||[]){
+const asset=assets.get(ref.asset_id);
+if(!asset)errors.push("Manifest "+mp+" references unknown asset "+ref.asset_id+".");
+else{
+if(asset.status!=="approved")errors.push("Manifest "+mp+" references non-approved asset "+ref.asset_id+".");
+if(ref.sha256&&ref.sha256.toLowerCase()!==String(asset.sha256).toLowerCase())errors.push("Manifest "+mp+" hash mismatch for "+ref.asset_id+".");
+if(ref.required===true&&!ref.sha256)errors.push("Required reference "+ref.asset_id+" has no bound SHA-256.");
+}
+}
+for(const id of s.required_assets||[])if(!(manifest.references||[]).some(x=>x.asset_id===id))errors.push("Scene "+s.scene_id+" required asset "+id+" is not bound.");
+}
+if(s.approval?.status==="approved"&&(!s.approval.approved_by||!s.approval.approved_at))errors.push("Scene "+s.scene_id+" lacks approval evidence.");
 }info.push("Scene records: "+scenes.scenes.length);}
 if(timeline&&!Array.isArray(timeline.events))errors.push("timeline.events must be an array.");
 if(reg?.assets?.length===0)warnings.push("No canonical artwork registered; image production must remain blocked.");
@@ -32,5 +51,5 @@ if(reg?.assets?.some(a=>a.status==="candidate"))warnings.push("Candidate assets 
 if(strict&&warnings.length)errors.push("Strict mode: warnings treated as errors.");
 console.log("WOA Story Engine — validation report");
 info.forEach(x=>console.log("INFO: "+x));warnings.forEach(x=>console.log("WARN: "+x));errors.forEach(x=>console.log("ERROR: "+x));
-console.log("\nResult: "+(errors.length?"FAIL":warnings.length?"PASS WITH WARNINGS":"PASS")+" ("+errors.length+" errors, "+warnings.length+" warnings)");
+console.log("\\nResult: "+(errors.length?"FAIL":warnings.length?"PASS WITH WARNINGS":"PASS")+" ("+errors.length+" errors, "+warnings.length+" warnings)");
 process.exit(errors.length?1:0);
