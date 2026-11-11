@@ -1,0 +1,32 @@
+{
+  "scene_id": "WOA-CH01-SC04",
+  "number": 4,
+  "title": "The Music",
+  "description": "Eric asks Tappy what kind of music he remembers, and whether it came from somewhere in particular.",
+  "image": "assets/stories/Scene4.png",
+  "website_path": "story/scene-04.html",
+  "source_sha": "7b07ceff631fb9bc2fc4531fd01a98ad4c7e5bc8",
+  "participants": [
+    "Eric",
+    "Tappy"
+  ],
+  "transcript": [
+    [
+      "Eric",
+      "Tappy! Well, that’s a lot easier to say than “stranger with opinions.” Music, eh? That’s either the best clue we’ve had or the strangest. Was it the sort that makes the scrap feel like a dance floor, or the sort that means someone’s about to make a bad decision? And did it come from somewhere in particular?"
+    ]
+  ],
+  "source": {
+    "repository": "wormsonacideric-debug/website-",
+    "branch": "main",
+    "path": "story/scene-04.html",
+    "commit_blob_sha": "7b07ceff631fb9bc2fc4531fd01a98ad4c7e5bc8",
+    "imported_from": "published website scene page"
+  },
+  "status": "source_imported",
+  "canon_status": "needs_story_engine_review",
+  "notes": [
+    "Imported from the published website. Dialogue and stage directions are preserved verbatim.",
+    "Do not silently harmonise this page with outline summaries; record any continuity questions separately."
+  ]
+}
