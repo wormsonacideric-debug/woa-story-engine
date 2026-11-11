@@ -1,0 +1,92 @@
+{
+  "scene_id": "WOA-CH01-SC05",
+  "number": 5,
+  "title": "A Night in Fragments",
+  "description": "Tappy remembers people, lights and loud music, but the place itself remains out of reach.",
+  "image": "assets/stories/scene5.webp",
+  "website_path": "story/scene-05.html",
+  "source_sha": "4fe419499bf3d342d78b14562c9175cb6fb80fb2",
+  "participants": [
+    "Eric",
+    "Tappy"
+  ],
+  "transcript": [
+    [
+      "stage",
+      "Tappy thinks for a moment."
+    ],
+    [
+      "Tappy",
+      "Not a dance floor. Not exactly."
+    ],
+    [
+      "stage",
+      "He looks around the yard."
+    ],
+    [
+      "Tappy",
+      "There were people. Lots of them."
+    ],
+    [
+      "stage",
+      "A pause."
+    ],
+    [
+      "Tappy",
+      "Lights. Loud music. Somewhere indoors, I think."
+    ],
+    [
+      "stage",
+      "He frowns."
+    ],
+    [
+      "Tappy",
+      "And…"
+    ],
+    [
+      "stage",
+      "He stops."
+    ],
+    [
+      "Tappy",
+      "No. That bit’s gone."
+    ],
+    [
+      "stage",
+      "Tappy looks back at Eric."
+    ],
+    [
+      "Tappy",
+      "I remember the feeling more than the place."
+    ],
+    [
+      "stage",
+      "He gives a small shrug."
+    ],
+    [
+      "Tappy",
+      "You were definitely there."
+    ],
+    [
+      "Tappy",
+      "So was Nigel."
+    ],
+    [
+      "stage",
+      "Then he looks at the ticket in Eric's possession."
+    ]
+  ],
+  "source": {
+    "repository": "wormsonacideric-debug/website-",
+    "branch": "main",
+    "path": "story/scene-05.html",
+    "commit_blob_sha": "4fe419499bf3d342d78b14562c9175cb6fb80fb2",
+    "imported_from": "published website scene page"
+  },
+  "status": "source_imported",
+  "canon_status": "needs_story_engine_review",
+  "notes": [
+    "Imported from the published website. Dialogue and stage directions are preserved verbatim.",
+    "Do not silently harmonise this page with outline summaries; record any continuity questions separately."
+  ]
+}
