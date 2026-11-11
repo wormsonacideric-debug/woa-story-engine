@@ -1,1 +1,219 @@
-{"registry_version":"1.0.0","scenes":[]}
+{
+  "registry_version": "1.0.0",
+  "source_authority": "Published WOA website story pages; verbatim dialogue and stage directions retained in story/scenes/",
+  "chapter_id": "CH01",
+  "policy": [
+    "The seven published scene pages are the current opening-scene text source.",
+    "Imported text is preserved as published; do not silently rewrite it to harmonise with earlier chapter summaries.",
+    "These are source_imported, not automatically approved for new image generation.",
+    "Any conflict with baseline chronology or other canon must be recorded as an explicit review question."
+  ],
+  "scenes": [
+    {
+      "scene_id": "WOA-CH01-SC01",
+      "title": "The Stranger",
+      "status": "draft",
+      "source_record": "story/scenes/scene-01.json",
+      "characters": [
+        "Tappy"
+      ],
+      "required_assets": [
+        "ASSET-CHAR-TAPPY"
+      ],
+      "action": "See verbatim source transcript in linked imported scene record.",
+      "narrative_purpose": "Preserve the published scene's existing story function; do not infer beyond its source text.",
+      "must_not_include": [
+        "Do not alter source dialogue without an explicit editorial decision.",
+        "Do not infer unshown physical actions or character knowledge.",
+        "Eric must not hold objects; the ticket is nudged using his body as described in the source."
+      ],
+      "output_spec": {
+        "format": "source_scene_record",
+        "visual_reference_path": "website-/assets/stories/scene1.webp"
+      },
+      "approval": {
+        "status": "source_imported",
+        "approved_by": null,
+        "approved_at": null
+      }
+    },
+    {
+      "scene_id": "WOA-CH01-SC02",
+      "title": "Past the Old Machinery",
+      "status": "draft",
+      "source_record": "story/scenes/scene-02.json",
+      "characters": [
+        "Eric"
+      ],
+      "required_assets": [
+        "ASSET-CHAR-ERIC"
+      ],
+      "action": "See verbatim source transcript in linked imported scene record.",
+      "narrative_purpose": "Preserve the published scene's existing story function; do not infer beyond its source text.",
+      "must_not_include": [
+        "Do not alter source dialogue without an explicit editorial decision.",
+        "Do not infer unshown physical actions or character knowledge.",
+        "Eric must not hold objects; the ticket is nudged using his body as described in the source."
+      ],
+      "output_spec": {
+        "format": "source_scene_record",
+        "visual_reference_path": "website-/assets/stories/scene2.jpg"
+      },
+      "approval": {
+        "status": "source_imported",
+        "approved_by": null,
+        "approved_at": null
+      }
+    },
+    {
+      "scene_id": "WOA-CH01-SC03",
+      "title": "It’s Tappy",
+      "status": "draft",
+      "source_record": "story/scenes/scene-03.json",
+      "characters": [
+        "Eric",
+        "Tappy"
+      ],
+      "required_assets": [
+        "ASSET-CHAR-ERIC",
+        "ASSET-CHAR-TAPPY"
+      ],
+      "action": "See verbatim source transcript in linked imported scene record.",
+      "narrative_purpose": "Preserve the published scene's existing story function; do not infer beyond its source text.",
+      "must_not_include": [
+        "Do not alter source dialogue without an explicit editorial decision.",
+        "Do not infer unshown physical actions or character knowledge.",
+        "Eric must not hold objects; the ticket is nudged using his body as described in the source."
+      ],
+      "output_spec": {
+        "format": "source_scene_record",
+        "visual_reference_path": "website-/assets/stories/Scene3.png"
+      },
+      "approval": {
+        "status": "source_imported",
+        "approved_by": null,
+        "approved_at": null
+      }
+    },
+    {
+      "scene_id": "WOA-CH01-SC04",
+      "title": "The Music",
+      "status": "draft",
+      "source_record": "story/scenes/scene-04.json",
+      "characters": [
+        "Eric",
+        "Tappy"
+      ],
+      "required_assets": [
+        "ASSET-CHAR-ERIC",
+        "ASSET-CHAR-TAPPY"
+      ],
+      "action": "See verbatim source transcript in linked imported scene record.",
+      "narrative_purpose": "Preserve the published scene's existing story function; do not infer beyond its source text.",
+      "must_not_include": [
+        "Do not alter source dialogue without an explicit editorial decision.",
+        "Do not infer unshown physical actions or character knowledge.",
+        "Eric must not hold objects; the ticket is nudged using his body as described in the source."
+      ],
+      "output_spec": {
+        "format": "source_scene_record",
+        "visual_reference_path": "website-/assets/stories/Scene4.png"
+      },
+      "approval": {
+        "status": "source_imported",
+        "approved_by": null,
+        "approved_at": null
+      }
+    },
+    {
+      "scene_id": "WOA-CH01-SC05",
+      "title": "A Night in Fragments",
+      "status": "draft",
+      "source_record": "story/scenes/scene-05.json",
+      "characters": [
+        "Eric",
+        "Tappy"
+      ],
+      "required_assets": [
+        "ASSET-CHAR-ERIC",
+        "ASSET-CHAR-TAPPY"
+      ],
+      "action": "See verbatim source transcript in linked imported scene record.",
+      "narrative_purpose": "Preserve the published scene's existing story function; do not infer beyond its source text.",
+      "must_not_include": [
+        "Do not alter source dialogue without an explicit editorial decision.",
+        "Do not infer unshown physical actions or character knowledge.",
+        "Eric must not hold objects; the ticket is nudged using his body as described in the source."
+      ],
+      "output_spec": {
+        "format": "source_scene_record",
+        "visual_reference_path": "website-/assets/stories/scene5.webp"
+      },
+      "approval": {
+        "status": "source_imported",
+        "approved_by": null,
+        "approved_at": null
+      }
+    },
+    {
+      "scene_id": "WOA-CH01-SC06",
+      "title": "The Ticket",
+      "status": "draft",
+      "source_record": "story/scenes/scene-06.json",
+      "characters": [
+        "Eric",
+        "Tappy"
+      ],
+      "required_assets": [
+        "ASSET-CHAR-ERIC",
+        "ASSET-CHAR-TAPPY"
+      ],
+      "action": "See verbatim source transcript in linked imported scene record.",
+      "narrative_purpose": "Preserve the published scene's existing story function; do not infer beyond its source text.",
+      "must_not_include": [
+        "Do not alter source dialogue without an explicit editorial decision.",
+        "Do not infer unshown physical actions or character knowledge.",
+        "Eric must not hold objects; the ticket is nudged using his body as described in the source."
+      ],
+      "output_spec": {
+        "format": "source_scene_record",
+        "visual_reference_path": "website-/assets/stories/scene6.webp"
+      },
+      "approval": {
+        "status": "source_imported",
+        "approved_by": null,
+        "approved_at": null
+      }
+    },
+    {
+      "scene_id": "WOA-CH01-SC07",
+      "title": "The Warehouse, Manchester, 1994",
+      "status": "draft",
+      "source_record": "story/scenes/scene-07.json",
+      "characters": [
+        "Eric",
+        "Tappy"
+      ],
+      "required_assets": [
+        "ASSET-CHAR-ERIC",
+        "ASSET-CHAR-TAPPY"
+      ],
+      "action": "See verbatim source transcript in linked imported scene record.",
+      "narrative_purpose": "Preserve the published scene's existing story function; do not infer beyond its source text.",
+      "must_not_include": [
+        "Do not alter source dialogue without an explicit editorial decision.",
+        "Do not infer unshown physical actions or character knowledge.",
+        "Eric must not hold objects; the ticket is nudged using his body as described in the source."
+      ],
+      "output_spec": {
+        "format": "source_scene_record",
+        "visual_reference_path": "website-/assets/stories/scene7.webp"
+      },
+      "approval": {
+        "status": "source_imported",
+        "approved_by": null,
+        "approved_at": null
+      }
+    }
+  ]
+}
