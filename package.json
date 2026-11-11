@@ -1,0 +1,13 @@
+{
+  "name": "woa-story-engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Canon-first story and image continuity production kit for WORMS ON ACID",
+  "scripts": {
+    "check": "node scripts/woa-check.mjs",
+    "check:strict": "node scripts/woa-check.mjs --strict",
+    "test": "node --test"
+  },
+  "engines": {"node": ">=18"}
+}
