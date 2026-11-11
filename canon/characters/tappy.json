@@ -1,0 +1,30 @@
+{
+  "character_id": "CHAR-TAPPY",
+  "name": "Tappy",
+  "status": "active",
+  "canonical_asset_ids": [
+    "ASSET-CHAR-TAPPY"
+  ],
+  "approved_facts": [
+    "Tappy is the current name assigned to the tapeworm in the naming scene.",
+    "The name Tappy is first spoken by the tapeworm and sticks."
+  ],
+  "constraints": [
+    "Use the bound website canonical image as visual authority.",
+    "Do not invent personality, anatomy, relationships or knowledge beyond approved source material."
+  ],
+  "relationships": [],
+  "knowledge_profile": {
+    "knows": [
+      "Tappy is part of the group and instinctively trusts the others."
+    ],
+    "does_not_know": [
+      "The full Botanists/hyperspace origin chronology.",
+      "The actual explanation of the Thing We Don't Talk About, until revealed in story."
+    ],
+    "uncertain": [
+      "Fragments and confused memories."
+    ]
+  },
+  "source_authority": "WOA Story Universe Baseline v1.0 and user-approved website canonical image."
+}
