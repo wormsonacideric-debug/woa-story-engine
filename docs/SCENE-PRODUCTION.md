@@ -30,3 +30,16 @@ The approved website images registered in canon/artwork-registry.json are the cu
 ## Current scope
 
 The seven published opening scenes are preserved as source records and are not automatically approved for new image generation. Chapters 6–17 remain outline-level. Scenes remain blocked until editorial approval, a location, and complete approved reference manifests are bound.
+
+## Character knowledge and audience reveal
+
+The knowledge ledger records scene-scoped knowledge events with an explicit holder, subject, claim, epistemic status, layer, source record and scope. It distinguishes:
+- what a character says they remember;
+- what a character believes or infers;
+- what is established in a scene;
+- what the audience has been shown;
+- what remains author-only truth.
+
+A character recollection is evidence that the character recalls or says something, not automatic proof that the remembered event occurred exactly as described. Questions, speculation and jokes must not be promoted into confirmed facts. Every scene-scoped knowledge event must point to the exact imported scene record for that scene. The validator rejects duplicate event IDs, unsafe or mismatched source paths, and author-only truth assigned to a character.
+
+The Reader in the opening website scenes is modelled as an audience-facing participant, not a canonical character. The seven imported scenes establish only fragmentary knowledge: Tappy remembers music and sensory fragments; he says Eric and Nigel were present; he recognises the name The Warehouse. None of this resolves the origin mystery.
