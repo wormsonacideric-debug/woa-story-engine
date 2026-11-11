@@ -20,7 +20,7 @@
 4. Expand beats into scene plans only where the source supports the action.
 5. Run continuity preflight against the knowledge ledger, timeline, prop ledger and character records.
 6. Bind exact character/location asset IDs in an immutable reference manifest.
-7. Generate one scene candidate only.
+7. Generate one scene candidate only. The candidate input package generator now enforces the approval/reference gate and snapshots the source inputs; it does not itself generate an image.
 8. Evaluate canon, narrative and composition; correct at most twice.
 9. Present the candidate for human approval. Never self-approve.
 10. Archive approved output as a new immutable asset; never overwrite canonical artwork.
