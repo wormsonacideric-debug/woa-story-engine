@@ -14,15 +14,16 @@ A production system for the WOA story universe across illustrated chapters, soci
 7. If story, timeline, character state or references are unclear, stop and ask.
 
 ## Imported foundation
-- Six user-approved canonical character images: Eric, Manni, Nigel, Peter, Rufus and Tappy.
-- Three initial location images: The High Scraparral, Manchester and The Festivals.
+- Six user-approved canonical character images and three initial location images.
+- Seven existing published WOA opening scenes imported from the website, including their exact dialogue, stage directions, descriptions and image paths.
+- Source provenance recorded against the website repository and Git blob IDs.
 - Five-chapter opening nested within a 17-chapter mystery arc.
 - Actual author chronology, audience reveal order and character knowledge ledger.
-- Character and location records, schemas, portable agent skills and deterministic validator.
+- Character/location records, schemas, portable agent skills and deterministic validator.
 - Source-linked beat registry, continuity and prop ledgers, scene-production workflow and preflight rules.
 
 ## Important limits
-Arthur, Edwin and Brian are known characters but their visual artwork is not yet imported. Peter has only the confirmed Early Bird designation. Chapters 6–17 have outline-level summaries, not full scripts. No scene has been approved for image production by this import alone.
+The seven imported website scenes are preserved as published source, not automatically approved for new image generation. Editorial questions are recorded separately; do not silently rewrite scene text to resolve them. Arthur, Edwin and Brian are known characters but their visual artwork is not yet imported. Chapters 6–17 remain outline-level, not full scripts.
 
 ## Quick start
 Requires Node.js 18+.
@@ -32,11 +33,11 @@ node scripts/woa-check.mjs --strict
 npm test
 ~~~
 
-Read docs/SCENE-PRODUCTION.md before creating beats or scenes. Use story/templates/scene-beat.template.json for source-linked beat planning and story/templates/scene.template.json for scene records.
+Read docs/SCENE-PRODUCTION.md before creating beats or scenes. The imported website scenes live in story/scenes/ and are indexed by story/scene-registry.json. Use story/templates/scene-beat.template.json for source-linked beat planning.
 
 ## Layout
 - canon/: visual rules, character/location records and artwork registry
-- story/: story bible, timeline, chapters, knowledge, beats, continuity, props and scenes
+- story/: story bible, timeline, chapters, knowledge, imported scenes, beats, continuity, props and scenes
 - schemas/: JSON data contracts
 - skills/: agent instructions
 - work/: candidate packages
