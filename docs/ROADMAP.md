@@ -23,7 +23,7 @@
 - [ ] Vision evaluator adapter with evidence and confidence
 - [x] Bounded correction-attempt controller with immutable lineage and hard stop
 - [ ] Bounded self-correction controller
-- [ ] Approval command and append-only decision log
+- [x] Human approval/rejection command with append-only hash-linked decision records
 - [ ] Asset manifest/hash verification for local and remote sources
 
 ## Workflow integrations
