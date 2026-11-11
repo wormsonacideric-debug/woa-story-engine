@@ -9,7 +9,7 @@ function fixture(){
  const root=fs.mkdtempSync(path.join(os.tmpdir(),"woa-eval-"));
  fs.writeFileSync(path.join(root,"candidate-package.json"),JSON.stringify({immutable:true,human_approval_required:true,stage:"candidate_input_package",attempt_id:"ATT-TEST-001",scene_id:"WOA-CH01-SC01"}));
  fs.writeFileSync(path.join(root,"candidate.png"),"candidate-bytes");
- const criteria=[{criterion_id:"character_identity",status:"pass",confidence:0.98,evidence:["Matches bound canonical reference."],reference_ids:["ASSET-ERIC-01"],blocking:true}];
+ const criteria=["reference_provenance","character_identity","anatomy_form","character_count","location_continuity","props_object_state","composition","negative_constraints","story_beat","technical_quality"].map(id=>({criterion_id:id,status:"pass",confidence:0.98,evidence:["Inspected against the approved scene and references."],reference_ids:["ASSET-ERIC-01"],blocking:["reference_provenance","character_identity","anatomy_form","character_count","location_continuity","props_object_state","negative_constraints","story_beat"].includes(id)}));
  return {root,criteria};
 }
 const meta={evaluator:"test-evaluator",evaluatorVersion:"1",rubricVersion:"1.0.0",evaluatedAt:"2026-11-11T12:00:00.000Z"};
@@ -23,12 +23,12 @@ test("evaluation binds the exact package and candidate hashes and remains pendin
 });
 test("UNKNOWN or FAIL criteria cannot receive pass decision",()=>{
  const f=fixture();try{
-  assert.throws(()=>validateEvaluation({attemptDir:f.root,candidatePath:"candidate.png",evaluation:{criteria:[{...f.criteria[0],status:"unknown",evidence:["Insufficient evidence."]}],decision:"pass"},...meta}),/cannot pass/);
+  assert.throws(()=>validateEvaluation({attemptDir:f.root,candidatePath:"candidate.png",evaluation:{criteria:f.criteria.map((c,i)=>i===0?{...c,status:"unknown",evidence:["Insufficient evidence."]}:c),decision:"pass"},...meta}),/cannot pass/);
  }finally{fs.rmSync(f.root,{recursive:true,force:true});}
 });
 test("blocking failure cannot be marked inconclusive or pass",()=>{
  const f=fixture();try{
-  assert.throws(()=>validateEvaluation({attemptDir:f.root,candidatePath:"candidate.png",evaluation:{criteria:[{...f.criteria[0],status:"fail",evidence:["Character anatomy conflicts with canon."]}],decision:"inconclusive"},...meta}),/require needs_correction or reject/);
+  assert.throws(()=>validateEvaluation({attemptDir:f.root,candidatePath:"candidate.png",evaluation:{criteria:f.criteria.map((c,i)=>i===1?{...c,status:"fail",evidence:["Character anatomy conflicts with canon."]}:c),decision:"inconclusive"},...meta}),/require needs_correction or reject/);
  }finally{fs.rmSync(f.root,{recursive:true,force:true});}
 });
 test("candidate paths cannot escape the immutable attempt directory",()=>{
