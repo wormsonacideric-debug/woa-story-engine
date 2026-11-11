@@ -19,7 +19,7 @@ export function createCandidatePackage({rootDir,sceneId,prompt,provider,model,at
  if(!scene)throw new Error("Unknown scene_id: "+sceneId);
  if(scene.status!=="approved"||scene.approval?.status!=="approved"||!scene.approval.approved_by||!scene.approval.approved_at)throw new Error("Scene is not human-approved with recorded approver and date; candidate package generation is blocked.");
  if(!scene.location_id)throw new Error("Scene has no approved location binding.");
- if(!safe(scene.source_record)||!fs.existsSync(path.join(rootDir,scene.source_record)))throw new Error("Scene source record is missing or unsafe.");
+ if(!safe(scene.source_record)||!fs.existsSync(path.join(rootDir,scene.source_record)))throw new Error("Scene has no safe source record path or the source record is missing.");
  if(!scene.reference_manifest||!safe(scene.reference_manifest))throw new Error("Scene has no safe reference manifest.");
  const manifest=readAt(scene.reference_manifest);
  if(manifest.scene_id!==sceneId||manifest.generation_gate!=="ready"||!Array.isArray(manifest.references)||!manifest.references.length)throw new Error("Reference manifest is not ready for this scene.");
