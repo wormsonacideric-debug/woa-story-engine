@@ -1,0 +1,21 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"WOA Generation Attempt",
+  "type":"object",
+  "required":["attempt_id","scene_id","created_at","provider","prompt","reference_manifest_id","output","iteration","status"],
+  "properties":{
+    "attempt_id":{"type":"string"},
+    "scene_id":{"type":"string"},
+    "created_at":{"type":"string","format":"date-time"},
+    "provider":{"type":"object","required":["name","model"],"properties":{"name":{"type":"string"},"model":{"type":"string"},"version":{"type":["string","null"]}}},
+    "prompt":{"type":"string","minLength":1},
+    "parameters":{"type":"object"},
+    "reference_manifest_id":{"type":"string"},
+    "reference_hashes":{"type":"object"},
+    "output":{"type":"object","required":["path","sha256"],"properties":{"path":{"type":"string"},"sha256":{"type":"string","pattern":"^[a-fA-F0-9]{64}$"}}},
+    "iteration":{"type":"integer","minimum":1},
+    "evaluation_ids":{"type":"array","items":{"type":"string"}},
+    "status":{"enum":["candidate","submitted_for_review","approved","rejected","superseded"]}
+  },
+  "additionalProperties":false
+}
