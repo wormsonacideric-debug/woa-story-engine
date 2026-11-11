@@ -8,13 +8,15 @@
 - [x] Human approval and provenance gates
 
 ## Ingest real WOA canon
-- [ ] Import canonical character artwork and hashes
-- [ ] Import canonical location artwork, including current High Scraparral source
-- [ ] Reconcile active character roster and approved facts
-- [ ] Import current authoritative story outline and timeline
-- [ ] Confirm current chapter/act structure
+- [x] Import canonical character artwork and hashes
+- [x] Import canonical location artwork, including current High Scraparral source
+- [x] Reconcile active character roster and approved facts
+- [x] Import current authoritative story outline and timeline
+- [x] Confirm current chapter/act structure
 
 ## Production runtime
+- [x] Deterministic scene production preflight with explicit block reasons
+- [x] Sourced ticket state ledger and Eric object-handling guard
 - [ ] Candidate package generator and immutable attempt folders
 - [ ] Vision evaluator adapter with evidence and confidence
 - [ ] Bounded self-correction controller
@@ -29,8 +31,8 @@
 - [ ] Export profiles for social, story, animation, game and promo outputs
 
 ## Advanced
-- [ ] Character state ledger and relationship graph
-- [ ] Location / prop continuity graph
+- [ ] Character knowledge/state ledger and relationship graph
+- [x] Initial sourced prop ledger; [ ] full location/prop continuity graph
 - [ ] Multi-format adaptation planner
 - [ ] Story beat dependency graph and change-impact analysis
 - [ ] Asset lineage visualiser and audit report
