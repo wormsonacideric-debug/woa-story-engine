@@ -1,0 +1,41 @@
+{
+  "character_id": "CHAR-RUFUS",
+  "name": "Rufus",
+  "status": "active",
+  "canonical_asset_ids": [
+    "ASSET-CHAR-RUFUS"
+  ],
+  "approved_facts": [
+    "Rufus is a shark who completely identifies as a dog.",
+    "Rufus believes himself to be a dog in a shark's body.",
+    "Rufus speaks Classical Dog: Woof, Grrrr and whine.",
+    "Rufus occasionally breaks the fourth wall and speaks English to the reader.",
+    "Rufus is loyal to Nigel, guides him and serves as security for The High Scraparral.",
+    "Rufus can put people to sleep.",
+    "Rufus dislikes dolphins, orcas and giant squid.",
+    "Rufus's specific checked cap belongs to Rufus and must be preserved when headwear is present."
+  ],
+  "constraints": [
+    "Rufus must remain a shark, despite identifying as a dog.",
+    "Preserve Rufus's specific checked cap when headwear is present.",
+    "Do not introduce Nigel's arm or lead into Rufus's standalone depiction."
+  ],
+  "relationships": [
+    {
+      "character_id": "CHAR-NIGEL",
+      "type": "loyal_companion_and_guide",
+      "source": "WOA Story Universe Baseline v1.0"
+    }
+  ],
+  "knowledge_profile": {
+    "knows": [
+      "He identifies as a dog.",
+      "He is loyal to Nigel."
+    ],
+    "does_not_know": [
+      "The full Botanists/hyperspace origin chronology."
+    ],
+    "uncertain": []
+  },
+  "source_authority": "WOA Story Universe Baseline v1.0, Canonical Artwork Register v25 and user-approved website canonical image."
+}
