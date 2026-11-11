@@ -1,0 +1,40 @@
+{
+  "scene_id": "WOA-CH01-SC02",
+  "number": 2,
+  "title": "Past the Old Machinery",
+  "description": "Eric has no ticket he remembers, but he is ready to follow the trail and find out who is helping him.",
+  "image": "assets/stories/scene2.jpg",
+  "website_path": "story/scene-02.html",
+  "source_sha": "1746bdc8b0dc0a09c6996827dccc9bbe4f28e402",
+  "participants": [
+    "Eric",
+    "Reader"
+  ],
+  "transcript": [
+    [
+      "Eric",
+      "No ticket that I know of. If Nigel’s left one behind, it’s probably in the same place as Nigel: somewhere important and slightly inconvenient."
+    ],
+    [
+      "stage",
+      "I’ll wriggle clear of the tarpaulin, keeping the hat firmly where it belongs."
+    ],
+    [
+      "Eric",
+      "Right then. Past the old machinery, then. I’ll keep to the soft ground. You lead, unless the scrap starts objecting. And if you’ve got a name, it’d be nice to know who’s saving me from being a lone worm in a mystery."
+    ]
+  ],
+  "source": {
+    "repository": "wormsonacideric-debug/website-",
+    "branch": "main",
+    "path": "story/scene-02.html",
+    "commit_blob_sha": "1746bdc8b0dc0a09c6996827dccc9bbe4f28e402",
+    "imported_from": "published website scene page"
+  },
+  "status": "source_imported",
+  "canon_status": "needs_story_engine_review",
+  "notes": [
+    "Imported from the published website. Dialogue and stage directions are preserved verbatim.",
+    "Do not silently harmonise this page with outline summaries; record any continuity questions separately."
+  ]
+}
