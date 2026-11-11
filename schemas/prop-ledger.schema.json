@@ -2,25 +2,100 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "WOA Prop Ledger",
   "type": "object",
-  "required": ["ledger_version", "props"],
+  "required": [
+    "ledger_version",
+    "props"
+  ],
   "properties": {
-    "ledger_version": {"type": "string"},
-    "policy": {"type": "string"},
+    "ledger_version": {
+      "type": "string"
+    },
+    "policy": {
+      "type": "string"
+    },
     "props": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["prop_id", "name"],
+        "required": [
+          "prop_id",
+          "name",
+          "continuity_status",
+          "state_events"
+        ],
         "properties": {
-          "prop_id": {"type": "string"},
-          "name": {"type": "string"},
-          "owner": {"type": ["string", "null"]},
-          "possessor": {"type": ["string", "null"]},
-          "held_by": {"type": ["string", "null"]},
-          "location_id": {"type": ["string", "null"]},
-          "source_refs": {"type": "array", "items": {"type": "string"}}
+          "prop_id": {
+            "type": "string",
+            "pattern": "^PROP-[A-Z0-9-]+$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "owner": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "possessor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "held_by": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "location_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "continuity_status": {
+            "enum": [
+              "partially_established",
+              "established",
+              "editorial_review_required"
+            ]
+          },
+          "unresolved": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "state_events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "scene_id",
+                "source_ref",
+                "event"
+              ],
+              "properties": {
+                "scene_id": {
+                  "type": "string",
+                  "pattern": "^WOA-CH[0-9]{2}-SC[0-9]{2}$"
+                },
+                "source_ref": {
+                  "type": "string"
+                },
+                "event": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "additionalProperties": false
+            }
+          }
         },
-        "additionalProperties": true
+        "additionalProperties": false
       }
     }
   },
