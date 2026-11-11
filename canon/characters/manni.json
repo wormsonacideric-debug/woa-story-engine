@@ -1,0 +1,37 @@
+{
+  "character_id": "CHAR-MANNI",
+  "name": "Manni",
+  "status": "active",
+  "canonical_asset_ids": [
+    "ASSET-CHAR-MANNI"
+  ],
+  "approved_facts": [
+    "Manni is the current name of the character formerly known as Rosie.",
+    "Manni says her name is short for Mandrew, although she does not know why.",
+    "Manni is cheerful, ditzy and relentlessly positive.",
+    "Manni wants to help but lacks arms/hands, so often provides loud encouragement instead.",
+    "Manni is good at team morale and poor at precision handling.",
+    "Manni likes green things and music of any kind; she dislikes birds perching on her, low ceilings and strobe lights.",
+    "Strobe lights trigger an involuntary airhorn-like scream.",
+    "Manni's anatomy is hard-locked as a rounded dinosaur-like body, upright neck, dinosaur-like head, crest, four legs/feet, long tail and established proportions (artwork register)."
+  ],
+  "constraints": [
+    "Never convert Manni into worm anatomy.",
+    "Preserve her four-legged dinosaur-like body plan and owned attributes.",
+    "Do not invent additional appearance details beyond the canonical image."
+  ],
+  "relationships": [],
+  "knowledge_profile": {
+    "knows": [
+      "She is part of the group and instinctively trusts the others."
+    ],
+    "does_not_know": [
+      "The full Botanists/hyperspace origin chronology.",
+      "The actual explanation of the Thing We Don't Talk About, until revealed in story."
+    ],
+    "uncertain": [
+      "Fragments and confused memories."
+    ]
+  },
+  "source_authority": "WOA Story Universe Baseline v1.0, Canonical Artwork Register v25 and user-approved website canonical image."
+}
