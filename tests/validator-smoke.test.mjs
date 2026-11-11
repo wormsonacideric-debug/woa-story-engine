@@ -127,3 +127,44 @@ test("validator rejects knowledge events linked to the wrong scene source", () =
     assert.match(r.stdout,/source_ref does not match its scene record/);
   } finally { rmSync(temp,{recursive:true,force:true}); }
 });
+
+test("scene-state ledger is sourced, scoped and keeps unresolved continuity visible", () => {
+  const fs = awaitImportFs();
+  const ledger = JSON.parse(fs.readFileSync(path.join(root,"story","scene-state-ledger.json"),"utf8"));
+  assert.equal(ledger.state_events.length,10);
+  assert.ok(ledger.state_events.every(e => e.epistemic_status === "source_explicit" && e.source_ref && Number.isInteger(e.source_transcript_index)));
+  assert.ok(ledger.unresolved.some(q => q.issue_id === "STATE-OPEN-001"));
+  assert.ok(ledger.snapshots.length === 0);
+});
+test("validator rejects scene-state source transcript index outside imported source", () => {
+  const temp = mkdtempSync(path.join(os.tmpdir(), "woa-state-source-"));
+  try {
+    cpSync(path.join(root,"scripts"),path.join(temp,"scripts"),{recursive:true});
+    cpSync(path.join(root,"story"),path.join(temp,"story"),{recursive:true});
+    cpSync(path.join(root,"canon"),path.join(temp,"canon"),{recursive:true});
+    const fs = awaitImportFs();
+    const p = path.join(temp,"story","scene-state-ledger.json");
+    const ledger = JSON.parse(fs.readFileSync(p,"utf8"));
+    ledger.state_events[0].source_transcript_index = 999;
+    fs.writeFileSync(p,JSON.stringify(ledger));
+    const r = spawnSync(process.execPath,["scripts/woa-check.mjs"],{cwd:temp,encoding:"utf8"});
+    assert.equal(r.status,1);
+    assert.match(r.stdout,/invalid source_transcript_index/);
+  } finally { rmSync(temp,{recursive:true,force:true}); }
+});
+test("validator rejects inferred scene-state events", () => {
+  const temp = mkdtempSync(path.join(os.tmpdir(), "woa-state-inference-"));
+  try {
+    cpSync(path.join(root,"scripts"),path.join(temp,"scripts"),{recursive:true});
+    cpSync(path.join(root,"story"),path.join(temp,"story"),{recursive:true});
+    cpSync(path.join(root,"canon"),path.join(temp,"canon"),{recursive:true});
+    const fs = awaitImportFs();
+    const p = path.join(temp,"story","scene-state-ledger.json");
+    const ledger = JSON.parse(fs.readFileSync(p,"utf8"));
+    ledger.state_events[0].epistemic_status = "inferred";
+    fs.writeFileSync(p,JSON.stringify(ledger));
+    const r = spawnSync(process.execPath,["scripts/woa-check.mjs"],{cwd:temp,encoding:"utf8"});
+    assert.equal(r.status,1);
+    assert.match(r.stdout,/must be source_explicit/);
+  } finally { rmSync(temp,{recursive:true,force:true}); }
+});
