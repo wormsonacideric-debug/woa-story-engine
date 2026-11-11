@@ -1,0 +1,68 @@
+{
+  "scene_id": "WOA-CH01-SC01",
+  "number": 1,
+  "title": "The Stranger",
+  "description": "Tappy is trapped beneath a tarpaulin, but the trail — and a ticket — may lead to answers.",
+  "image": "assets/stories/scene1.webp",
+  "website_path": "story/scene-01.html",
+  "source_sha": "ccf0cedd9cd4de29df3c4f8676b981097b6a1a77",
+  "participants": [
+    "Tappy",
+    "Reader"
+  ],
+  "transcript": [
+    [
+      "stage",
+      "The stranger looks at you for a moment."
+    ],
+    [
+      "Tappy",
+      "The trail keeps going. Through the yard, then out past the old machinery."
+    ],
+    [
+      "stage",
+      "They glance down at themselves and give the tarpaulin a doubtful look."
+    ],
+    [
+      "Tappy",
+      "And yes. I’m free enough."
+    ],
+    [
+      "stage",
+      "A pause."
+    ],
+    [
+      "Tappy",
+      "Assuming the tarpaulin agrees."
+    ],
+    [
+      "stage",
+      "They work one edge loose and finally wriggle clear."
+    ],
+    [
+      "Tappy",
+      "You’ve got a ticket, then?"
+    ],
+    [
+      "stage",
+      "They look at you a little differently now."
+    ],
+    [
+      "Tappy",
+      "Maybe you’re closer to the answer than I thought."
+    ]
+  ],
+  "source": {
+    "repository": "wormsonacideric-debug/website-",
+    "branch": "main",
+    "path": "story/scene-01.html",
+    "commit_blob_sha": "ccf0cedd9cd4de29df3c4f8676b981097b6a1a77",
+    "imported_from": "published website scene page"
+  },
+  "status": "source_imported",
+  "canon_status": "needs_story_engine_review",
+  "notes": [
+    "Imported from the published website. Dialogue and stage directions are preserved verbatim.",
+    "Do not silently harmonise this page with outline summaries; record any continuity questions separately."
+  ]
+}
