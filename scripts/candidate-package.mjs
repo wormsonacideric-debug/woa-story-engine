@@ -44,6 +44,18 @@ export function createCandidatePackage({rootDir,sceneId,prompt,provider,model,at
  if(!provider?.trim()||!model?.trim())throw new Error("Provider and model are required.");
  const id=attemptId||("ATT-"+sceneId.replace(/[^A-Z0-9]/g,"-")+"-"+createdAt.replace(/[^0-9]/g,"").slice(0,14)+"-"+crypto.randomBytes(3).toString("hex"));
  if(!/^[A-Za-z0-9][A-Za-z0-9._-]{2,100}$/.test(id))throw new Error("Invalid attempt ID.");
+ if(!scene.location_id)throw new Error("Scene has no canonical location binding.");
+ const locationDir=path.join(rootDir,"canon","locations");
+ const locationFile=fs.readdirSync(locationDir).filter(x=>x.endsWith(".json")).map(x=>"canon/locations/"+x).find(p=>readAt(p).location_id===scene.location_id);
+ if(!locationFile)throw new Error("Canonical location record not found: "+scene.location_id);
+ const locationRecord=readAt(locationFile);
+ const characterFiles=[];
+ for(const name of scene.characters||[]){
+  const dir=path.join(rootDir,"canon","characters");
+  const file=fs.readdirSync(dir).filter(x=>x.endsWith(".json")).map(x=>"canon/characters/"+x).find(p=>readAt(p).name===name);
+  if(!file)throw new Error("Canonical character record not found: "+name);
+  characterFiles.push({name,source:file});
+ }
  const workDir=path.join(rootDir,"work","candidates",sceneId,id);
  fs.mkdirSync(path.dirname(workDir),{recursive:true});
  fs.mkdirSync(workDir,{recursive:false});
