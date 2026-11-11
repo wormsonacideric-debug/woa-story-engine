@@ -64,7 +64,25 @@ info.push("Location records: "+locationCount);
 const chapters=readJson("story/chapter-registry.json");
 if(chapters){if(!Array.isArray(chapters.chapters))errors.push("chapter-registry.chapters must be an array.");else{if(chapters.chapters.length!==17)errors.push("Expected imported 17-chapter structure; found "+chapters.chapters.length+".");info.push("Chapter records: "+chapters.chapters.length);}}
 const knowledge=readJson("story/knowledge-ledger.json");
-if(knowledge&&!Array.isArray(knowledge.rules))errors.push("knowledge-ledger.rules must be an array.");
+if(knowledge){
+  if(!Array.isArray(knowledge.rules)||!Array.isArray(knowledge.state_events)||!Array.isArray(knowledge.unresolved))errors.push("Knowledge ledger collections must be arrays.");
+  const seenKnowledge=new Set();
+  const layers=new Set(knowledge.layers||[]);
+  const epistemic=new Set(knowledge.epistemic_status||[]);
+  for(const e of knowledge.state_events||[]){
+    if(!e.event_id||seenKnowledge.has(e.event_id))errors.push("Duplicate knowledge event: "+(e.event_id||"unknown"));
+    seenKnowledge.add(e.event_id);
+    if(!e.claim||!e.holder||!e.subject||!e.source_ref||!e.scope)errors.push("Knowledge event "+(e.event_id||"unknown")+" is incomplete.");
+    if(!layers.has(e.layer))errors.push("Knowledge event "+e.event_id+" has invalid layer.");
+    if(!epistemic.has(e.epistemic_status))errors.push("Knowledge event "+e.event_id+" has invalid epistemic_status.");
+    if(e.holder==="author"&&e.epistemic_status!=="author_only")errors.push("Author knowledge event "+e.event_id+" must remain author_only.");
+    if(e.holder!=="author"&&e.epistemic_status==="author_only")errors.push("Author-only truth cannot be assigned to character "+e.holder+".");
+    if(e.holder!=="author"&&!e.scene_id)errors.push("Character knowledge event "+e.event_id+" requires a scene_id.");
+    if(e.scene_id&&!/^WOA-CH[0-9]{2}-SC[0-9]{2}$/.test(e.scene_id))errors.push("Knowledge event "+e.event_id+" has invalid scene_id.");
+    if(e.scene_id&&!fs.existsSync(path.join(root,e.source_ref)))errors.push("Knowledge event "+e.event_id+" source_ref does not exist.");
+  }
+  info.push("Knowledge events: "+(knowledge.state_events||[]).length);
+}
 if(reg?.assets?.length===0)warnings.push("No canonical artwork registered; image production must remain blocked.");
 if(scenes?.scenes?.length===0)warnings.push("No scenes registered; import current approved story before production.");
 if(scenes?.scenes?.length>0&&!scenes.scenes.some(s=>s.status==="approved"))warnings.push("No scene has human approval for image production; imported website scenes remain source material until reviewed.");
