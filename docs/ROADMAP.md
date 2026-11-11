@@ -31,7 +31,7 @@
 - [ ] Export profiles for social, story, animation, game and promo outputs
 
 ## Advanced
-- [ ] Character knowledge/state ledger and relationship graph
+- [x] Scene-scoped character knowledge/reveal ledger; [ ] relationship graph
 - [x] Initial sourced prop ledger; [ ] full location/prop continuity graph
 - [ ] Multi-format adaptation planner
 - [ ] Story beat dependency graph and change-impact analysis
