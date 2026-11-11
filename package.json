@@ -7,7 +7,10 @@
   "scripts": {
     "check": "node scripts/woa-check.mjs",
     "check:strict": "node scripts/woa-check.mjs --strict",
-    "test": "node --test"
+    "test": "node --test",
+    "preflight": "node scripts/scene-preflight.mjs"
   },
-  "engines": {"node": ">=18"}
+  "engines": {
+    "node": ">=18"
+  }
 }
