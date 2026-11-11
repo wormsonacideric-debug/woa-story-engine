@@ -1,0 +1,83 @@
+{
+  "graph_version": "1.0.0",
+  "policy": "Only relationships explicitly present in approved character canon are represented. Absence of an edge means unknown or unrecorded, not absence of a relationship. Do not infer relationships from shared scenes, group membership or visual proximity.",
+  "nodes": [
+    {
+      "character_id": "CHAR-ERIC",
+      "record": "canon/characters/eric.json"
+    },
+    {
+      "character_id": "CHAR-NIGEL",
+      "record": "canon/characters/nigel.json"
+    },
+    {
+      "character_id": "CHAR-RUFUS",
+      "record": "canon/characters/rufus.json"
+    },
+    {
+      "character_id": "CHAR-TAPPY",
+      "record": "canon/characters/tappy.json"
+    },
+    {
+      "character_id": "CHAR-MANNI",
+      "record": "canon/characters/manni.json"
+    },
+    {
+      "character_id": "CHAR-PETER",
+      "record": "canon/characters/peter.json"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "REL-ERIC-NIGEL-001",
+      "from": "CHAR-ERIC",
+      "to": "CHAR-NIGEL",
+      "type": "best_friends",
+      "direction": "mutual",
+      "source_record": "canon/characters/eric.json",
+      "source_field": "relationships",
+      "source_authority": "WOA Story Universe Baseline v1.0"
+    },
+    {
+      "edge_id": "REL-NIGEL-ERIC-001",
+      "from": "CHAR-NIGEL",
+      "to": "CHAR-ERIC",
+      "type": "best_friends",
+      "direction": "mutual",
+      "source_record": "canon/characters/nigel.json",
+      "source_field": "relationships",
+      "source_authority": "WOA Story Universe Baseline v1.0"
+    },
+    {
+      "edge_id": "REL-NIGEL-RUFUS-001",
+      "from": "CHAR-NIGEL",
+      "to": "CHAR-RUFUS",
+      "type": "companion_and_guide",
+      "direction": "directed",
+      "source_record": "canon/characters/nigel.json",
+      "source_field": "relationships",
+      "source_authority": "WOA Story Universe Baseline v1.0"
+    },
+    {
+      "edge_id": "REL-RUFUS-NIGEL-001",
+      "from": "CHAR-RUFUS",
+      "to": "CHAR-NIGEL",
+      "type": "loyal_companion_and_guide",
+      "direction": "directed",
+      "source_record": "canon/characters/rufus.json",
+      "source_field": "relationships",
+      "source_authority": "WOA Story Universe Baseline v1.0"
+    }
+  ],
+  "unresolved": [
+    {
+      "question_id": "REL-OPEN-001",
+      "characters": [
+        "CHAR-TAPPY",
+        "CHAR-MANNI",
+        "CHAR-PETER"
+      ],
+      "question": "No explicit relationship edges are recorded for these characters in their current canon records. Do not infer friendship, family or other relationship types from group membership or scene participation."
+    }
+  ]
+}
