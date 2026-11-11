@@ -39,13 +39,13 @@ export function validateEvaluation({attemptDir,candidatePath,evaluation,evaluato
  if(unknowns.length&&decision!=="inconclusive"&&decision!=="needs_correction"&&decision!=="reject")throw new Error("UNKNOWN criteria cannot pass.");
  if(!evaluator?.trim()||!evaluatorVersion?.trim()||!rubricVersion?.trim())throw new Error("Evaluator, evaluator version and rubric version are required.");
  if(!Number.isFinite(Date.parse(evaluatedAt)))throw new Error("evaluatedAt must be a valid date-time.");
- const output={schema_version:"1.0.0",evaluation_id:recordName.replace(/\\.json$/,""),attempt_id:pkg.attempt_id,scene_id:pkg.scene_id,package_sha256:hashFile(packagePath),candidate:{path:candidatePath,sha256:hashFile(candidate)},evaluator:{name:evaluator.trim(),version:evaluatorVersion.trim()},rubric_version:rubricVersion.trim(),evaluated_at:evaluatedAt,criteria:evaluation.criteria,summary:{pass:evaluation.criteria.filter(c=>c.status==="pass").length,fail:fails.length,unknown:unknowns.length,blocking_failures:blockingFails.length},decision,correction_guidance:evaluation.correction_guidance??[],human_approval_required:true,approval_status:"pending"};
+ const output={schema_version:"1.0.0",evaluation_id:recordName.slice(0,-5),attempt_id:pkg.attempt_id,scene_id:pkg.scene_id,package_sha256:hashFile(packagePath),candidate:{path:candidatePath,sha256:hashFile(candidate)},evaluator:{name:evaluator.trim(),version:evaluatorVersion.trim()},rubric_version:rubricVersion.trim(),evaluated_at:evaluatedAt,criteria:evaluation.criteria,summary:{pass:evaluation.criteria.filter(c=>c.status==="pass").length,fail:fails.length,unknown:unknowns.length,blocking_failures:blockingFails.length},decision,correction_guidance:evaluation.correction_guidance??[],human_approval_required:true,approval_status:"pending"};
  const outDir=path.join(base,"evaluations");
  fs.mkdirSync(outDir,{recursive:true});
  const outPath=path.join(outDir,recordName);
  if(fs.existsSync(outPath))throw new Error("Evaluation records are append-only; this record already exists.");
- if(!/^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$/.test(recordName))throw new Error("Unsafe evaluation record name.");
- fs.writeFileSync(outPath,JSON.stringify(output,null,2)+"\\n",{flag:"wx"});
+ if(typeof recordName!=="string"||!recordName.endsWith(".json")||!/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(recordName.slice(0,-5)))throw new Error("Unsafe evaluation record name.");
+ fs.writeFileSync(outPath,JSON.stringify(output,null,2)+String.fromCharCode(10),{flag:"wx"});
  return {evaluationPath:path.relative(base,outPath),evaluationId:output.evaluation_id,decision,packageSha256:output.package_sha256,candidateSha256:output.candidate.sha256};
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)){
