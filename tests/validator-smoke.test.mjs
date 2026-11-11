@@ -238,7 +238,7 @@ test("candidate package generator rejects unsafe source paths", () => {
     cpSync(path.join(root,"story"),path.join(temp,"story"),{recursive:true});
     cpSync(path.join(root,"canon"),path.join(temp,"canon"),{recursive:true});
     const p=path.join(temp,"story","scene-registry.json"),reg=JSON.parse(requireFs.readFileSync(p,"utf8"));
-    reg.scenes[0].status="approved";reg.scenes[0].approval={status:"approved",approved_by:"test",approved_at:"2026-11-11"};reg.scenes[0].source_record="../../outside.json";reg.scenes[0].reference_manifest="work/manifests/x.json";
+    reg.scenes[0].status="approved";reg.scenes[0].approval={status:"approved",approved_by:"test",approved_at:"2026-11-11"};reg.scenes[0].location_id="LOC-HIGH-SCRAPARRAL";reg.scenes[0].source_record="../../outside.json";reg.scenes[0].reference_manifest="work/manifests/x.json";
     requireFs.writeFileSync(p,JSON.stringify(reg));
     assert.throws(()=>createCandidatePackage({rootDir:temp,sceneId:reg.scenes[0].scene_id,prompt:"prompt",provider:"p",model:"m"}),/safe source record path/);
   } finally { rmSync(temp,{recursive:true,force:true}); }
