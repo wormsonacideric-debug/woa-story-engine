@@ -1,30 +1,29 @@
 # Getting Started
 
 ## Imported foundation
-- Six user-approved website canonical character images: Eric, Manni, Nigel, Peter, Rufus and Tappy.
-- Three initial locations: The High Scraparral, Manchester and The Festivals.
-- Five-chapter opening nested inside the 17-chapter larger mystery arc.
+- Six user-approved website canonical character images and three initial locations.
+- Seven published opening scene pages imported verbatim into story/scenes/ and registered in story/scene-registry.json.
+- Original page paths, Git blob SHAs, illustration paths, dialogue and stage directions are retained.
 - Actual author chronology and audience reveal order stored separately.
-- Character knowledge separated from author-level truth.
-- Beat registry, continuity ledger and prop ledger are in place; they start empty rather than inventing facts.
+- Character knowledge, continuity questions and prop constraints tracked independently.
 
 ## Limits
-- Arthur, Edwin and Brian are known characters but their visual records are deferred until artwork is supplied. Do not generate substitutes.
-- Peter has only the confirmed Early Bird designation; no additional personality or plot role is inferred.
-- Chapters 6–17 have outline-level summaries only; they are not scene scripts.
-- No scene is approved for image production by this import alone.
+- The imported scenes are source material, not automatically approved image-generation briefs.
+- Four editorial questions are logged in story/continuity-ledger.json. Preserve source text until the creator decides whether to amend anything.
+- Arthur, Edwin and Brian remain without imported canonical character artwork.
+- Chapters 6–17 remain outline-level summaries, not scene scripts.
 
 ## First production workflow
-1. Read docs/SCENE-PRODUCTION.md and select a beat supported by source material.
-2. Create a beat record using story/templates/scene-beat.template.json. Include source references, dramatic function and unresolved questions.
-3. Expand the beat into a scene only where source material supports the action.
-4. Create a scene record with explicit participants, location, action, purpose and constraints.
+1. Read docs/SCENE-PRODUCTION.md and inspect the imported seven scene records.
+2. Resolve or explicitly carry forward the open continuity questions; do not silently edit dialogue.
+3. Create source-linked beats using story/templates/scene-beat.template.json.
+4. Expand beats into scene plans only where the source supports the action.
 5. Run continuity preflight against the knowledge ledger, timeline, prop ledger and character records.
-6. Bind exact character/location asset IDs in an immutable reference manifest. Production scenes must include every depicted character's and location's canonical asset IDs.
+6. Bind exact character/location asset IDs in an immutable reference manifest.
 7. Generate one scene candidate only.
 8. Evaluate canon, narrative and composition; correct at most twice.
 9. Present the candidate for human approval. Never self-approve.
 10. Archive approved output as a new immutable asset; never overwrite canonical artwork.
 
 ## Validation
-Run node scripts/woa-check.mjs for the normal validation pass. The validator blocks explicit violations such as Eric holding a prop and production scenes missing their canonical reference bindings. Strict mode also treats starter warnings as errors.
+Run node scripts/woa-check.mjs for the normal validation pass. The validator checks imported scene IDs, sequence, transcripts and source provenance. Strict mode also treats starter warnings as errors.
