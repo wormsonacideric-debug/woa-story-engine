@@ -1,0 +1,11 @@
+{
+  "approval_id":"WOA-APPROVAL-0001",
+  "scene_id":"WOA-CH00-A00-S000",
+  "attempt_id":"ATTEMPT-0001",
+  "decision":"pending",
+  "reviewer":null,
+  "decided_at":null,
+  "notes":"",
+  "reference_manifest_id":null,
+  "output_sha256":null
+}
