@@ -67,6 +67,7 @@ const knowledge=readJson("story/knowledge-ledger.json");
 if(knowledge&&!Array.isArray(knowledge.rules))errors.push("knowledge-ledger.rules must be an array.");
 if(reg?.assets?.length===0)warnings.push("No canonical artwork registered; image production must remain blocked.");
 if(scenes?.scenes?.length===0)warnings.push("No scenes registered; import current approved story before production.");
+if(scenes?.scenes?.length>0&&!scenes.scenes.some(s=>s.status==="approved"))warnings.push("No scene has human approval for image production; imported website scenes remain source material until reviewed.");
 if(reg?.assets?.some(a=>a.status==="candidate"))warnings.push("Candidate assets must not be used as canonical references.");
 
 const beats=readJson("story/beat-registry.json");
