@@ -20,7 +20,7 @@ A production system for the WOA story universe across illustrated chapters, soci
 - Five-chapter opening nested within a 17-chapter mystery arc.
 - Actual author chronology, audience reveal order and character knowledge ledger.
 - Character/location records, schemas, portable agent skills and deterministic validator.
-- Source-linked beat registry, continuity and prop ledgers (including sourced ticket state), scene-production workflow and deterministic production preflight.
+- Source-linked beat registry, character knowledge and reveal ledger, continuity and prop ledgers (including sourced ticket state), scene-production workflow and deterministic production preflight.
 
 ## Important limits
 The seven imported website scenes are preserved as published source, not automatically approved for new image generation. Editorial questions are recorded separately; do not silently rewrite scene text to resolve them. Arthur, Edwin and Brian are known characters but their visual artwork is not yet imported. Chapters 6–17 remain outline-level, not full scripts.
@@ -34,7 +34,7 @@ npm run preflight
 npm test
 ~~~
 
-Read docs/SCENE-PRODUCTION.md before creating beats or scenes. Run `npm run preflight` before any image production; it reports why each scene is blocked or ready. The imported website scenes live in story/scenes/ and are indexed by story/scene-registry.json. Use story/templates/scene-beat.template.json for source-linked beat planning.
+Read docs/SCENE-PRODUCTION.md before creating beats or scenes. Knowledge events distinguish character recollection, inference, audience reveal and author-only truth; every event is tied to its exact scene source. Run `npm run preflight` before any image production; it reports why each scene is blocked or ready. The imported website scenes live in story/scenes/ and are indexed by story/scene-registry.json. Use story/templates/scene-beat.template.json for source-linked beat planning.
 
 ## Layout
 - canon/: visual rules, character/location records and artwork registry
