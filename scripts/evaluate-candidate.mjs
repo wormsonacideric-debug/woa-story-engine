@@ -11,13 +11,14 @@ function parseArgs(argv){const o={};for(let i=0;i<argv.length;i++){if(argv[i].st
 export function validateEvaluation({attemptDir,candidatePath,evaluation,evaluator,evaluatorVersion,rubricVersion,evaluatedAt=new Date().toISOString(),recordName="evaluation-01.json"}){
  const base=path.resolve(attemptDir);
  const packagePath=path.join(base,"candidate-package.json");
- if(!fs.existsSync(packagePath))throw new Error("Candidate package not found.");
+ if(!fs.existsSync(packagePath)||!inside(fs.realpathSync(base),fs.realpathSync(packagePath)))throw new Error("Candidate package is missing or resolves outside its attempt directory.");
  const pkg=JSON.parse(fs.readFileSync(packagePath,"utf8"));
  if(pkg.immutable!==true||pkg.human_approval_required!==true||pkg.stage!=="candidate_input_package")throw new Error("Input package is not a valid immutable candidate package.");
  if(!safeRelative(candidatePath))throw new Error("Candidate output path must be a safe relative path inside the attempt directory.");
  const candidate=path.resolve(base,candidatePath);
- if(!inside(base,candidate)||!fs.existsSync(candidate)||!fs.statSync(candidate).isFile())throw new Error("Candidate output must be an existing file inside the attempt directory.");
+ if(!inside(base,candidate)||!fs.existsSync(candidate)||!fs.statSync(candidate).isFile()||!inside(fs.realpathSync(base),fs.realpathSync(candidate)))throw new Error("Candidate output must be an existing file inside the attempt directory (including symlink resolution).");
  if(!Array.isArray(evaluation.criteria)||evaluation.criteria.length===0)throw new Error("Evaluation must include criterion results.");
+ const requiredCriteria=["reference_provenance","character_identity","anatomy_form","character_count","location_continuity","props_object_state","composition","negative_constraints","story_beat","technical_quality"];
  const ids=new Set();
  for(const c of evaluation.criteria){
   if(!c.criterion_id||ids.has(c.criterion_id))throw new Error("Criterion IDs must be present and unique.");
@@ -27,6 +28,7 @@ export function validateEvaluation({attemptDir,candidatePath,evaluation,evaluato
   if(!Array.isArray(c.evidence)||!Array.isArray(c.reference_ids))throw new Error("Each criterion needs evidence and reference_ids arrays.");
   if(c.status!=="pass"&&c.evidence.length===0)throw new Error("Fail/unknown criteria require evidence or an explicit reason: "+c.criterion_id);
  }
+ for(const id of requiredCriteria)if(!ids.has(id))throw new Error("Evaluation omits required rubric criterion: "+id);
  const blockingFails=evaluation.criteria.filter(c=>c.blocking===true&&c.status==="fail");
  const unknowns=evaluation.criteria.filter(c=>c.status==="unknown");
  const fails=evaluation.criteria.filter(c=>c.status==="fail");
