@@ -32,7 +32,7 @@
 - [ ] Export profiles for social, story, animation, game and promo outputs
 
 ## Advanced
-- [x] Scene-scoped character knowledge/reveal ledger; [ ] relationship graph
+- [x] Scene-scoped character knowledge/reveal ledger; [x] canon-sourced relationship graph
 - [x] Initial sourced prop ledger; [ ] full location/prop continuity graph
 - [ ] Multi-format adaptation planner
 - [ ] Story beat dependency graph and change-impact analysis
