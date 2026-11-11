@@ -38,6 +38,7 @@ export function createCandidatePackage({rootDir,sceneId,prompt,provider,model,at
  const id=attemptId||("ATT-"+sceneId.replace(/[^A-Z0-9]/g,"-")+"-"+createdAt.replace(/[^0-9]/g,"").slice(0,14)+"-"+crypto.randomBytes(3).toString("hex"));
  if(!/^[A-Za-z0-9][A-Za-z0-9._-]{2,100}$/.test(id))throw new Error("Invalid attempt ID.");
  const workDir=path.join(rootDir,"work","candidates",sceneId,id);
+ fs.mkdirSync(path.dirname(workDir),{recursive:true});
  fs.mkdirSync(workDir,{recursive:false});
  const copyJson=(src,name)=>{const from=path.join(rootDir,src);const dest=path.join(workDir,name);fs.copyFileSync(from,dest);return {path:name,sha256:hash(dest)};};
  const snapshot={scene:copyJson(scene.source_record,"scene-source.json"),scene_plan:copyJson("story/scene-registry.json","scene-registry-snapshot.json"),reference_manifest:copyJson(scene.reference_manifest,"reference-manifest.json"),artwork_registry:copyJson("canon/artwork-registry.json","artwork-registry-snapshot.json"),knowledge_ledger:copyJson("story/knowledge-ledger.json","knowledge-ledger-snapshot.json"),physical_state_ledger:copyJson("story/scene-state-ledger.json","scene-state-ledger-snapshot.json"),prop_ledger:copyJson("story/prop-ledger.json","prop-ledger-snapshot.json")};
