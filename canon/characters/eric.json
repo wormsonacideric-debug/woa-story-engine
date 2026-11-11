@@ -1,0 +1,43 @@
+{
+  "character_id": "CHAR-ERIC",
+  "name": "Eric",
+  "status": "active",
+  "canonical_asset_ids": [
+    "ASSET-CHAR-ERIC"
+  ],
+  "approved_facts": [
+    "Eric is an earthworm.",
+    "Eric is the original worm character; WOA is the umbrella/project name, not his character name.",
+    "Eric already feels like an Eric in the naming scene.",
+    "Eric and Nigel are best friends.",
+    "Eric is cheerful, optimistic, laid-back, resourceful, helpful and gently sarcastic; he does not get angry.",
+    "Eric cannot hold objects.",
+    "Eric has a blue floppy nightcap with pom-pom as an owned visual attribute (artwork register)."
+  ],
+  "constraints": [
+    "Never depict Eric holding an object.",
+    "Never transfer another character's hat or anatomy to Eric.",
+    "Use the bound canonical image as the visual identity authority; do not reconstruct from prose."
+  ],
+  "relationships": [
+    {
+      "character_id": "CHAR-NIGEL",
+      "type": "best_friends",
+      "source": "Story Universe Baseline v1.0"
+    }
+  ],
+  "knowledge_profile": {
+    "knows": [
+      "He is Eric.",
+      "He knows the gang and instinctively trusts them."
+    ],
+    "does_not_know": [
+      "The full Botanists/hyperspace origin chronology.",
+      "The actual explanation of the Thing We Don't Talk About, until revealed in story."
+    ],
+    "uncertain": [
+      "Fragments, instincts and unexplained memories."
+    ]
+  },
+  "source_authority": "WOA Story Universe Baseline v1.0 plus user-approved website canonical image."
+}
