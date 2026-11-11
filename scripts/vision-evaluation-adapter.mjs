@@ -8,7 +8,8 @@ import { validateEvaluation } from "./evaluate-candidate.mjs";
 const hash=p=>crypto.createHash("sha256").update(fs.readFileSync(p)).digest("hex");
 const inside=(base,target)=>{const r=path.relative(base,target);return r!==""&&!r.startsWith(".."+path.sep)&&r!==".."&&!path.isAbsolute(r);};
 const safe=p=>typeof p==="string"&&p.length>0&&!path.isAbsolute(p)&&!p.split(/[\\\\/]/).includes("..");
-const criteria=["reference_provenance","character_identity","anatomy_form","character_count","location_continuity","props_object_state","composition","negative_constraints","story_beat","technical_quality"];\nconst blockingCriteria=new Set(["reference_provenance","character_identity","anatomy_form","character_count","location_continuity","props_object_state","negative_constraints","story_beat"]);
+const criteria=["reference_provenance","character_identity","anatomy_form","character_count","location_continuity","props_object_state","composition","negative_constraints","story_beat","technical_quality"];
+const blockingCriteria=new Set(["reference_provenance","character_identity","anatomy_form","character_count","location_continuity","props_object_state","negative_constraints","story_beat"]);
 const rubric={
  reference_provenance:"Verify every required reference is present and exactly matches its pinned approved source. Missing/unverifiable references are UNKNOWN or blocked, never assumed.",
  character_identity:"Compare each character's identity, distinctive features, silhouette, colours, clothing and accessories only against its bound canonical artwork.",
@@ -65,7 +66,8 @@ export function ingestVisionResponse({attemptDir,candidatePath,responsePath,eval
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)){
  const a=parse(process.argv.slice(2));
- if(a.help){console.log("Prepare: node scripts/vision-evaluation-adapter.mjs --prepare --attempt-dir DIR --candidate candidate.png [--task-id ID]\nIngest: node scripts/vision-evaluation-adapter.mjs --ingest --attempt-dir DIR --candidate candidate.png --response-file response.json --evaluator name --evaluator-version version");process.exit(0);}
+ if(a.help){console.log("Prepare: node scripts/vision-evaluation-adapter.mjs --prepare --attempt-dir DIR --candidate candidate.png [--task-id ID]
+Ingest: node scripts/vision-evaluation-adapter.mjs --ingest --attempt-dir DIR --candidate candidate.png --response-file response.json --evaluator name --evaluator-version version");process.exit(0);}
  try{
   if(!a["attempt-dir"]||!a.candidate)throw new Error("Required: --attempt-dir and --candidate.");
   let result;
