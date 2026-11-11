@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WOA Knowledge Ledger",
+  "type": "object",
+  "required": [
+    "ledger_version",
+    "principle",
+    "layers",
+    "epistemic_status",
+    "rules",
+    "global_mystery",
+    "state_events",
+    "unresolved"
+  ],
+  "properties": {
+    "ledger_version": {
+      "type": "string"
+    },
+    "principle": {
+      "type": "string"
+    },
+    "layers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "epistemic_status": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "global_mystery": {
+      "type": "object",
+      "required": [
+        "name",
+        "character_facing_rule",
+        "author_truth",
+        "reveal_policy",
+        "knowledge_boundary"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "character_facing_rule": {
+          "type": "string"
+        },
+        "author_truth": {
+          "type": "string"
+        },
+        "reveal_policy": {
+          "type": "string"
+        },
+        "knowledge_boundary": {
+          "type": "string"
+        }
+      }
+    },
+    "state_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "event_id",
+          "scene_id",
+          "holder",
+          "subject",
+          "claim",
+          "epistemic_status",
+          "layer",
+          "source_ref",
+          "scope"
+        ],
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "pattern": "^KN-"
+          },
+          "scene_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "holder": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "claim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "epistemic_status": {
+            "type": "string"
+          },
+          "layer": {
+            "type": "string"
+          },
+          "source_ref": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "not_established": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "unresolved": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}
