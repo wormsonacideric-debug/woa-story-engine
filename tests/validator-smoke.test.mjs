@@ -212,7 +212,7 @@ test("candidate package snapshots approved inputs and refuses overwrite", () => 
     const regPath=path.join(temp,"story","scene-registry.json");
     const reg=JSON.parse(requireFs.readFileSync(regPath,"utf8"));
     const scene=reg.scenes[0];scene.status="approved";scene.approval={status:"approved",approved_by:"test",approved_at:"2026-11-11"};
-    scene.reference_manifest="work/manifests/test-scene-01.json";
+    scene.reference_manifest="work/manifests/test-scene-01.json";scene.location_id="LOC-HIGH-SCRAPARRAL";
     requireFs.writeFileSync(regPath,JSON.stringify(reg));
     const assets=JSON.parse(requireFs.readFileSync(path.join(temp,"canon","artwork-registry.json"),"utf8"));
     const refs=scene.required_assets.map(id=>{const a=assets.assets.find(x=>x.asset_id===id);return {asset_id:id,purpose:"canonical character identity",required:true,git_blob_sha:a.git_blob_sha};});
@@ -221,7 +221,7 @@ test("candidate package snapshots approved inputs and refuses overwrite", () => 
     const result=createCandidatePackage({rootDir:temp,sceneId:scene.scene_id,prompt:"Only the actions supported by the imported scene.",provider:"test-provider",model:"test-model",attemptId:"ATT-TEST-001",createdAt:"2026-11-11T10:00:00.000Z"});
     const pkg=JSON.parse(requireFs.readFileSync(path.join(temp,result.packagePath),"utf8"));
     assert.equal(pkg.immutable,true);assert.equal(pkg.output.status,"not_generated");assert.equal(pkg.approval.status,"pending");
-    assert.ok(pkg.snapshots.scene.sha256.match(/^[a-f0-9]{64}$/));
+    assert.ok(pkg.snapshots.scene.sha256.match(/^[a-f0-9]{64}$/));\n    assert.ok(pkg.snapshots.relationship_graph.sha256.match(/^[a-f0-9]{64}$/));\n    assert.ok(pkg.snapshots.continuity_ledger.sha256.match(/^[a-f0-9]{64}$/));\n    assert.ok(pkg.snapshots.characters.some(x=>x.path==="character-tappy.json"));\n    assert.ok(pkg.snapshots.location.sha256.match(/^[a-f0-9]{64}$/));
     assert.ok(requireFs.existsSync(path.join(temp,result.directory,"IMMUTABLE.txt")));
     assert.throws(() => createCandidatePackage({rootDir:temp,sceneId:scene.scene_id,prompt:"retry",provider:"test",model:"test",attemptId:"ATT-TEST-001"}));
   } finally { rmSync(temp,{recursive:true,force:true}); }
