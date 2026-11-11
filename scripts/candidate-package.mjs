@@ -20,13 +20,17 @@ export function createCandidatePackage({rootDir,sceneId,prompt,provider,model,at
  if(scene.status!=="approved"||scene.approval?.status!=="approved"||!scene.approval.approved_by||!scene.approval.approved_at)throw new Error("Scene is not human-approved with recorded approver and date; candidate package generation is blocked.");
  if(!scene.location_id)throw new Error("Scene has no approved location binding.");
  if(!safe(scene.source_record)||!fs.existsSync(path.join(rootDir,scene.source_record)))throw new Error("Scene source record is missing or unsafe.");
- if(!safe(scene.source_record))throw new Error("Scene has no safe source record path.");
  if(!scene.reference_manifest||!safe(scene.reference_manifest))throw new Error("Scene has no safe reference manifest.");
  const manifest=readAt(scene.reference_manifest);
  if(manifest.scene_id!==sceneId||manifest.generation_gate!=="ready"||!Array.isArray(manifest.references)||!manifest.references.length)throw new Error("Reference manifest is not ready for this scene.");
  const artwork=readAt("canon/artwork-registry.json");
  const assetMap=new Map(artwork.assets.map(a=>[a.asset_id,a]));
  const required=new Set(scene.required_assets||[]);
+ const locationDir=path.join(rootDir,"canon","locations");
+ const locationFile=fs.readdirSync(locationDir).filter(x=>x.endsWith(".json")).map(x=>"canon/locations/"+x).find(p=>readAt(p).location_id===scene.location_id);
+ if(!locationFile)throw new Error("Canonical location record not found: "+scene.location_id);
+ const locationRecord=readAt(locationFile);
+ for(const id of locationRecord.canonical_asset_ids||[])required.add(id);
  for(const id of required)if(!manifest.references.some(r=>r.asset_id===id))throw new Error("Manifest omits required asset: "+id);
  const references=[];
  const seenReferences=new Set();
@@ -44,11 +48,6 @@ export function createCandidatePackage({rootDir,sceneId,prompt,provider,model,at
  if(!provider?.trim()||!model?.trim())throw new Error("Provider and model are required.");
  const id=attemptId||("ATT-"+sceneId.replace(/[^A-Z0-9]/g,"-")+"-"+createdAt.replace(/[^0-9]/g,"").slice(0,14)+"-"+crypto.randomBytes(3).toString("hex"));
  if(!/^[A-Za-z0-9][A-Za-z0-9._-]{2,100}$/.test(id))throw new Error("Invalid attempt ID.");
- if(!scene.location_id)throw new Error("Scene has no canonical location binding.");
- const locationDir=path.join(rootDir,"canon","locations");
- const locationFile=fs.readdirSync(locationDir).filter(x=>x.endsWith(".json")).map(x=>"canon/locations/"+x).find(p=>readAt(p).location_id===scene.location_id);
- if(!locationFile)throw new Error("Canonical location record not found: "+scene.location_id);
- const locationRecord=readAt(locationFile);
  const characterFiles=[];
  for(const name of scene.characters||[]){
   const dir=path.join(rootDir,"canon","characters");
@@ -64,7 +63,7 @@ export function createCandidatePackage({rootDir,sceneId,prompt,provider,model,at
  const characterSnapshots=[];
  for(const name of scene.characters||[]){const file=name.toLowerCase().replace(/[^a-z0-9-]/g,"")+".json";const p="canon/characters/"+file;if(!safe(p)||!fs.existsSync(path.join(rootDir,p)))throw new Error("Missing canonical character record for "+name);characterSnapshots.push(copyJson(p,"character-"+name.toLowerCase()+".json"));}
  snapshot.characters=characterSnapshots;
- if(scene.location_id){const locationFiles=fs.readdirSync(path.join(rootDir,"canon/locations")).filter(f=>f.endsWith(".json"));const location=locationFiles.map(f=>"canon/locations/"+f).find(p=>readAt(p).location_id===scene.location_id);if(!location)throw new Error("Missing canonical location record: "+scene.location_id);snapshot.location=copyJson(location,"location.json");}
+ snapshot.location=copyJson(locationFile,"location-"+scene.location_id.toLowerCase()+".json");
  const pkg={package_version:"1.0.0",attempt_id:id,scene_id:sceneId,created_at:createdAt,immutable:true,stage:"candidate_input_package",human_approval_required:true,scene:{title:scene.title,characters:scene.characters,action:scene.action,narrative_purpose:scene.narrative_purpose,must_not_include:scene.must_not_include,required_assets:[...required]},prompt:{text:prompt.trim(),provider:provider.trim(),model:model.trim()},references,snapshots:snapshot,output:{status:"not_generated",path:null,sha256:null},evaluation:{status:"not_evaluated",evaluation_ids:[]},approval:{status:"pending",approved_by:null,approved_at:null},iteration:1};
  fs.writeFileSync(path.join(workDir,"candidate-package.json"),JSON.stringify(pkg,null,2)+"\n",{flag:"wx"});
  fs.writeFileSync(path.join(workDir,"IMMUTABLE.txt"),"This attempt is immutable. Never overwrite or replace files in this directory. Corrections create a new attempt directory and retain this package.\n",{flag:"wx"});
