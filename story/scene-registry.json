@@ -12,7 +12,7 @@
     {
       "scene_id": "WOA-CH01-SC01",
       "title": "The Stranger",
-      "status": "draft",
+      "status": "approved",
       "source_record": "story/scenes/scene-01.json",
       "characters": [
         "Tappy"
@@ -32,9 +32,9 @@
         "visual_reference_path": "website-/assets/stories/scene1.webp"
       },
       "approval": {
-        "status": "source_imported",
-        "approved_by": null,
-        "approved_at": null
+        "status": "approved",
+        "approved_by": "dweab",
+        "approved_at": "2026-11-11"
       }
     },
     {
