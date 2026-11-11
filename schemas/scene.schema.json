@@ -1,0 +1,29 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"WOA Scene",
+  "type":"object",
+  "required":["scene_id","title","status","characters","action","narrative_purpose","must_not_include","output_spec","approval"],
+  "properties":{
+    "scene_id":{"type":"string","pattern":"^WOA-[A-Z0-9-]+$"},
+    "title":{"type":"string","minLength":1},
+    "status":{"enum":["draft","ready","in_production","candidate_review","approved","rejected","blocked"]},
+    "chapter_id":{"type":["string","null"]},
+    "act_id":{"type":["string","null"]},
+    "sequence":{"type":["integer","null"],"minimum":0},
+    "story_time":{"type":["string","null"]},
+    "location_id":{"type":["string","null"]},
+    "characters":{"type":"array","items":{"type":"string"},"uniqueItems":true},
+    "required_assets":{"type":"array","items":{"type":"string"},"uniqueItems":true},
+    "props":{"type":"array"},
+    "action":{"type":"string","minLength":1},
+    "narrative_purpose":{"type":"string","minLength":1},
+    "continuity_in":{"type":"array"},
+    "continuity_out":{"type":"array"},
+    "must_not_include":{"type":"array","items":{"type":"string"}},
+    "dialogue":{"type":"array"},
+    "output_spec":{"type":"object"},
+    "reference_manifest":{"type":["string","null"]},
+    "approval":{"type":"object"}
+  },
+  "additionalProperties":true
+}
