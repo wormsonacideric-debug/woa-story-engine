@@ -8,13 +8,13 @@ const hashFile=p=>crypto.createHash("sha256").update(fs.readFileSync(p)).digest(
 const safe=p=>typeof p==="string"&&p.length>0&&!path.isAbsolute(p)&&!p.split(/[\\\\/]/).includes("..");
 function parseArgs(argv){const o={};for(let i=0;i<argv.length;i++)if(argv[i].startsWith("--"))o[argv[i].slice(2)]=argv[++i];return o;}
 export function createCorrectionAttempt({attemptDir,evaluationPath,correctionId,createdAt=new Date().toISOString(),maxAttempts=3}){
- const parent=path.resolve(attemptDir),pkgPath=path.join(parent,"candidate-package.json");
+ const parent=path.resolve(attemptDir),realParent=fs.realpathSync(parent),pkgPath=path.join(parent,"candidate-package.json");
  if(!fs.existsSync(pkgPath))throw new Error("Parent candidate package not found.");
  const pkg=JSON.parse(fs.readFileSync(pkgPath,"utf8"));
  if(pkg.immutable!==true||pkg.stage!=="candidate_input_package")throw new Error("Parent package is not immutable.");
  if(!safe(evaluationPath))throw new Error("Unsafe evaluation record path.");
  const evalPath=path.resolve(parent,evaluationPath),evalRoot=path.join(parent,"evaluations");
- if(!evalPath.startsWith(evalRoot+path.sep)||!fs.existsSync(evalPath))throw new Error("Evaluation record must exist inside the parent attempt evaluations directory.");
+ if(!evalPath.startsWith(evalRoot+path.sep)||!fs.existsSync(evalPath)||!fs.realpathSync(evalPath).startsWith(fs.realpathSync(evalRoot)+path.sep))throw new Error("Evaluation record must exist inside the parent attempt evaluations directory.");
  const evaluation=JSON.parse(fs.readFileSync(evalPath,"utf8"));
  if(evaluation.attempt_id!==pkg.attempt_id||evaluation.scene_id!==pkg.scene_id)throw new Error("Evaluation does not belong to this candidate attempt.");
  if(evaluation.decision!=="needs_correction")throw new Error("Only a needs_correction decision can create a correction attempt.");
@@ -27,11 +27,11 @@ export function createCorrectionAttempt({attemptDir,evaluationPath,correctionId,
  fs.mkdirSync(dest,{recursive:false});
  try{
   const snapshots={};
-  const copySnapshot=(key,item)=>{if(!item||!safe(item.path))throw new Error("Invalid snapshot path: "+key);const source=path.join(parent,item.path);if(!fs.existsSync(source)||hashFile(source)!==item.sha256)throw new Error("Parent snapshot integrity check failed: "+key);const target=path.join(dest,item.path);fs.mkdirSync(path.dirname(target),{recursive:true});if(fs.existsSync(target))throw new Error("Correction snapshot target already exists: "+key);fs.copyFileSync(source,target);snapshots[key]={...item};};
+  const copySnapshot=(key,item)=>{if(!item||!safe(item.path))throw new Error("Invalid snapshot path: "+key);const source=path.join(parent,item.path);if(!fs.existsSync(source)||!fs.realpathSync(source).startsWith(realParent+path.sep)||hashFile(source)!==item.sha256)throw new Error("Parent snapshot integrity check failed: "+key);const target=path.join(dest,item.path);fs.mkdirSync(path.dirname(target),{recursive:true});if(fs.existsSync(target))throw new Error("Correction snapshot target already exists: "+key);fs.copyFileSync(source,target);snapshots[key]={...item};};
   for(const [key,value] of Object.entries(pkg.snapshots)){if(Array.isArray(value))snapshots[key]=value.map((item,i)=>{const k=key+"-"+i;copySnapshot(k,item);return {...item};});else copySnapshot(key,value);}
   const guidance=evaluation.correction_guidance||[];
   if(!guidance.length)throw new Error("Correction evaluation has no actionable correction_guidance.");
-  const next={...pkg,attempt_id:id,created_at:createdAt,iteration:current+1,parent_attempt:{attempt_id:pkg.attempt_id,evaluation_id:evaluation.evaluation_id,evaluation_sha256:hashFile(evalPath),candidate_sha256:evaluation.candidate?.sha256},prompt:{...pkg.prompt,text:pkg.prompt.text+"\\n\\nCORRECTION INSTRUCTIONS (human/evaluator supplied):\\n"+guidance.map(x=>"- "+x).join("\\n")},snapshots,output:{status:"not_generated",path:null,sha256:null},evaluation:{status:"not_evaluated",evaluation_ids:[]},approval:{status:"pending",approved_by:null,approved_at:null}};
+  const next={...pkg,attempt_id:id,created_at:createdAt,iteration:current+1,parent_attempt:{attempt_id:pkg.attempt_id,evaluation_id:evaluation.evaluation_id,evaluation_sha256:hashFile(evalPath),candidate_sha256:evaluation.candidate?.sha256},prompt:{...pkg.prompt,text:pkg.prompt.text+String.fromCharCode(10,10)+"CORRECTION INSTRUCTIONS (human/evaluator supplied):"+String.fromCharCode(10)+guidance.map(x=>"- "+x).join(String.fromCharCode(10))},snapshots,output:{status:"not_generated",path:null,sha256:null},evaluation:{status:"not_evaluated",evaluation_ids:[]},approval:{status:"pending",approved_by:null,approved_at:null}};
   fs.writeFileSync(path.join(dest,"candidate-package.json"),JSON.stringify(next,null,2)+String.fromCharCode(10),{flag:"wx"});
   fs.writeFileSync(path.join(dest,"CORRECTION.txt"),"Correction attempt. Parent attempt and evaluation are hash-linked. Do not overwrite this folder. Human approval remains mandatory.\\n",{flag:"wx"});
   return {attemptId:id,directory:path.relative(path.dirname(sceneDir),dest),iteration:next.iteration,maxAttempts,parentAttempt:pkg.attempt_id,evaluationId:evaluation.evaluation_id};
