@@ -1,0 +1,64 @@
+{
+  "scene_id": "WOA-CH01-SC03",
+  "number": 3,
+  "title": "It’s Tappy",
+  "description": "The stranger’s sleepy voice becomes familiar. Eric discovers who has been under the tarpaulin.",
+  "image": "assets/stories/Scene3.png",
+  "website_path": "story/scene-03.html",
+  "source_sha": "350028165c22b147daeb650dfa83d752c7e0000e",
+  "participants": [
+    "Eric",
+    "Tappy"
+  ],
+  "transcript": [
+    [
+      "stage",
+      "The worm gives you a sleepy look."
+    ],
+    [
+      "Tappy",
+      "Eric…"
+    ],
+    [
+      "stage",
+      "You recognise the voice. It’s Tappy."
+    ],
+    [
+      "stage",
+      "He finally wriggles free of the tarpaulin and looks back towards the trail."
+    ],
+    [
+      "Tappy",
+      "I was wondering when you were going to wake me up."
+    ],
+    [
+      "stage",
+      "He looks at you for a moment."
+    ],
+    [
+      "Tappy",
+      "And before you ask… no, I don't remember much either."
+    ],
+    [
+      "stage",
+      "A pause."
+    ],
+    [
+      "Tappy",
+      "But I remember there was music."
+    ]
+  ],
+  "source": {
+    "repository": "wormsonacideric-debug/website-",
+    "branch": "main",
+    "path": "story/scene-03.html",
+    "commit_blob_sha": "350028165c22b147daeb650dfa83d752c7e0000e",
+    "imported_from": "published website scene page"
+  },
+  "status": "source_imported",
+  "canon_status": "needs_story_engine_review",
+  "notes": [
+    "Imported from the published website. Dialogue and stage directions are preserved verbatim.",
+    "Do not silently harmonise this page with outline summaries; record any continuity questions separately."
+  ]
+}
