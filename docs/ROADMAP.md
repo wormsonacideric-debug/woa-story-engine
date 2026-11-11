@@ -19,6 +19,7 @@
 - [x] Sourced ticket state ledger and Eric object-handling guard
 - [x] Scene-scoped physical state ledger with source-index validation and unresolved continuity flags
 - [x] Candidate input package generator and immutable attempt folders
+- [x] Evaluation record contract with evidence, confidence, candidate/package hashes and decision guardrails
 - [ ] Vision evaluator adapter with evidence and confidence
 - [ ] Bounded self-correction controller
 - [ ] Approval command and append-only decision log
