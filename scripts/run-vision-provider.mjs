@@ -47,7 +47,7 @@ export async function runVisionProvider({attemptDir,taskPath,apiKey=process.env.
  if(parsed.attempt_id!==task.attempt_id||parsed.scene_id!==task.scene_id||parsed.package_sha256!==task.package_sha256||parsed.candidate_sha256!==task.candidate.sha256)throw new Error("Vision API response identity/hashes do not match the task.");
  const outDir=path.join(base,"vision-responses");fs.mkdirSync(outDir,{recursive:true});
  const out=path.join(outDir,task.task_id+"-response.json");
- fs.writeFileSync(out,JSON.stringify(parsed,null,2)+"\\n",{flag:"wx"});
+ fs.writeFileSync(out,JSON.stringify(parsed,null,2)+"\n",{flag:"wx"});
  return {responsePath:path.relative(base,out),model,usage:body.usage||null,referenceCount:imageParts.filter(x=>x.type==="image_url").length-1};
 }
 
