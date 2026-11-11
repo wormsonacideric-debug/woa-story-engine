@@ -48,6 +48,23 @@ for(const id of s.required_assets||[])if(!(manifest.references||[]).some(x=>x.as
 if(s.approval?.status==="approved"&&(!s.approval.approved_by||!s.approval.approved_at))errors.push("Scene "+s.scene_id+" lacks approval evidence.");
 }info.push("Scene records: "+scenes.scenes.length);}
 if(timeline&&!Array.isArray(timeline.events))errors.push("timeline.events must be an array.");
+const characterPaths=["eric","manni","nigel","peter","rufus","tappy"].map(n=>"canon/characters/"+n+".json");
+const characterIds=new Set();
+for(const p of characterPaths){const c=readJson(p);if(!c)continue;
+if(!c.character_id||!c.name)errors.push(p+" missing character identity.");
+if(characterIds.has(c.character_id))errors.push("Duplicate character_id: "+c.character_id);
+characterIds.add(c.character_id);
+for(const id of c.canonical_asset_ids||[]){const a=assets.get(id);if(!a)errors.push(p+" references unknown canonical asset "+id+".");else if(a.status!=="approved")errors.push(p+" references non-approved asset "+id+".");}
+}
+info.push("Character records: "+characterIds.size);
+const locationPaths=["high-scraparral","manchester","festivals"].map(n=>"canon/locations/"+n+".json");
+let locationCount=0;
+for(const p of locationPaths){const l=readJson(p);if(!l)continue;locationCount++;for(const id of l.canonical_asset_ids||[]){const a=assets.get(id);if(!a)errors.push(p+" references unknown canonical asset "+id+".");else if(a.status!=="approved")errors.push(p+" references non-approved asset "+id+".");}}
+info.push("Location records: "+locationCount);
+const chapters=readJson("story/chapter-registry.json");
+if(chapters){if(!Array.isArray(chapters.chapters))errors.push("chapter-registry.chapters must be an array.");else{if(chapters.chapters.length!==17)errors.push("Expected imported 17-chapter structure; found "+chapters.chapters.length+".");info.push("Chapter records: "+chapters.chapters.length);}}
+const knowledge=readJson("story/knowledge-ledger.json");
+if(knowledge&&!Array.isArray(knowledge.rules))errors.push("knowledge-ledger.rules must be an array.");
 if(reg?.assets?.length===0)warnings.push("No canonical artwork registered; image production must remain blocked.");
 if(scenes?.scenes?.length===0)warnings.push("No scenes registered; import current approved story before production.");
 if(reg?.assets?.some(a=>a.status==="candidate"))warnings.push("Candidate assets must not be used as canonical references.");
