@@ -173,6 +173,30 @@ if(importedScenes){
   }
 }
 
+
+const sceneState=readJson("story/scene-state-ledger.json");
+if(sceneState){
+  if(!Array.isArray(sceneState.state_events)||!Array.isArray(sceneState.snapshots)||!Array.isArray(sceneState.unresolved))errors.push("Scene-state ledger collections must be arrays.");
+  const seenState=new Set();
+  for(const e of sceneState.state_events||[]){
+    if(!e.event_id||seenState.has(e.event_id))errors.push("Missing or duplicate scene-state event: "+(e.event_id||"unknown"));
+    seenState.add(e.event_id);
+    if(!e.scene_id||!e.source_ref||!e.subject||!e.dimension||!e.value||!e.state_scope||!e.epistemic_status||!e.carry_forward)errors.push("Scene-state event "+(e.event_id||"unknown")+" is incomplete.");
+    if(e.epistemic_status!=="source_explicit")errors.push("Scene-state event "+e.event_id+" must be source_explicit; inferred state is not permitted.");
+    if(typeof e.source_ref!=="string"||path.isAbsolute(e.source_ref)||e.source_ref.split(/[\\/]/).includes(".."))errors.push("Scene-state event "+e.event_id+" has unsafe source_ref.");
+    else if(!fs.existsSync(path.join(root,e.source_ref)))errors.push("Scene-state event "+e.event_id+" source_ref does not exist.");
+    const recordPath=knowledgeSceneSources.get(e.scene_id);
+    if(!recordPath)errors.push("Scene-state event "+e.event_id+" references an unregistered scene.");
+    else if(e.source_ref!==recordPath)errors.push("Scene-state event "+e.event_id+" source_ref does not match its scene record.");
+    else{
+      const record=readJson(recordPath);
+      if(!Number.isInteger(e.source_transcript_index)||!record?.transcript?.[e.source_transcript_index])errors.push("Scene-state event "+e.event_id+" has an invalid source_transcript_index.");
+    }
+    if(e.subject==="Eric"&&/hold|holding|held/i.test(e.value))errors.push("Scene-state event "+e.event_id+" assigns object holding to Eric.");
+  }
+  info.push("Scene-state events: "+(sceneState.state_events||[]).length);
+}
+
 if(strict&&warnings.length)errors.push("Strict mode: warnings treated as errors.");
 console.log("WOA Story Engine — validation report");
 info.forEach(x=>console.log("INFO: "+x));warnings.forEach(x=>console.log("WARN: "+x));errors.forEach(x=>console.log("ERROR: "+x));
