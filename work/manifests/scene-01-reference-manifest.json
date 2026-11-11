@@ -1,0 +1,21 @@
+{
+  "manifest_id": "WOA-REF-CH01-SC01-V1",
+  "scene_id": "WOA-CH01-SC01",
+  "created_at": "2026-11-11T15:02:00Z",
+  "references": [
+    {
+      "asset_id": "ASSET-CHAR-TAPPY",
+      "purpose": "Canonical character identity for Tappy; preserve approved anatomy and appearance",
+      "required": true,
+      "git_blob_sha": "d326ea32e587665aa7ea215567da440d49c5ac40"
+    },
+    {
+      "asset_id": "ASSET-LOC-HIGH-SCRAPARRAL",
+      "purpose": "Canonical location identity and environmental constraints for the High Scraparral",
+      "required": true,
+      "git_blob_sha": "de1d8cb579433fc7f94dec67da5b36d9c624a4fb"
+    }
+  ],
+  "generation_gate": "ready",
+  "human_note": "Scene 1 was explicitly approved by the user on 2026-11-11. Location binding is grounded in the published Tappy character page, which states that Tappy wakes in the High Scraparral. Exact approved source Git blob SHAs are pinned; provider-side byte verification remains required before image evaluation."
+}
