@@ -12,7 +12,7 @@ function fixture(){
  fs.writeFileSync(path.join(attempt,"candidate.png"),"image bytes");
  const registry={assets:[{asset_id:"ASSET-CHAR-ERIC",status:"approved",git_blob_sha:"a".repeat(40),source:"https://github.com/wormsonacideric-debug/website-/blob/main/assets/eric.webp"}]};
  fs.writeFileSync(path.join(attempt,"artwork-registry-snapshot.json"),JSON.stringify(registry));
- const pkg={immutable:true,stage:"candidate_input_package",attempt_id:"ATT-VISION",scene_id:"WOA-CH01-SC01",scene:{title:"Test scene",characters:["Eric"]},prompt:{text:"A test prompt"},references:[{asset_id:"ASSET-CHAR-ERIC",purpose:"character",required:true,git_blob_sha:"a".repeat(40)}]};
+ const pkg={immutable:true,human_approval_required:true,stage:"candidate_input_package",attempt_id:"ATT-VISION",scene_id:"WOA-CH01-SC01",scene:{title:"Test scene",characters:["Eric"]},prompt:{text:"A test prompt"},references:[{asset_id:"ASSET-CHAR-ERIC",purpose:"character",required:true,git_blob_sha:"a".repeat(40)}]};
  fs.writeFileSync(path.join(attempt,"candidate-package.json"),JSON.stringify(pkg));
  return {root,attempt,pkg};
 }
