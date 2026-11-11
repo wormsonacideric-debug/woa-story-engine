@@ -10,7 +10,8 @@
     "test": "node --test",
     "preflight": "node scripts/scene-preflight.mjs",
     "candidate:package": "node scripts/candidate-package.mjs",
-    "candidate:evaluate": "node scripts/evaluate-candidate.mjs"
+    "candidate:evaluate": "node scripts/evaluate-candidate.mjs",
+    "candidate:correct": "node scripts/create-correction-attempt.mjs"
   },
   "engines": {
     "node": ">=18"
