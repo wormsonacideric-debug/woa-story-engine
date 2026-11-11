@@ -8,7 +8,7 @@ import { validateEvaluation } from "./evaluate-candidate.mjs";
 const hash=p=>crypto.createHash("sha256").update(fs.readFileSync(p)).digest("hex");
 const inside=(base,target)=>{const r=path.relative(base,target);return r!==""&&!r.startsWith(".."+path.sep)&&r!==".."&&!path.isAbsolute(r);};
 const safe=p=>typeof p==="string"&&p.length>0&&!path.isAbsolute(p)&&!p.split(/[\\\\/]/).includes("..");
-const criteria=["reference_provenance","character_identity","anatomy_form","character_count","location_continuity","props_object_state","composition","negative_constraints","story_beat","technical_quality"];
+const criteria=["reference_provenance","character_identity","anatomy_form","character_count","location_continuity","props_object_state","composition","negative_constraints","story_beat","technical_quality"];\nconst blockingCriteria=new Set(["reference_provenance","character_identity","anatomy_form","character_count","location_continuity","props_object_state","negative_constraints","story_beat"]);
 const rubric={
  reference_provenance:"Verify every required reference is present and exactly matches its pinned approved source. Missing/unverifiable references are UNKNOWN or blocked, never assumed.",
  character_identity:"Compare each character's identity, distinctive features, silhouette, colours, clothing and accessories only against its bound canonical artwork.",
@@ -37,7 +37,7 @@ function loadAttempt(attemptDir,candidatePath){
   if(!a||a.status!=="approved"||a.git_blob_sha!==r.git_blob_sha)throw new Error("Bound reference is missing or differs from pinned registry: "+r.asset_id);
   const match=a.source?.match(/^https:\/\/github\.com\/([^/]+\/[^/]+)\/blob\/([^/]+)\/(.+)$/);
   if(!match)throw new Error("Reference source is not a pinned GitHub blob URL: "+r.asset_id);
-  return {asset_id:r.asset_id,purpose:r.purpose,required:r.required,git_blob_sha:r.git_blob_sha,sha256:r.sha256??null,source_url:a.source,view_url:"https://raw.githubusercontent.com/"+match[1]+"/"+match[2]+"/"+match[3]};
+  return {asset_id:r.asset_id,purpose:r.purpose,required:r.required,git_blob_sha:r.git_blob_sha,integrity_requirement:"Verify downloaded image against this Git blob SHA before evaluation; URL is a locator, not the integrity proof.",sha256:r.sha256??null,source_url:a.source,view_url:"https://raw.githubusercontent.com/"+match[1]+"/"+match[2]+"/"+match[3]};
  });
  return {base,pkg,pkgPath,candidate,candidateSha256:hash(candidate),packageSha256:hash(pkgPath),refs};
 }
