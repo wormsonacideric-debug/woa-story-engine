@@ -52,3 +52,20 @@ test("validator blocks Eric being assigned a held prop", () => {
     assert.match(r.stdout, /Eric cannot hold prop PROP-TEST/);
   } finally { rmSync(temp,{recursive:true,force:true}); }
 });
+
+test("ticket continuity is sourced and Eric is never its holder", () => {
+  const ledger = JSON.parse((awaitImportFs()).readFileSync(path.join(root,"story","prop-ledger.json"),"utf8"));
+  const ticket = ledger.props.find(p => p.prop_id === "PROP-TICKET-CH01");
+  assert.ok(ticket);
+  assert.equal(ticket.possessor,"Eric");
+  assert.equal(ticket.held_by,null);
+  assert.equal(ticket.state_events.length,5);
+  assert.ok(ticket.state_events.every(e => /^WOA-CH01-SC0[1-7]$/.test(e.scene_id) && e.source_ref && e.event));
+});
+test("preflight blocks source-imported scenes without production approval and location binding", () => {
+  const r = spawnSync(process.execPath, ["scripts/scene-preflight.mjs"], {cwd:root, encoding:"utf8"});
+  assert.equal(r.status,1);
+  assert.match(r.stdout,/BLOCKED WOA-CH01-SC01/);
+  assert.match(r.stdout,/no location_id is bound/);
+  assert.match(r.stdout,/0 ready, 7 blocked, 7 total/);
+});
