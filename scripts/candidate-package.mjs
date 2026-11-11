@@ -18,6 +18,7 @@ export function createCandidatePackage({rootDir,sceneId,prompt,provider,model,at
  const scene=scenes.find(s=>s.scene_id===sceneId);
  if(!scene)throw new Error("Unknown scene_id: "+sceneId);
  if(scene.status!=="approved"||scene.approval?.status!=="approved"||!scene.approval.approved_by||!scene.approval.approved_at)throw new Error("Scene is not human-approved with recorded approver and date; candidate package generation is blocked.");\n if(!scene.location_id)throw new Error("Scene has no approved location binding.");\n if(!safe(scene.source_record)||!fs.existsSync(path.join(rootDir,scene.source_record)))throw new Error("Scene source record is missing or unsafe.");
+ if(!safe(scene.source_record))throw new Error("Scene has no safe source record path.");
  if(!scene.reference_manifest||!safe(scene.reference_manifest))throw new Error("Scene has no safe reference manifest.");
  const manifest=readAt(scene.reference_manifest);
  if(manifest.scene_id!==sceneId||manifest.generation_gate!=="ready"||!Array.isArray(manifest.references)||!manifest.references.length)throw new Error("Reference manifest is not ready for this scene.");
@@ -26,7 +27,11 @@ export function createCandidatePackage({rootDir,sceneId,prompt,provider,model,at
  const required=new Set(scene.required_assets||[]);
  for(const id of required)if(!manifest.references.some(r=>r.asset_id===id))throw new Error("Manifest omits required asset: "+id);
  const references=[];
+ const seenReferences=new Set();
  for(const r of manifest.references){
+  if(!r.asset_id||seenReferences.has(r.asset_id))throw new Error("Reference manifest contains a missing or duplicate asset ID.");
+  seenReferences.add(r.asset_id);
+  if(typeof r.purpose!=="string"||typeof r.required!=="boolean")throw new Error("Reference entry is missing purpose or required flag: "+r.asset_id);
   const asset=assetMap.get(r.asset_id);
   if(!asset||asset.status!=="approved")throw new Error("Reference asset is missing or not approved: "+r.asset_id);
   if(!/^[a-f0-9]{40}$/i.test(asset.git_blob_sha||""))throw new Error("Reference asset has no pinned Git blob SHA: "+r.asset_id);
