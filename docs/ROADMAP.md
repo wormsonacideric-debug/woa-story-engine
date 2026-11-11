@@ -17,6 +17,7 @@
 ## Production runtime
 - [x] Deterministic scene production preflight with explicit block reasons
 - [x] Sourced ticket state ledger and Eric object-handling guard
+- [x] Scene-scoped physical state ledger with source-index validation and unresolved continuity flags
 - [ ] Candidate package generator and immutable attempt folders
 - [ ] Vision evaluator adapter with evidence and confidence
 - [ ] Bounded self-correction controller
