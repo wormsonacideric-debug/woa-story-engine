@@ -9,7 +9,8 @@
     "check:strict": "node scripts/woa-check.mjs --strict",
     "test": "node --test",
     "preflight": "node scripts/scene-preflight.mjs",
-    "candidate:package": "node scripts/candidate-package.mjs"
+    "candidate:package": "node scripts/candidate-package.mjs",
+    "candidate:evaluate": "node scripts/evaluate-candidate.mjs"
   },
   "engines": {
     "node": ">=18"
