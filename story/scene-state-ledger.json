@@ -1,0 +1,194 @@
+{
+  "ledger_version": "1.0.0",
+  "policy": "Scene-scoped physical state is evidence-backed. A scene observation is not silently carried forward as a permanent state. Unknown, unmentioned and unchanged are distinct. Dialogue and stage directions remain verbatim in imported scene records.",
+  "state_model": {
+    "dimensions": [
+      "location",
+      "position",
+      "posture_or_motion",
+      "physical_condition",
+      "appearance",
+      "prop_interaction"
+    ],
+    "value_rules": [
+      "Use unknown when source does not establish a value.",
+      "Use observed_only for a transient action or position that must not be assumed to persist.",
+      "Use unresolved when source scenes conflict.",
+      "Do not infer a location from a character being a participant in a scene.",
+      "Do not infer continuity between scenes without explicit evidence.",
+      "Character knowledge belongs in knowledge-ledger.json; prop state belongs in prop-ledger.json."
+    ]
+  },
+  "state_events": [
+    {
+      "event_id": "STATE-CH01-S01-TAPPY-001",
+      "scene_id": "WOA-CH01-SC01",
+      "source_ref": "story/scenes/scene-01.json",
+      "source_transcript_index": 6,
+      "subject": "Tappy",
+      "dimension": "position",
+      "value": "works one edge of the tarpaulin loose and wriggles clear",
+      "state_scope": "observed_action",
+      "epistemic_status": "source_explicit",
+      "carry_forward": "not_assumed",
+      "notes": "Scene 1 explicitly describes Tappy wriggling clear."
+    },
+    {
+      "event_id": "STATE-CH01-S02-ERIC-001",
+      "scene_id": "WOA-CH01-SC02",
+      "source_ref": "story/scenes/scene-02.json",
+      "source_transcript_index": 1,
+      "subject": "Eric",
+      "dimension": "position",
+      "value": "wriggles clear of the tarpaulin",
+      "state_scope": "intended_or_narrated_action",
+      "epistemic_status": "source_explicit",
+      "carry_forward": "not_assumed",
+      "notes": "The stage direction is written in first person; preserve the published wording and do not infer a precise starting position."
+    },
+    {
+      "event_id": "STATE-CH01-S02-ERIC-002",
+      "scene_id": "WOA-CH01-SC02",
+      "source_ref": "story/scenes/scene-02.json",
+      "source_transcript_index": 1,
+      "subject": "Eric",
+      "dimension": "appearance",
+      "value": "hat kept firmly where it belongs",
+      "state_scope": "source_asserted_constraint",
+      "epistemic_status": "source_explicit",
+      "carry_forward": "character_canon_rule",
+      "notes": "Do not infer hat colour, orientation or other visual detail from this line."
+    },
+    {
+      "event_id": "STATE-CH01-S03-TAPPY-001",
+      "scene_id": "WOA-CH01-SC03",
+      "source_ref": "story/scenes/scene-03.json",
+      "source_transcript_index": 3,
+      "subject": "Tappy",
+      "dimension": "position",
+      "value": "finally wriggles free of the tarpaulin",
+      "state_scope": "observed_action",
+      "epistemic_status": "source_explicit",
+      "carry_forward": "not_assumed",
+      "notes": "This appears to repeat the freeing action already described in Scene 1. Flag as a continuity discrepancy; do not rewrite either scene."
+    },
+    {
+      "event_id": "STATE-CH01-S05-TICKET-001",
+      "scene_id": "WOA-CH01-SC05",
+      "source_ref": "story/scenes/scene-05.json",
+      "source_transcript_index": 15,
+      "subject": "Ticket",
+      "dimension": "prop_interaction",
+      "value": "ticket is in Eric's possession",
+      "state_scope": "scene_observation",
+      "epistemic_status": "source_explicit",
+      "carry_forward": "prop_ledger_authority",
+      "notes": "Use prop-ledger.json for possession, ownership and handling; this event records only the scene's explicit observation."
+    },
+    {
+      "event_id": "STATE-CH01-S06-ERIC-001",
+      "scene_id": "WOA-CH01-SC06",
+      "source_ref": "story/scenes/scene-06.json",
+      "source_transcript_index": 0,
+      "subject": "Eric",
+      "dimension": "prop_interaction",
+      "value": "ticket is folded against him",
+      "state_scope": "scene_observation",
+      "epistemic_status": "source_explicit",
+      "carry_forward": "prop_ledger_authority",
+      "notes": "Eric does not hold the ticket."
+    },
+    {
+      "event_id": "STATE-CH01-S06-ERIC-002",
+      "scene_id": "WOA-CH01-SC06",
+      "source_ref": "story/scenes/scene-06.json",
+      "source_transcript_index": 10,
+      "subject": "Eric",
+      "dimension": "prop_interaction",
+      "value": "nudges the ticket with the front of his body",
+      "state_scope": "observed_action",
+      "epistemic_status": "source_explicit",
+      "carry_forward": "not_assumed",
+      "notes": "Body movement, not hand or held-object interaction."
+    },
+    {
+      "event_id": "STATE-CH01-S06-TAPPY-001",
+      "scene_id": "WOA-CH01-SC06",
+      "source_ref": "story/scenes/scene-06.json",
+      "source_transcript_index": 3,
+      "subject": "Tappy",
+      "dimension": "posture_or_motion",
+      "value": "leans closer to the ticket",
+      "state_scope": "observed_action",
+      "epistemic_status": "source_explicit",
+      "carry_forward": "not_assumed",
+      "notes": "No precise distance or body posture beyond leaning closer is established."
+    },
+    {
+      "event_id": "STATE-CH01-S07-TICKET-001",
+      "scene_id": "WOA-CH01-SC07",
+      "source_ref": "story/scenes/scene-07.json",
+      "source_transcript_index": 0,
+      "subject": "Eric",
+      "dimension": "prop_interaction",
+      "value": "nudges the ticket around",
+      "state_scope": "observed_action",
+      "epistemic_status": "source_explicit",
+      "carry_forward": "prop_ledger_authority",
+      "notes": "Stage direction describes Eric nudging the ticket; no holding."
+    },
+    {
+      "event_id": "STATE-CH01-S07-ERIC-001",
+      "scene_id": "WOA-CH01-SC07",
+      "source_ref": "story/scenes/scene-07.json",
+      "source_transcript_index": 12,
+      "subject": "Eric",
+      "dimension": "prop_interaction",
+      "value": "nudges the ticket flat",
+      "state_scope": "observed_action",
+      "epistemic_status": "source_explicit",
+      "carry_forward": "not_assumed",
+      "notes": "Eric's dialogue explicitly says he nudges it flat."
+    }
+  ],
+  "snapshots": [],
+  "unresolved": [
+    {
+      "issue_id": "STATE-OPEN-001",
+      "subjects": [
+        "Tappy"
+      ],
+      "description": "Scene 1 says Tappy wriggles clear of the tarpaulin; Scene 3 again says he finally wriggles free. Whether this is a repeated beat, alternate framing or continuity error is unknown.",
+      "affected_scenes": [
+        "WOA-CH01-SC01",
+        "WOA-CH01-SC03"
+      ],
+      "resolution": "creator_review_required"
+    },
+    {
+      "issue_id": "STATE-OPEN-002",
+      "subjects": [
+        "Eric",
+        "Tappy"
+      ],
+      "description": "The imported opening scenes do not establish a complete, continuous map of character positions or locations between scene boundaries.",
+      "affected_scenes": [
+        "WOA-CH01-SC01",
+        "WOA-CH01-SC07"
+      ],
+      "resolution": "remain_unknown_until_sourced"
+    },
+    {
+      "issue_id": "STATE-OPEN-003",
+      "subjects": [
+        "Ticket"
+      ],
+      "description": "Ticket ownership, origin, exact location before Scene 5 and its precise movement between scenes remain unresolved; consult prop-ledger.json.",
+      "affected_scenes": [
+        "WOA-CH01-SC01",
+        "WOA-CH01-SC07"
+      ],
+      "resolution": "prop_ledger_authority"
+    }
+  ]
+}
