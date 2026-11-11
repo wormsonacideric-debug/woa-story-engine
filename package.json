@@ -11,7 +11,8 @@
     "preflight": "node scripts/scene-preflight.mjs",
     "candidate:package": "node scripts/candidate-package.mjs",
     "candidate:evaluate": "node scripts/evaluate-candidate.mjs",
-    "candidate:correct": "node scripts/create-correction-attempt.mjs"
+    "candidate:correct": "node scripts/create-correction-attempt.mjs",
+    "candidate:decision": "node scripts/record-human-decision.mjs"
   },
   "engines": {
     "node": ">=18"
