@@ -1,0 +1,37 @@
+{
+  "ledger_version": "1.0.0",
+  "principle": "Author knowledge is not automatically character knowledge.",
+  "knowledge_layers": [
+    "hard_canon",
+    "character_belief_or_memory",
+    "author_only_truth",
+    "developing_story",
+    "idea"
+  ],
+  "global_mystery": {
+    "name": "The Thing We Don't Talk About",
+    "character_facing_rule": "Characters do not properly remember it and instinctively avoid discussing it.",
+    "author_truth": "It connects to the Botanists, hyperspace, biological displacement and formation of the gang.",
+    "reveal_policy": "Keep it recurring and do not over-explain. Reveal author-level truth gradually."
+  },
+  "rules": [
+    "Never give a character the complete origin chronology merely because it exists in the author-level timeline.",
+    "Nigel knows he was once a lugworm but does not remember the transition.",
+    "Nigel does not consciously understand why he wants to go to the seaside.",
+    "Contradictory character memories may coexist as character-level truth; do not silently resolve them into authorial fact.",
+    "Record when a character learns a fact in an approved scene before updating their knowledge state.",
+    "Unexplained areas remain unexplained until explicitly developed."
+  ],
+  "unresolved": [
+    "The Botanists' ultimate purpose.",
+    "Why these particular entities were caught up in the event.",
+    "The identity of the discorporeal entities.",
+    "Why transformations produced these forms and personalities.",
+    "Why certain memories survived.",
+    "Why Nigel retained his lugworm sensibilities.",
+    "Why Rufus is convinced he is a dog.",
+    "Why The High Scraparral exists.",
+    "What exactly happened during the heavy festival night.",
+    "The precise nature of the Thing We Don't Talk About from the characters' perspective."
+  ]
+}
