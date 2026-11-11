@@ -168,3 +168,27 @@ test("validator rejects inferred scene-state events", () => {
     assert.match(r.stdout,/must be source_explicit/);
   } finally { rmSync(temp,{recursive:true,force:true}); }
 });
+
+test("relationship graph contains only canon-backed edges", () => {
+  const fs = awaitImportFs();
+  const graph = JSON.parse(fs.readFileSync(path.join(root,"story","relationship-graph.json"),"utf8"));
+  assert.equal(graph.edges.length,4);
+  assert.ok(graph.edges.every(e => fs.existsSync(path.join(root,e.source_record))));
+  assert.ok(graph.unresolved.some(q => q.characters.includes("CHAR-TAPPY")));
+});
+test("validator rejects an invented relationship edge", () => {
+  const temp = mkdtempSync(path.join(os.tmpdir(), "woa-relationship-"));
+  try {
+    cpSync(path.join(root,"scripts"),path.join(temp,"scripts"),{recursive:true});
+    cpSync(path.join(root,"story"),path.join(temp,"story"),{recursive:true});
+    cpSync(path.join(root,"canon"),path.join(temp,"canon"),{recursive:true});
+    const fs = awaitImportFs();
+    const p = path.join(temp,"story","relationship-graph.json");
+    const graph = JSON.parse(fs.readFileSync(p,"utf8"));
+    graph.edges[0].type = "siblings";
+    fs.writeFileSync(p,JSON.stringify(graph));
+    const r = spawnSync(process.execPath,["scripts/woa-check.mjs"],{cwd:temp,encoding:"utf8"});
+    assert.equal(r.status,1);
+    assert.match(r.stdout,/not supported by its character record/);
+  } finally { rmSync(temp,{recursive:true,force:true}); }
+});
