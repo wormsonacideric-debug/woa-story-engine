@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WOA Story Beat",
+  "type": "object",
+  "required": ["beat_id", "chapter_id", "status", "source_authority", "source_refs", "dramatic_function", "participants", "action_beats", "unresolved_questions"],
+  "properties": {
+    "beat_id": {"type": "string", "pattern": "^WOA-CH[0-9]{2}-A[0-9]{2}-B[0-9]{3}$"},
+    "chapter_id": {"type": "string"},
+    "act_id": {"type": ["string", "null"]},
+    "sequence": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["outline", "planned", "scene_draft", "approved", "blocked"]},
+    "source_authority": {"enum": ["approved_canon", "approved_outline", "creator_instruction"]},
+    "source_refs": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "dramatic_function": {"type": "string", "minLength": 1},
+    "audience_knows": {"type": "array"},
+    "character_knowledge_in": {"type": "array"},
+    "character_knowledge_out": {"type": "array"},
+    "participants": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "location_id": {"type": ["string", "null"]},
+    "action_beats": {"type": "array", "items": {"type": "string"}},
+    "continuity_in": {"type": "array"},
+    "continuity_out": {"type": "array"},
+    "required_canonical_assets": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "visual_constraints": {"type": "array", "items": {"type": "string"}},
+    "must_not_invent": {"type": "array", "items": {"type": "string"}},
+    "unresolved_questions": {"type": "array"},
+    "human_review": {"type": "object"}
+  },
+  "additionalProperties": false
+}
