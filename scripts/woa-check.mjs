@@ -64,6 +64,8 @@ info.push("Location records: "+locationCount);
 const chapters=readJson("story/chapter-registry.json");
 if(chapters){if(!Array.isArray(chapters.chapters))errors.push("chapter-registry.chapters must be an array.");else{if(chapters.chapters.length!==17)errors.push("Expected imported 17-chapter structure; found "+chapters.chapters.length+".");info.push("Chapter records: "+chapters.chapters.length);}}
 const knowledge=readJson("story/knowledge-ledger.json");
+const knowledgeSceneSources=new Map((scenes?.scenes||[]).map(s=>[s.scene_id,s.source_record]));
+
 if(knowledge){
   if(!Array.isArray(knowledge.rules)||!Array.isArray(knowledge.state_events)||!Array.isArray(knowledge.unresolved))errors.push("Knowledge ledger collections must be arrays.");
   const seenKnowledge=new Set();
@@ -79,7 +81,10 @@ if(knowledge){
     if(e.holder!=="author"&&e.epistemic_status==="author_only")errors.push("Author-only truth cannot be assigned to character "+e.holder+".");
     if(e.holder!=="author"&&!e.scene_id)errors.push("Character knowledge event "+e.event_id+" requires a scene_id.");
     if(e.scene_id&&!/^WOA-CH[0-9]{2}-SC[0-9]{2}$/.test(e.scene_id))errors.push("Knowledge event "+e.event_id+" has invalid scene_id.");
-    if(e.scene_id&&!fs.existsSync(path.join(root,e.source_ref)))errors.push("Knowledge event "+e.event_id+" source_ref does not exist.");
+    if(typeof e.source_ref!=="string"||path.isAbsolute(e.source_ref)||e.source_ref.split(/[\\/]/).includes(".."))errors.push("Knowledge event "+e.event_id+" has unsafe source_ref.");
+    else if(!fs.existsSync(path.join(root,e.source_ref)))errors.push("Knowledge event "+e.event_id+" source_ref does not exist.");
+    if(e.scene_id&&knowledgeSceneSources.has(e.scene_id)&&knowledgeSceneSources.get(e.scene_id)!==e.source_ref)errors.push("Knowledge event "+e.event_id+" source_ref does not match its scene record.");
+    if(e.scene_id&&!knowledgeSceneSources.has(e.scene_id))errors.push("Knowledge event "+e.event_id+" references an unregistered scene.");
   }
   info.push("Knowledge events: "+(knowledge.state_events||[]).length);
 }
