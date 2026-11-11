@@ -1,0 +1,23 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"WOA Artwork Asset",
+  "type":"object",
+  "required":["asset_id","filename","media_type","sha256","authority","status"],
+  "properties":{
+    "asset_id":{"type":"string","pattern":"^ASSET-[A-Z0-9-]+$"},
+    "filename":{"type":"string","minLength":1},
+    "media_type":{"type":"string"},
+    "width":{"type":["integer","null"],"minimum":1},
+    "height":{"type":["integer","null"],"minimum":1},
+    "sha256":{"type":"string","pattern":"^[a-fA-F0-9]{64}$"},
+    "source":{"type":"string"},
+    "authority":{"enum":["character_identity","location_identity","prop_identity","style_reference","approved_scene","other"]},
+    "subject_id":{"type":["string","null"]},
+    "status":{"enum":["candidate","approved","deprecated","rejected"]},
+    "approved_by":{"type":["string","null"]},
+    "approved_at":{"type":["string","null"]},
+    "supersedes":{"type":["string","null"]},
+    "notes":{"type":"string"}
+  },
+  "additionalProperties":false
+}
