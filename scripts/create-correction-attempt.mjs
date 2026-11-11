@@ -27,7 +27,7 @@ export function createCorrectionAttempt({attemptDir,evaluationPath,correctionId,
  fs.mkdirSync(dest,{recursive:false});
  try{
   const snapshots={};
-  const copySnapshot=(key,item)=>{if(!item||!safe(item.path))throw new Error("Invalid snapshot path: "+key);const source=path.join(parent,item.path);if(!fs.existsSync(source)||hashFile(source)!==item.sha256)throw new Error("Parent snapshot integrity check failed: "+key);const target=path.join(dest,item.path);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(source,target,{flag:"wx"});snapshots[key]={...item};};
+  const copySnapshot=(key,item)=>{if(!item||!safe(item.path))throw new Error("Invalid snapshot path: "+key);const source=path.join(parent,item.path);if(!fs.existsSync(source)||hashFile(source)!==item.sha256)throw new Error("Parent snapshot integrity check failed: "+key);const target=path.join(dest,item.path);fs.mkdirSync(path.dirname(target),{recursive:true});if(fs.existsSync(target))throw new Error("Correction snapshot target already exists: "+key);fs.copyFileSync(source,target);snapshots[key]={...item};};
   for(const [key,value] of Object.entries(pkg.snapshots)){if(Array.isArray(value))snapshots[key]=value.map((item,i)=>{const k=key+"-"+i;copySnapshot(k,item);return {...item};});else copySnapshot(key,value);}
   const guidance=evaluation.correction_guidance||[];
   if(!guidance.length)throw new Error("Correction evaluation has no actionable correction_guidance.");
