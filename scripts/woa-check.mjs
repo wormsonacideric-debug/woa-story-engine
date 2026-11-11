@@ -24,7 +24,7 @@ if(s.scene_id)seen.add(s.scene_id);
 for(const k of ["title","action","narrative_purpose"])if(typeof s[k]!=="string"||!s[k].trim())errors.push("Scene "+(s.scene_id||"unknown")+" missing "+k);
 if(!Array.isArray(s.characters))errors.push("Scene "+s.scene_id+" characters must be an array.");
 if(s.characters?.includes("Eric")&&Array.isArray(s.props)&&s.props.some(p=>p?.held_by==="Eric"))errors.push("Eric cannot hold objects in scene "+s.scene_id);
-if(["ready","in_production","candidate_review","approved"].includes(s.status)){
+if(["ready","in_production","candidate_review"].includes(s.status)){
 if(!s.reference_manifest){errors.push("Scene "+s.scene_id+" lacks reference_manifest.");continue;}
 const mp=s.reference_manifest;
 if(typeof mp!=="string"||path.isAbsolute(mp)||mp.split(/[\\/]/).includes("..")){errors.push("Scene "+s.scene_id+" has unsafe reference_manifest path.");continue;}
@@ -91,6 +91,7 @@ if(knowledge){
 if(reg?.assets?.length===0)warnings.push("No canonical artwork registered; image production must remain blocked.");
 if(scenes?.scenes?.length===0)warnings.push("No scenes registered; import current approved story before production.");
 if(scenes?.scenes?.length>0&&!scenes.scenes.some(s=>s.status==="approved"))warnings.push("No scene has human approval for image production; imported website scenes remain source material until reviewed.");
+if(scenes?.scenes?.some(s=>s.status==="approved"&&(!s.location_id||!s.reference_manifest)))warnings.push("At least one human-approved scene is still awaiting location/reference binding; production preflight remains mandatory.");
 if(reg?.assets?.some(a=>a.status==="candidate"))warnings.push("Candidate assets must not be used as canonical references.");
 
 const beats=readJson("story/beat-registry.json");
@@ -133,7 +134,7 @@ for(const p of characterPaths){const c=readJson(p);if(c?.name)characterAssets.se
 const locationAssets=new Map();
 for(const p of locationPaths){const l=readJson(p);if(l?.location_id)locationAssets.set(l.location_id,l.canonical_asset_ids||[]);}
 for(const s of scenes?.scenes||[]){
-  if(["ready","in_production","candidate_review","approved"].includes(s.status)){
+  if(["ready","in_production","candidate_review"].includes(s.status)){
     if(!s.location_id)errors.push("Production scene "+s.scene_id+" has no location_id.");
     const required=new Set(s.required_assets||[]);
     for(const name of s.characters||[]){
