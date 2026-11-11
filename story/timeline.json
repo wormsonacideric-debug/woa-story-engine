@@ -1,1 +1,167 @@
-{"timeline_version":"1.0.0","events":[],"note":"Populate only from approved story events. Do not infer dates or ordering."}
+{
+  "timeline_version": "1.1.0",
+  "ordering": "relative_only",
+  "absolute_dates": "not_established",
+  "events": [
+    {
+      "event_id": "EV-ACTUAL-001",
+      "sequence": 1,
+      "chronology": "actual_author_chronology",
+      "label": "Ordinary pre-event existence",
+      "summary": "The individual biological entities exist in their ordinary forms before the displacement event.",
+      "characters": [
+        "CHAR-ERIC",
+        "CHAR-EDWIN",
+        "CHAR-NIGEL",
+        "CHAR-RUFUS",
+        "CHAR-TAPPY",
+        "CHAR-MANNI"
+      ],
+      "knowledge_class": "author_only",
+      "source": "WOA Story Universe Baseline v1.0"
+    },
+    {
+      "event_id": "EV-ACTUAL-002",
+      "sequence": 2,
+      "chronology": "actual_author_chronology",
+      "label": "Abduction / hyperspace event",
+      "summary": "A Botanist craft displaces biological matter toward Earth through a temporary spacetime rip exposing hyperspace. Biological organisation is scrambled; passing discorporeal sentient entities are also accidentally pulled into the fracture. The event occurs in an eternal picosecond and produces a brief intense flash in a field at night.",
+      "characters": [
+        "CHAR-ERIC",
+        "CHAR-EDWIN",
+        "CHAR-NIGEL",
+        "CHAR-RUFUS",
+        "CHAR-TAPPY",
+        "CHAR-MANNI"
+      ],
+      "knowledge_class": "author_only",
+      "source": "WOA Story Universe Baseline v1.0"
+    },
+    {
+      "event_id": "EV-ACTUAL-003",
+      "sequence": 3,
+      "chronology": "actual_author_chronology",
+      "label": "Crop-circle awakening",
+      "summary": "At sunrise the newly altered beings wake in a crop circle, confused and disoriented; memories are already fading. Their shared experience bonds them.",
+      "characters": [
+        "CHAR-ERIC",
+        "CHAR-EDWIN",
+        "CHAR-NIGEL",
+        "CHAR-RUFUS",
+        "CHAR-TAPPY",
+        "CHAR-MANNI"
+      ],
+      "knowledge_class": "character_experience_with_missing_or_fragmentary_memory",
+      "source": "WOA Story Universe Baseline v1.0"
+    },
+    {
+      "event_id": "EV-ACTUAL-004",
+      "sequence": 4,
+      "chronology": "actual_author_chronology",
+      "label": "First journey and naming",
+      "summary": "The group travels uphill toward sunlight, decides to stay together and names emerge: Eric already feels like Eric; the second earthworm becomes Edwin; the miniature monoplodocus becomes Manni; the tapeworm blurts out Tappy; the lugworm points at the shark and says Rufus; the lugworm then falls while coordinating new limbs and the sound resembles Nigel.",
+      "characters": [
+        "CHAR-ERIC",
+        "CHAR-EDWIN",
+        "CHAR-NIGEL",
+        "CHAR-RUFUS",
+        "CHAR-TAPPY",
+        "CHAR-MANNI"
+      ],
+      "knowledge_class": "character_experience_with_missing_or_fragmentary_memory",
+      "source": "WOA Story Universe Baseline v1.0"
+    },
+    {
+      "event_id": "EV-ACTUAL-005",
+      "sequence": 5,
+      "chronology": "actual_author_chronology",
+      "label": "First festival encounter",
+      "summary": "At the crest of the hill the group sees a music festival and enters; music becomes important to Eric and the group's developing identity.",
+      "characters": [
+        "CHAR-ERIC",
+        "CHAR-EDWIN",
+        "CHAR-NIGEL",
+        "CHAR-RUFUS",
+        "CHAR-TAPPY",
+        "CHAR-MANNI"
+      ],
+      "knowledge_class": "character_experience_with_missing_or_fragmentary_memory",
+      "source": "WOA Story Universe Baseline v1.0"
+    },
+    {
+      "event_id": "EV-ACTUAL-006",
+      "sequence": 6,
+      "chronology": "actual_author_chronology",
+      "label": "Heavy night",
+      "summary": "The extraordinary festival night is followed by a very heavy night which ultimately leads to the High Scraparral/scrapyard awakening. The precise events remain deliberately unexplained.",
+      "characters": [
+        "CHAR-ERIC",
+        "CHAR-EDWIN",
+        "CHAR-NIGEL",
+        "CHAR-RUFUS",
+        "CHAR-TAPPY",
+        "CHAR-MANNI"
+      ],
+      "knowledge_class": "author_only_until_revealed",
+      "source": "WOA Story Universe Baseline v1.0"
+    },
+    {
+      "event_id": "EV-ACTUAL-007",
+      "sequence": 7,
+      "chronology": "actual_author_chronology",
+      "label": "High Scraparral awakening",
+      "summary": "The gang's later experience begins at the scrapyard, which is the audience's starting point. Nigel owns The High Scraparral; its deeper origin is not immediately explained.",
+      "characters": [
+        "CHAR-ERIC",
+        "CHAR-EDWIN",
+        "CHAR-NIGEL",
+        "CHAR-RUFUS",
+        "CHAR-TAPPY",
+        "CHAR-MANNI"
+      ],
+      "knowledge_class": "character_experience_with_missing_or_fragmentary_memory",
+      "source": "WOA Story Universe Baseline v1.0"
+    },
+    {
+      "event_id": "EV-AUDIENCE-001",
+      "sequence": 1,
+      "chronology": "audience_reveal_order",
+      "label": "The Morning After / scrapyard",
+      "summary": "Audience begins at the High Scraparral after the heavy night; mystery is introduced.",
+      "knowledge_class": "audience_view"
+    },
+    {
+      "event_id": "EV-AUDIENCE-002",
+      "sequence": 2,
+      "chronology": "audience_reveal_order",
+      "label": "Manchester, crew, music and onward investigation",
+      "summary": "The five-chapter opening moves through Manchester, the crew, music and broader investigation.",
+      "knowledge_class": "audience_view"
+    },
+    {
+      "event_id": "EV-AUDIENCE-003",
+      "sequence": 3,
+      "chronology": "audience_reveal_order",
+      "label": "Mystery clues and DTR material",
+      "summary": "The larger arc follows clues, contradictory memories, a photograph, the artist/DTR, historical drawings and the deeper history.",
+      "knowledge_class": "audience_view"
+    },
+    {
+      "event_id": "EV-AUDIENCE-004",
+      "sequence": 4,
+      "chronology": "audience_reveal_order",
+      "label": "Origin revealed",
+      "summary": "The audience is shown the abduction, crop-circle awakening, naming, festival and heavy night.",
+      "knowledge_class": "audience_view"
+    },
+    {
+      "event_id": "EV-AUDIENCE-005",
+      "sequence": 5,
+      "chronology": "audience_reveal_order",
+      "label": "Return to scrapyard",
+      "summary": "The narrative arrives at the beginning already seen, completing a circular structure rather than a time loop.",
+      "knowledge_class": "audience_view"
+    }
+  ],
+  "note": "Actual author chronology and audience reveal order are intentionally separate. The circular narrative is not a time loop. Absolute dates and detailed scene transitions remain unestablished."
+}
