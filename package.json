@@ -13,7 +13,8 @@
     "candidate:evaluate": "node scripts/evaluate-candidate.mjs",
     "candidate:correct": "node scripts/create-correction-attempt.mjs",
     "candidate:decision": "node scripts/record-human-decision.mjs",
-    "candidate:vision": "node scripts/vision-evaluation-adapter.mjs"
+    "candidate:vision": "node scripts/vision-evaluation-adapter.mjs",
+    "candidate:vision:run": "node scripts/run-vision-provider.mjs"
   },
   "engines": {
     "node": ">=18"
