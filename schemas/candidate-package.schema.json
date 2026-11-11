@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WOA Candidate Input Package",
+  "type": "object",
+  "required": [
+    "package_version",
+    "attempt_id",
+    "scene_id",
+    "created_at",
+    "immutable",
+    "stage",
+    "human_approval_required",
+    "scene",
+    "prompt",
+    "references",
+    "snapshots",
+    "output",
+    "evaluation",
+    "approval",
+    "iteration"
+  ],
+  "properties": {
+    "package_version": {
+      "type": "string"
+    },
+    "attempt_id": {
+      "type": "string"
+    },
+    "scene_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "immutable": {
+      "const": true
+    },
+    "stage": {
+      "const": "candidate_input_package"
+    },
+    "human_approval_required": {
+      "const": true
+    },
+    "scene": {
+      "type": "object"
+    },
+    "prompt": {
+      "type": "object",
+      "required": [
+        "text",
+        "provider",
+        "model"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "minItems": 1
+    },
+    "snapshots": {
+      "type": "object"
+    },
+    "output": {
+      "type": "object"
+    },
+    "evaluation": {
+      "type": "object"
+    },
+    "approval": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "pending"
+        }
+      }
+    },
+    "iteration": {
+      "const": 1
+    }
+  },
+  "additionalProperties": false
+}
