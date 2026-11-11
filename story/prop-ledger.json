@@ -1,5 +1,47 @@
 {
-  "ledger_version": "1.0.0",
-  "policy": "Track only props introduced by approved canon or approved scenes. Ownership, possession and physical holding are separate fields. Eric must never be recorded as holding an object.",
-  "props": []
+  "ledger_version": "1.1.0",
+  "policy": "Track only props introduced by published source or approved canon. Ownership, possession, location and physical handling are separate. Unknown is not false. Eric must never be recorded as holding an object.",
+  "props": [
+    {
+      "prop_id": "PROP-TICKET-CH01",
+      "name": "Ticket",
+      "owner": null,
+      "possessor": "Eric",
+      "held_by": null,
+      "location_id": null,
+      "continuity_status": "partially_established",
+      "unresolved": [
+        "Ownership is not established.",
+        "Exact physical location/orientation before Scene 5 is not established.",
+        "Do not infer who originally placed the ticket with Eric."
+      ],
+      "state_events": [
+        {
+          "scene_id": "WOA-CH01-SC01",
+          "source_ref": "story/scene-01.html",
+          "event": "Tappy asks whether the reader has a ticket; no physical ticket state is established in this scene."
+        },
+        {
+          "scene_id": "WOA-CH01-SC02",
+          "source_ref": "story/scene-02.html",
+          "event": "Eric says he knows of no ticket and speculates Nigel may have left one behind; this is not confirmation of ownership or possession."
+        },
+        {
+          "scene_id": "WOA-CH01-SC05",
+          "source_ref": "story/scene-05.html",
+          "event": "Stage direction identifies the ticket as being in Eric's possession."
+        },
+        {
+          "scene_id": "WOA-CH01-SC06",
+          "source_ref": "story/scene-06.html",
+          "event": "Eric describes it as folded against him and says he will nudge it over with the front of his body; Tappy leans closer."
+        },
+        {
+          "scene_id": "WOA-CH01-SC07",
+          "source_ref": "story/scene-07.html",
+          "event": "Tappy reads the ticket as The Warehouse, Manchester, Saturday 23 September '94; Eric nudges it flat."
+        }
+      ]
+    }
+  ]
 }
