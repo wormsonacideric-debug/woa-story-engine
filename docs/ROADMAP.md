@@ -21,6 +21,7 @@
 - [x] Candidate input package generator and immutable attempt folders
 - [x] Evaluation record contract with evidence, confidence, candidate/package hashes and decision guardrails
 - [ ] Vision evaluator adapter with evidence and confidence
+- [x] Bounded correction-attempt controller with immutable lineage and hard stop
 - [ ] Bounded self-correction controller
 - [ ] Approval command and append-only decision log
 - [ ] Asset manifest/hash verification for local and remote sources
