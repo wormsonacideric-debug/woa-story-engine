@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WOA Character Relationship Graph",
+  "type": "object",
+  "required": [
+    "graph_version",
+    "policy",
+    "nodes",
+    "edges",
+    "unresolved"
+  ],
+  "properties": {
+    "graph_version": {
+      "type": "string"
+    },
+    "policy": {
+      "type": "string"
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "character_id",
+          "record"
+        ]
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "edge_id",
+          "from",
+          "to",
+          "type",
+          "direction",
+          "source_record",
+          "source_field",
+          "source_authority"
+        ]
+      }
+    },
+    "unresolved": {
+      "type": "array"
+    }
+  }
+}
