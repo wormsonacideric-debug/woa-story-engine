@@ -1,0 +1,16 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"WOA Character Record",
+  "type":"object",
+  "required":["character_id","name","status","canonical_asset_ids","approved_facts","constraints"],
+  "properties":{
+    "character_id":{"type":"string"},
+    "name":{"type":"string"},
+    "status":{"enum":["active","inactive","unknown"]},
+    "canonical_asset_ids":{"type":"array","items":{"type":"string"}},
+    "approved_facts":{"type":"array","items":{"type":"string"}},
+    "constraints":{"type":"array","items":{"type":"string"}},
+    "relationships":{"type":"array"}
+  },
+  "additionalProperties":false
+}
