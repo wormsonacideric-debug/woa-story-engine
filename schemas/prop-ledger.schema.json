@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WOA Prop Ledger",
+  "type": "object",
+  "required": ["ledger_version", "props"],
+  "properties": {
+    "ledger_version": {"type": "string"},
+    "policy": {"type": "string"},
+    "props": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["prop_id", "name"],
+        "properties": {
+          "prop_id": {"type": "string"},
+          "name": {"type": "string"},
+          "owner": {"type": ["string", "null"]},
+          "possessor": {"type": ["string", "null"]},
+          "held_by": {"type": ["string", "null"]},
+          "location_id": {"type": ["string", "null"]},
+          "source_refs": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}
