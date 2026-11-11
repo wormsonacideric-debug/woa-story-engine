@@ -11,7 +11,9 @@ if(reg&&Array.isArray(reg.assets)){for(const a of reg.assets){
 if(!a.asset_id||!/^ASSET-[A-Z0-9-]+$/.test(a.asset_id))errors.push("Invalid asset_id.");
 if(a.asset_id&&assets.has(a.asset_id))errors.push("Duplicate asset_id: "+a.asset_id);
 if(a.asset_id)assets.set(a.asset_id,a);
-if(!/^[a-fA-F0-9]{64}$/.test(a.sha256||""))errors.push("Invalid SHA-256 for "+(a.asset_id||"unknown"));
+if(a.sha256!==null&&!/^[a-fA-F0-9]{64}$/.test(a.sha256||""))errors.push("Invalid SHA-256 for "+(a.asset_id||"unknown"));
+if(!/^[a-fA-F0-9]{40}$/.test(a.git_blob_sha||""))errors.push("Invalid Git blob SHA for "+(a.asset_id||"unknown"));
+if(!a.source_ref)errors.push("Missing source_ref for "+(a.asset_id||"unknown"));
 if(!["candidate","approved","deprecated","rejected"].includes(a.status))errors.push("Invalid status for "+(a.asset_id||"unknown"));
 if(!a.filename)errors.push("Missing filename for "+(a.asset_id||"unknown"));
 }info.push("Artwork records: "+reg.assets.length);}
@@ -36,8 +38,9 @@ const asset=assets.get(ref.asset_id);
 if(!asset)errors.push("Manifest "+mp+" references unknown asset "+ref.asset_id+".");
 else{
 if(asset.status!=="approved")errors.push("Manifest "+mp+" references non-approved asset "+ref.asset_id+".");
-if(ref.sha256&&ref.sha256.toLowerCase()!==String(asset.sha256).toLowerCase())errors.push("Manifest "+mp+" hash mismatch for "+ref.asset_id+".");
-if(ref.required===true&&!ref.sha256)errors.push("Required reference "+ref.asset_id+" has no bound SHA-256.");
+if(ref.sha256&&asset.sha256&&ref.sha256.toLowerCase()!==String(asset.sha256).toLowerCase())errors.push("Manifest "+mp+" SHA-256 mismatch for "+ref.asset_id+".");
+if(ref.git_blob_sha&&ref.git_blob_sha.toLowerCase()!==String(asset.git_blob_sha).toLowerCase())errors.push("Manifest "+mp+" Git blob mismatch for "+ref.asset_id+".");
+if(ref.required===true&&!ref.sha256&&!ref.git_blob_sha)errors.push("Required reference "+ref.asset_id+" has no bound content hash.");
 }
 }
 for(const id of s.required_assets||[])if(!(manifest.references||[]).some(x=>x.asset_id===id))errors.push("Scene "+s.scene_id+" required asset "+id+" is not bound.");
