@@ -34,3 +34,20 @@ test("validator rejects malformed asset identifiers and hashes", () => {
 });
 function awaitImportFs(){ return requireFs; }
 import * as requireFs from "node:fs";
+
+test("validator blocks Eric being assigned a held prop", () => {
+  const temp = mkdtempSync(path.join(os.tmpdir(), "woa-eric-prop-"));
+  try {
+    cpSync(path.join(root, "scripts"), path.join(temp, "scripts"), {recursive:true});
+    cpSync(path.join(root, "story"), path.join(temp, "story"), {recursive:true});
+    cpSync(path.join(root, "canon"), path.join(temp, "canon"), {recursive:true});
+    const fs = awaitImportFs();
+    const ledgerPath = path.join(temp, "story", "prop-ledger.json");
+    const ledger = JSON.parse(fs.readFileSync(ledgerPath, "utf8"));
+    ledger.props.push({prop_id:"PROP-TEST",name:"Test prop",held_by:"Eric"});
+    fs.writeFileSync(ledgerPath, JSON.stringify(ledger));
+    const r = spawnSync(process.execPath, ["scripts/woa-check.mjs"], {cwd:temp, encoding:"utf8"});
+    assert.equal(r.status, 1);
+    assert.match(r.stdout, /Eric cannot hold prop PROP-TEST/);
+  } finally { rmSync(temp,{recursive:true,force:true}); }
+});
