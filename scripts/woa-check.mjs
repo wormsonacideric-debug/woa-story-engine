@@ -68,6 +68,49 @@ if(knowledge&&!Array.isArray(knowledge.rules))errors.push("knowledge-ledger.rule
 if(reg?.assets?.length===0)warnings.push("No canonical artwork registered; image production must remain blocked.");
 if(scenes?.scenes?.length===0)warnings.push("No scenes registered; import current approved story before production.");
 if(reg?.assets?.some(a=>a.status==="candidate"))warnings.push("Candidate assets must not be used as canonical references.");
+
+const beats=readJson("story/beat-registry.json");
+if(beats){
+  if(!Array.isArray(beats.beats))errors.push("beat-registry.beats must be an array.");
+  else{
+    const seenBeats=new Set();
+    for(const b of beats.beats){
+      if(!b.beat_id||!/^WOA-CH[0-9]{2}-A[0-9]{2}-B[0-9]{3}$/.test(b.beat_id))errors.push("Invalid beat_id.");
+      if(seenBeats.has(b.beat_id))errors.push("Duplicate beat_id: "+b.beat_id);
+      seenBeats.add(b.beat_id);
+      if(!Array.isArray(b.source_refs)||b.source_refs.length===0)errors.push("Beat "+b.beat_id+" has no source_refs.");
+      if(!["approved_canon","approved_outline","creator_instruction"].includes(b.source_authority))errors.push("Beat "+b.beat_id+" has invalid source_authority.");
+      if(!b.dramatic_function||!Array.isArray(b.action_beats)||!Array.isArray(b.unresolved_questions))errors.push("Beat "+b.beat_id+" is missing planning fields.");
+    }
+    info.push("Story beats: "+beats.beats.length);
+  }
+}
+const continuity=readJson("story/continuity-ledger.json");
+if(continuity&&(!Array.isArray(continuity.characters)||!Array.isArray(continuity.locations)||!Array.isArray(continuity.open_questions)))errors.push("Continuity ledger collections must be arrays.");
+const props=readJson("story/prop-ledger.json");
+if(props){
+  if(!Array.isArray(props.props))errors.push("prop-ledger.props must be an array.");
+  else for(const p of props.props)if(p.held_by==="Eric")errors.push("Eric cannot hold prop "+(p.prop_id||p.name||"unknown")+".");
+}
+const characterAssets=new Map();
+for(const p of characterPaths){const c=readJson(p);if(c?.name)characterAssets.set(c.name,c.canonical_asset_ids||[]);}
+const locationAssets=new Map();
+for(const p of locationPaths){const l=readJson(p);if(l?.location_id)locationAssets.set(l.location_id,l.canonical_asset_ids||[]);}
+for(const s of scenes?.scenes||[]){
+  if(["ready","in_production","candidate_review","approved"].includes(s.status)){
+    if(!s.location_id)errors.push("Production scene "+s.scene_id+" has no location_id.");
+    const required=new Set(s.required_assets||[]);
+    for(const name of s.characters||[]){
+      const ids=characterAssets.get(name);
+      if(!ids)errors.push("Production scene "+s.scene_id+" has no character canon record for "+name+".");
+      else for(const id of ids)if(!required.has(id))errors.push("Production scene "+s.scene_id+" must require canonical character asset "+id+".");
+    }
+    const ids=locationAssets.get(s.location_id);
+    if(!ids)errors.push("Production scene "+s.scene_id+" has no location canon record for "+s.location_id+".");
+    else for(const id of ids)if(!required.has(id))errors.push("Production scene "+s.scene_id+" must require canonical location asset "+id+".");
+  }
+}
+
 if(strict&&warnings.length)errors.push("Strict mode: warnings treated as errors.");
 console.log("WOA Story Engine — validation report");
 info.forEach(x=>console.log("INFO: "+x));warnings.forEach(x=>console.log("WARN: "+x));errors.forEach(x=>console.log("ERROR: "+x));
