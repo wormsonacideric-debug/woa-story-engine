@@ -1,0 +1,51 @@
+{
+  "character_id": "CHAR-NIGEL",
+  "name": "Nigel",
+  "status": "active",
+  "canonical_asset_ids": [
+    "ASSET-CHAR-NIGEL"
+  ],
+  "approved_facts": [
+    "Nigel was formerly a lugworm/sandworm and now has arms, legs, hands and feet.",
+    "Nigel owns The High Scraparral.",
+    "Nigel is practical, quiet, loyal and a reluctant team player.",
+    "Nigel is slow and deliberate, easily distracted and often needs Rufus to guide him.",
+    "Nigel is excellent at fixing things and making almost anything out of almost anything else.",
+    "Nigel is the main stabilising force of the gang.",
+    "Nigel and Eric are best friends.",
+    "Nigel knows he was once a lugworm but does not remember the transition.",
+    "Nigel wants to go to the seaside without consciously understanding why.",
+    "Nigel's knitted patterned pom-pom hat belongs to Nigel and must not migrate to Eric (artwork register)."
+  ],
+  "constraints": [
+    "Preserve Nigel's canonical image and owned attributes.",
+    "Do not give Nigel knowledge of the origin event unless a scene establishes that he has learned it.",
+    "Do not transfer his hat to Eric."
+  ],
+  "relationships": [
+    {
+      "character_id": "CHAR-ERIC",
+      "type": "best_friends",
+      "source": "Story Universe Baseline v1.0"
+    },
+    {
+      "character_id": "CHAR-RUFUS",
+      "type": "companion_and_guide",
+      "source": "Story Universe Baseline v1.0"
+    }
+  ],
+  "knowledge_profile": {
+    "knows": [
+      "He was once a lugworm.",
+      "He does not remember the transition.",
+      "He feels an unexplained desire to go to the seaside."
+    ],
+    "does_not_know": [
+      "The full Botanists/hyperspace origin chronology."
+    ],
+    "uncertain": [
+      "Why he wants to go to the seaside; fragments of his past."
+    ]
+  },
+  "source_authority": "WOA Story Universe Baseline v1.0, Canonical Artwork Register v25 and user-approved website canonical image."
+}
