@@ -10,11 +10,11 @@ node scripts/vision-evaluation-adapter.mjs --prepare \
   --candidate candidate.png
 ```
 
-The immutable task packet is written to `vision-tasks/`. It contains the exact candidate/package SHA-256 hashes, scene brief, prompt context, required reference IDs, approved reference URLs derived from pinned Git blob sources, and the ten evaluation criteria. It does not embed image bytes or call a model; provide the candidate image and task packet to a vision-capable model/provider.
+The immutable task packet is written to `vision-tasks/`. It contains the exact candidate/package SHA-256 hashes, scene brief, prompt context, required reference IDs, approved reference locators accompanied by their pinned Git blob SHAs (the URL alone is not the integrity proof), and the ten evaluation criteria. It does not embed image bytes or call a model; provide the candidate image and task packet to a vision-capable model/provider.
 
 ## Response contract
 
-The provider must return JSON in this shape (all ten criteria required):
+The provider must fetch/inspect each reference and verify its bytes against the supplied Git blob SHA before evaluating it; if it cannot verify or access a reference, mark the affected criterion UNKNOWN. The adapter enforces blocking status itself, so a provider cannot downgrade canon-critical checks. The provider must return JSON in this shape (all ten criteria required):
 
 ```json
 {
