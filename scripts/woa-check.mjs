@@ -197,6 +197,36 @@ if(sceneState){
   info.push("Scene-state events: "+(sceneState.state_events||[]).length);
 }
 
+
+const relationshipGraph=readJson("story/relationship-graph.json");
+if(relationshipGraph){
+  if(!Array.isArray(relationshipGraph.nodes)||!Array.isArray(relationshipGraph.edges)||!Array.isArray(relationshipGraph.unresolved))errors.push("Relationship graph collections must be arrays.");
+  const nodeIds=new Set();
+  for(const n of relationshipGraph.nodes||[]){
+    if(!n.character_id||nodeIds.has(n.character_id))errors.push("Missing or duplicate relationship node: "+(n.character_id||"unknown"));
+    nodeIds.add(n.character_id);
+    if(!n.record||!fs.existsSync(path.join(root,n.record)))errors.push("Relationship node "+n.character_id+" has no valid character record.");
+    else{
+      const c=readJson(n.record);
+      if(c?.character_id!==n.character_id)errors.push("Relationship node "+n.character_id+" does not match its character record.");
+    }
+  }
+  const edgeIds=new Set();
+  for(const e of relationshipGraph.edges||[]){
+    if(!e.edge_id||edgeIds.has(e.edge_id))errors.push("Missing or duplicate relationship edge: "+(e.edge_id||"unknown"));
+    edgeIds.add(e.edge_id);
+    if(!nodeIds.has(e.from)||!nodeIds.has(e.to))errors.push("Relationship edge "+e.edge_id+" references an unknown character.");
+    if(!["mutual","directed"].includes(e.direction))errors.push("Relationship edge "+e.edge_id+" has invalid direction.");
+    if(!e.source_record||!fs.existsSync(path.join(root,e.source_record)))errors.push("Relationship edge "+e.edge_id+" has no valid source record.");
+    else{
+      const source=readJson(e.source_record);
+      const target=(source?.relationships||[]).some(r=>r.character_id===e.to&&r.type===e.type);
+      if(!target)errors.push("Relationship edge "+e.edge_id+" is not supported by its character record.");
+    }
+  }
+  info.push("Relationship edges: "+(relationshipGraph.edges||[]).length);
+}
+
 if(strict&&warnings.length)errors.push("Strict mode: warnings treated as errors.");
 console.log("WOA Story Engine — validation report");
 info.forEach(x=>console.log("INFO: "+x));warnings.forEach(x=>console.log("WARN: "+x));errors.forEach(x=>console.log("ERROR: "+x));
