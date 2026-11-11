@@ -19,6 +19,7 @@ A production system for the WOA story universe across illustrated chapters, soci
 - Five-chapter opening nested within a 17-chapter mystery arc.
 - Actual author chronology, audience reveal order and character knowledge ledger.
 - Character and location records, schemas, portable agent skills and deterministic validator.
+- Source-linked beat registry, continuity and prop ledgers, scene-production workflow and preflight rules.
 
 ## Important limits
 Arthur, Edwin and Brian are known characters but their visual artwork is not yet imported. Peter has only the confirmed Early Bird designation. Chapters 6–17 have outline-level summaries, not full scripts. No scene has been approved for image production by this import alone.
@@ -28,19 +29,22 @@ Requires Node.js 18+.
 ~~~bash
 node scripts/woa-check.mjs
 node scripts/woa-check.mjs --strict
+npm test
 ~~~
 
+Read docs/SCENE-PRODUCTION.md before creating beats or scenes. Use story/templates/scene-beat.template.json for source-linked beat planning and story/templates/scene.template.json for scene records.
+
 ## Layout
-`canon/` visual rules, character/location records and artwork registry
-`story/` story bible, timeline, chapters, knowledge and scenes
-`schemas/` JSON data contracts
-`skills/` agent instructions
-`work/` candidate packages
-`approved/` approved manifests and provenance
-`evaluation/` evaluation rubric
-`scripts/` deterministic validation
-`tests/` fixtures
-`docs/` workflow, setup and roadmap
+- canon/: visual rules, character/location records and artwork registry
+- story/: story bible, timeline, chapters, knowledge, beats, continuity, props and scenes
+- schemas/: JSON data contracts
+- skills/: agent instructions
+- work/: candidate packages
+- approved/: approved manifests and provenance
+- evaluation/: evaluation rubric
+- scripts/: deterministic validation
+- tests/: fixtures
+- docs/: workflow, setup and roadmap
 
 ## Current status
 This is a structured story-production foundation, not yet an autonomous image-generation service. No image model, cloud asset store, Trello board or publishing platform is connected. Integrations must not bypass reference binding, provenance or human approval.
