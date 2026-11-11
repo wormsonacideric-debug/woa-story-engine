@@ -1,0 +1,22 @@
+Create one new illustrated scene image for WORMS ON ACID, Scene 1: “The Stranger”.
+
+SOURCE ACTION — preserve only what is established in the approved scene:
+- Tappy is initially trapped beneath a tarpaulin.
+- Tappy works one edge loose and wriggles clear.
+- Tappy is present in a yard with a trail leading through it and out past old machinery.
+- The scene ends with Tappy asking the reader about a ticket.
+- The only depicted character is Tappy. The “you”/Reader is not a visible character.
+
+CANONICAL REFERENCES:
+- Use ASSET-CHAR-TAPPY as the sole authority for Tappy’s identity, anatomy, proportions, face and appearance. Do not redesign or reinterpret the character.
+- Use ASSET-LOC-HIGH-SCRAPARRAL as the authority for the location’s established visual language. Do not invent a new layout, signage, architecture or unapproved props.
+
+VISUAL BOUNDARIES:
+- Depict the tarpaulin and old machinery only as needed to communicate the sourced action and setting.
+- Do not add Eric, Nigel, other characters, a visible ticket, a festival, a warehouse, or events from later scenes.
+- Do not depict Tappy holding anything.
+- Do not add dialogue, captions, lettering, logos or UI.
+- Do not infer details about the previous night or Tappy’s knowledge beyond the scene.
+- Preserve the established WORMS ON ACID visual identity from the supplied canonical references.
+
+The result is a single scene illustration, not a character redesign, poster, comic panel sequence or promotional graphic.
