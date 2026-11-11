@@ -1,0 +1,22 @@
+{
+  "character_id": "CHAR-PETER",
+  "name": "Peter",
+  "status": "active",
+  "canonical_asset_ids": [
+    "ASSET-CHAR-PETER"
+  ],
+  "approved_facts": [
+    "Peter is an Early Bird character."
+  ],
+  "constraints": [
+    "Do not infer personality, anatomy, relationships, chronology or story role from the label Early Bird.",
+    "Use the bound website canonical image as visual authority."
+  ],
+  "relationships": [],
+  "knowledge_profile": {
+    "knows": [],
+    "does_not_know": [],
+    "uncertain": []
+  },
+  "source_authority": "User-approved website character page and canonical image; additional narrative facts not yet supplied."
+}
