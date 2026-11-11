@@ -1,0 +1,22 @@
+{
+  "scene_id": "WOA-CH00-A00-S000",
+  "title": "Unapproved scene placeholder",
+  "status": "draft",
+  "chapter_id": null,
+  "act_id": null,
+  "sequence": null,
+  "story_time": null,
+  "location_id": null,
+  "characters": [],
+  "required_assets": [],
+  "props": [],
+  "action": "",
+  "narrative_purpose": "",
+  "continuity_in": [],
+  "continuity_out": [],
+  "must_not_include": [],
+  "dialogue": [],
+  "output_spec": {"format":"single_image","aspect_ratio":null,"text_overlay":false},
+  "reference_manifest": null,
+  "approval": {"status":"not_submitted","approved_by":null,"approved_at":null,"decision_note":null}
+}
