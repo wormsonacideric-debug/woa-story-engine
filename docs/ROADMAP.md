@@ -20,7 +20,7 @@
 - [x] Scene-scoped physical state ledger with source-index validation and unresolved continuity flags
 - [x] Candidate input package generator and immutable attempt folders
 - [x] Evaluation record contract with evidence, confidence, candidate/package hashes and decision guardrails
-- [ ] Vision evaluator adapter with evidence and confidence
+- [x] Provider-neutral vision task/response adapter with hash-bound evidence and confidence
 - [x] Bounded correction-attempt controller with immutable lineage and hard stop
 - [ ] Bounded self-correction controller
 - [x] Human approval/rejection command with append-only hash-linked decision records
