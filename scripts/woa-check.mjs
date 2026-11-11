@@ -91,7 +91,19 @@ if(continuity&&(!Array.isArray(continuity.characters)||!Array.isArray(continuity
 const props=readJson("story/prop-ledger.json");
 if(props){
   if(!Array.isArray(props.props))errors.push("prop-ledger.props must be an array.");
-  else for(const p of props.props)if(p.held_by==="Eric")errors.push("Eric cannot hold prop "+(p.prop_id||p.name||"unknown")+".");
+  else{
+    const seenProps=new Set();
+    for(const p of props.props){
+      if(!p.prop_id||seenProps.has(p.prop_id))errors.push("Missing or duplicate prop_id: "+(p.prop_id||"unknown"));
+      seenProps.add(p.prop_id);
+      if(p.held_by==="Eric")errors.push("Eric cannot hold prop "+(p.prop_id||p.name||"unknown")+".");
+      if(!Array.isArray(p.state_events)||p.state_events.length===0)errors.push("Prop "+(p.prop_id||"unknown")+" has no sourced state events.");
+      for(const event of p.state_events||[]){
+        if(!/^WOA-CH[0-9]{2}-SC[0-9]{2}$/.test(event.scene_id||""))errors.push("Prop "+p.prop_id+" has invalid event scene_id.");
+        if(!event.source_ref||!event.event)errors.push("Prop "+p.prop_id+" has an incomplete state event.");
+      }
+    }
+  }
 }
 const characterAssets=new Map();
 for(const p of characterPaths){const c=readJson(p);if(c?.name)characterAssets.set(c.name,c.canonical_asset_ids||[]);}
