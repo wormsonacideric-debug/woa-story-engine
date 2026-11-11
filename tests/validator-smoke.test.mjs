@@ -199,6 +199,10 @@ test("candidate package generator blocks imported scenes before creating attempt
   try {
     cpSync(path.join(root,"story"),path.join(temp,"story"),{recursive:true});
     cpSync(path.join(root,"canon"),path.join(temp,"canon"),{recursive:true});
+    const registryPath=path.join(temp,"story","scene-registry.json");
+    const registry=JSON.parse(requireFs.readFileSync(registryPath,"utf8"));
+    registry.scenes[0].status="draft";
+    requireFs.writeFileSync(registryPath,JSON.stringify(registry));
     assert.throws(() => createCandidatePackage({rootDir:temp,sceneId:"WOA-CH01-SC01",prompt:"A sourced prompt",provider:"test",model:"test",attemptId:"ATT-BLOCK-001"}),/not human-approved/);
     assert.equal(requireFs.existsSync(path.join(temp,"work","candidates")),false);
   } finally { rmSync(temp,{recursive:true,force:true}); }
