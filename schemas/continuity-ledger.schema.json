@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WOA Continuity Ledger",
+  "type": "object",
+  "required": ["ledger_version", "characters", "locations", "open_questions"],
+  "properties": {
+    "ledger_version": {"type": "string"},
+    "policy": {"type": "string"},
+    "characters": {"type": "array"},
+    "locations": {"type": "array"},
+    "open_questions": {"type": "array"}
+  },
+  "additionalProperties": false
+}
