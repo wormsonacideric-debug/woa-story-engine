@@ -1,0 +1,141 @@
+{
+  "registry_version": "1.0.0",
+  "source": "WOA Story Universe Baseline v1.0; 17-chapter storyboard outline (working structure)",
+  "structure": {
+    "opening_arc": {
+      "chapters": 5,
+      "description": "The opening story experienced from the scrapyard through Manchester, crew, music and onward investigation."
+    },
+    "larger_mystery_arc": {
+      "chapters": 17,
+      "description": "The full circular narrative; chapters 1–5 form its opening."
+    }
+  },
+  "chapters": [
+    {
+      "chapter_id": "CH01",
+      "number": 1,
+      "title": "The Morning After",
+      "status": "baseline_confirmed",
+      "audience_function": "Begin at The High Scraparral; establish scrapyard awakening and start the mystery."
+    },
+    {
+      "chapter_id": "CH02",
+      "number": 2,
+      "title": "Manchester",
+      "status": "baseline_confirmed",
+      "audience_function": "Music, people, places and fragments begin triggering recognition."
+    },
+    {
+      "chapter_id": "CH03",
+      "number": 3,
+      "title": "The Crew",
+      "status": "baseline_confirmed",
+      "audience_function": "Arthur, Brian, Edwin and Nigel become increasingly important to reconstructing what happened."
+    },
+    {
+      "chapter_id": "CH04",
+      "number": 4,
+      "title": "The Music",
+      "status": "baseline_confirmed",
+      "audience_function": "Music and equipment begin unlocking deeper memories."
+    },
+    {
+      "chapter_id": "CH05",
+      "number": 5,
+      "title": "Onwards",
+      "status": "baseline_confirmed",
+      "audience_function": "The gang moves beyond Manchester and the investigation broadens."
+    },
+    {
+      "chapter_id": "CH06",
+      "number": 6,
+      "title": "The Road",
+      "status": "outline_only",
+      "audience_function": "They follow clues beyond Manchester."
+    },
+    {
+      "chapter_id": "CH07",
+      "number": 7,
+      "title": "The Things They Remember",
+      "status": "outline_only",
+      "audience_function": "Different characters experience contradictory fragments."
+    },
+    {
+      "chapter_id": "CH08",
+      "number": 8,
+      "title": "The Photograph",
+      "status": "outline_only",
+      "audience_function": "Something physical appears to predate the existence they think they know."
+    },
+    {
+      "chapter_id": "CH09",
+      "number": 9,
+      "title": "The Artist",
+      "status": "outline_only",
+      "audience_function": "DTR and the historical artwork become relevant."
+    },
+    {
+      "chapter_id": "CH10",
+      "number": 10,
+      "title": "The Worms",
+      "status": "outline_only",
+      "audience_function": "They encounter older drawings and records that somehow depict them."
+    },
+    {
+      "chapter_id": "CH11",
+      "number": 11,
+      "title": "The Story of DTR",
+      "status": "outline_only",
+      "audience_function": "The deeper history begins to emerge."
+    },
+    {
+      "chapter_id": "CH12",
+      "number": 12,
+      "title": "The Abduction",
+      "status": "outline_only",
+      "audience_function": "The Botanists and hyperspace explanation finally appears."
+    },
+    {
+      "chapter_id": "CH13",
+      "number": 13,
+      "title": "The Crop Circle",
+      "status": "outline_only",
+      "audience_function": "The audience sees the actual beginning."
+    },
+    {
+      "chapter_id": "CH14",
+      "number": 14,
+      "title": "The Names",
+      "status": "outline_only",
+      "audience_function": "We witness the gang becoming the gang."
+    },
+    {
+      "chapter_id": "CH15",
+      "number": 15,
+      "title": "The Festival",
+      "status": "outline_only",
+      "audience_function": "They discover the festival exactly as described in the origin story."
+    },
+    {
+      "chapter_id": "CH16",
+      "number": 16,
+      "title": "The Heavy Night",
+      "status": "outline_only",
+      "audience_function": "The events that eventually lead to the scrapyard occur."
+    },
+    {
+      "chapter_id": "CH17",
+      "number": 17,
+      "title": "The Scrapyard",
+      "status": "outline_only",
+      "audience_function": "The narrative arrives back at the beginning the audience has already experienced."
+    }
+  ],
+  "policy": [
+    "Chapter counts are data, not constants in code.",
+    "CH01–CH05 are baseline-confirmed summaries; CH06–CH17 are outline-level summaries requiring further development.",
+    "Do not fabricate scenes, dialogue, dates or detailed beats from chapter summaries.",
+    "The circular structure is a narrative loop, not a time loop."
+  ]
+}
