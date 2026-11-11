@@ -69,3 +69,28 @@ test("preflight blocks source-imported scenes without production approval and lo
   assert.match(r.stdout,/no location_id is bound/);
   assert.match(r.stdout,/0 ready, 7 blocked, 7 total/);
 });
+
+test("knowledge ledger separates character recollection from author-only truth", () => {
+  const fs = awaitImportFs();
+  const ledger = JSON.parse(fs.readFileSync(path.join(root,"story","knowledge-ledger.json"),"utf8"));
+  assert.ok(ledger.state_events.some(e => e.holder === "Tappy" && e.epistemic_status === "character_recollection"));
+  assert.ok(ledger.state_events.some(e => e.holder === "author" && e.epistemic_status === "author_only"));
+  assert.ok(ledger.state_events.every(e => e.holder === "author" || e.scene_id));
+  assert.ok(ledger.unresolved.some(q => q.includes("independently verified")));
+});
+test("validator rejects duplicate knowledge events", () => {
+  const temp = mkdtempSync(path.join(os.tmpdir(), "woa-knowledge-"));
+  try {
+    cpSync(path.join(root,"scripts"),path.join(temp,"scripts"),{recursive:true});
+    cpSync(path.join(root,"story"),path.join(temp,"story"),{recursive:true});
+    cpSync(path.join(root,"canon"),path.join(temp,"canon"),{recursive:true});
+    const fs = awaitImportFs();
+    const p = path.join(temp,"story","knowledge-ledger.json");
+    const ledger = JSON.parse(fs.readFileSync(p,"utf8"));
+    ledger.state_events.push({...ledger.state_events[0]});
+    fs.writeFileSync(p,JSON.stringify(ledger));
+    const r = spawnSync(process.execPath,["scripts/woa-check.mjs"],{cwd:temp,encoding:"utf8"});
+    assert.equal(r.status,1);
+    assert.match(r.stdout,/Duplicate knowledge event/);
+  } finally { rmSync(temp,{recursive:true,force:true}); }
+});
