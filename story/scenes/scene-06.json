@@ -1,0 +1,72 @@
+{
+  "scene_id": "WOA-CH01-SC06",
+  "number": 6,
+  "title": "The Ticket",
+  "description": "Eric examines the ticket while Tappy tries to make sense of it. Something is written on the back.",
+  "image": "assets/stories/scene6.webp",
+  "website_path": "story/scene-06.html",
+  "source_sha": "950fd1d6df68df4ceccc4944f02fc3b81d10a935",
+  "participants": [
+    "Eric",
+    "Tappy"
+  ],
+  "transcript": [
+    [
+      "Eric",
+      "A ticket? I don’t remember taking it. It’s just... there, folded against me, as if it’s been waiting."
+    ],
+    [
+      "Eric",
+      "Indoors, lights, loud music, and now a ticket. That’s either a festival with a very confused postcode, or someone’s leaving breadcrumbs with a strong beat."
+    ],
+    [
+      "Eric",
+      "What’s on it?"
+    ],
+    [
+      "stage",
+      "Tappy leans closer to the ticket, squinting at it."
+    ],
+    [
+      "Tappy",
+      "I can’t read it from here."
+    ],
+    [
+      "stage",
+      "He pauses."
+    ],
+    [
+      "Tappy",
+      "But it looks familiar."
+    ],
+    [
+      "stage",
+      "He looks at Eric."
+    ],
+    [
+      "Tappy",
+      "Turn it over."
+    ],
+    [
+      "stage",
+      "There’s something written on the back."
+    ],
+    [
+      "Eric",
+      "Right then. I’ll nudge it over with the front of me and give it a proper look. If it’s a clue, it’s been keeping it from us out of principle."
+    ]
+  ],
+  "source": {
+    "repository": "wormsonacideric-debug/website-",
+    "branch": "main",
+    "path": "story/scene-06.html",
+    "commit_blob_sha": "950fd1d6df68df4ceccc4944f02fc3b81d10a935",
+    "imported_from": "published website scene page"
+  },
+  "status": "source_imported",
+  "canon_status": "needs_story_engine_review",
+  "notes": [
+    "Imported from the published website. Dialogue and stage directions are preserved verbatim.",
+    "Do not silently harmonise this page with outline summaries; record any continuity questions separately."
+  ]
+}
