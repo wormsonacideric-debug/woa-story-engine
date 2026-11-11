@@ -8,16 +8,15 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-test("starter project validates with warnings, not errors", () => {
+test("starter project validates cleanly with approved Scene 1 binding", () => {
   const r = spawnSync(process.execPath, ["scripts/woa-check.mjs"], {cwd:root, encoding:"utf8"});
   assert.equal(r.status, 0, r.stdout + r.stderr);
-  assert.match(r.stdout, /PASS WITH WARNINGS/);
+  assert.match(r.stdout, /Result: PASS \(0 errors, 0 warnings\)/);
   assert.match(r.stdout, /Imported website scenes: 7/);
 });
-test("strict mode blocks an incomplete starter project", () => {
+test("strict mode passes when no warnings remain", () => {
   const r = spawnSync(process.execPath, ["scripts/woa-check.mjs", "--strict"], {cwd:root, encoding:"utf8"});
-  assert.equal(r.status, 1);
-  assert.match(r.stdout, /Strict mode/);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
 });
 test("validator rejects malformed asset identifiers and hashes", () => {
   const temp = mkdtempSync(path.join(os.tmpdir(), "woa-check-"));
@@ -63,12 +62,12 @@ test("ticket continuity is sourced and Eric is never its holder", () => {
   assert.equal(ticket.state_events.length,5);
   assert.ok(ticket.state_events.every(e => /^WOA-CH01-SC0[1-7]$/.test(e.scene_id) && e.source_ref && e.event));
 });
-test("preflight blocks source-imported scenes without production approval and location binding", () => {
+test("preflight accepts approved and fully bound Scene 1 while blocking the other six", () => {
   const r = spawnSync(process.execPath, ["scripts/scene-preflight.mjs"], {cwd:root, encoding:"utf8"});
   assert.equal(r.status,1);
-  assert.match(r.stdout,/BLOCKED WOA-CH01-SC01/);
-  assert.match(r.stdout,/no location_id is bound/);
-  assert.match(r.stdout,/0 ready, 7 blocked, 7 total/);
+  assert.match(r.stdout,/READY WOA-CH01-SC01/);
+  assert.match(r.stdout,/BLOCKED WOA-CH01-SC02/);
+  assert.match(r.stdout,/1 ready, 6 blocked, 7 total/);
 });
 
 test("knowledge ledger separates character recollection from author-only truth", () => {
@@ -220,7 +219,7 @@ test("candidate package snapshots approved inputs and refuses overwrite", () => 
     requireFs.writeFileSync(regPath,JSON.stringify(reg));
     const assets=JSON.parse(requireFs.readFileSync(path.join(temp,"canon","artwork-registry.json"),"utf8"));
     const location=JSON.parse(requireFs.readFileSync(path.join(temp,"canon","locations","high-scraparral.json"),"utf8"));
-    const refs=[...scene.required_assets, ...location.canonical_asset_ids].map(id=>{const a=assets.assets.find(x=>x.asset_id===id);return {asset_id:id,purpose:"canonical scene reference",required:true,git_blob_sha:a.git_blob_sha};});
+    const refs=[...new Set([...scene.required_assets, ...location.canonical_asset_ids])].map(id=>{const a=assets.assets.find(x=>x.asset_id===id);return {asset_id:id,purpose:"canonical scene reference",required:true,git_blob_sha:a.git_blob_sha};});
     const mp=path.join(temp,scene.reference_manifest);requireFs.mkdirSync(path.dirname(mp),{recursive:true});
     requireFs.writeFileSync(mp,JSON.stringify({manifest_id:"MANIFEST-TEST-01",scene_id:scene.scene_id,created_at:"2026-11-11T10:00:00.000Z",references:refs,generation_gate:"ready"}));
     const result=createCandidatePackage({rootDir:temp,sceneId:scene.scene_id,prompt:"Only the actions supported by the imported scene.",provider:"test-provider",model:"test-model",attemptId:"ATT-TEST-001",createdAt:"2026-11-11T10:00:00.000Z"});
